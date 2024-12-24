@@ -8,11 +8,13 @@
                 <div class="col-md-12">
                     <!-- Header Contetnt -->
                     <div class="content-block">
-                        <h1>Buy & Sell Near You </h1>
-                        <p>Join the millions who buy and sell from each other <br> everyday in local communities around
-                            the world</p>
+                        <h1>Track Bills, Simplified</h1>
+                        <p>Empowering Kenyans to stay informed and engaged. Track parliamentary bills with ease and
+                            transparency – follow the progress of proposed laws, understand key issues, and participate in
+                            the democratic process. Stay up-to-date and make your voice heard in shaping the future of Kenya
+                        </p>
                         <div class="short-popular-category-list text-center">
-                            <h2>Popular Category</h2>
+                            <h2>Popular Bill Categories</h2>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <a href="category.html"><i class="fa fa-bed"></i> Hotel</a>
@@ -44,7 +46,7 @@
                                                 <input type="text" class="form-control my-2 my-lg-1" id="inputtext4"
                                                     placeholder="What are you looking for">
                                             </div>
-                                            <div class="form-group col-lg-3 col-md-6">
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6">
                                                 <select class="w-100 form-control mt-lg-1 mt-md-2">
                                                     <option>Category</option>
                                                     <option value="1">Top rated</option>
@@ -52,12 +54,32 @@
                                                     <option value="4">Highest Price</option>
                                                 </select>
                                             </div>
-                                            <div class="form-group col-lg-3 col-md-6">
-                                                <input type="text" class="form-control my-2 my-lg-1" id="inputLocation4"
-                                                    placeholder="Location">
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6">
+                                                <select class="w-100 form-control mt-lg-1 mt-md-2">
+                                                    <option>Category</option>
+                                                    <option value="1">Top rated</option>
+                                                    <option value="2">Lowest Price</option>
+                                                    <option value="4">Highest Price</option>
+                                                </select>
                                             </div>
-                                            <div class="form-group col-xl-2 col-lg-3 col-md-6 align-self-center">
-                                                <button type="submit" class="btn btn-primary active w-100">Search
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6">
+                                                <select class="w-100 form-control mt-lg-1 mt-md-2">
+                                                    <option>Category</option>
+                                                    <option value="1">Top rated</option>
+                                                    <option value="2">Lowest Price</option>
+                                                    <option value="4">Highest Price</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6">
+                                                <select class="w-100 form-control mt-lg-1 mt-md-2">
+                                                    <option>Category</option>
+                                                    <option value="1">Top rated</option>
+                                                    <option value="2">Lowest Price</option>
+                                                    <option value="4">Highest Price</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6 align-self-center">
+                                                <button type="submit" class="btn btn-success active w-100">Search
                                                     Now</button>
                                             </div>
                                         </div>

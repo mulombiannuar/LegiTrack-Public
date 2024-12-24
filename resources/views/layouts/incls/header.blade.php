@@ -42,7 +42,7 @@
                              </li>
                              <li class="nav-item">
                                  <a class="nav-link text-white add-button" href="#"><i
-                                         class="fa fa-plus-circle"></i> Create Account</a>
+                                         class="fa fa-plus-circle"></i> Register</a>
                              </li>
                          </ul>
                      </div>
