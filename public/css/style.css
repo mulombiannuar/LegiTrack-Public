@@ -75,10 +75,10 @@ label {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 }
 .nav-pills.with-background .nav-link:hover {
-  color: #5672f9;
+  color: #28a745;
 }
 .nav-pills.with-background .nav-link.active {
-  background: #5672f9;
+  background: #28a745;
   position: relative;
   transition: 0s;
 }
@@ -94,7 +94,7 @@ label {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #5672f9;
+  border-top: 10px solid #28a745;
   clear: both;
   transition: all 0.2s ease-in 0s;
 }
@@ -135,7 +135,7 @@ ul.pagination li a {
   color: #666;
 }
 ul.pagination .active a {
-  background-color: #5672f9 !important;
+  background-color: #28a745 !important;
   color: #fff !important;
   border-color: transparent !important;
 }
@@ -150,17 +150,17 @@ ul.social-circle-icons li a {
   display: block;
   font-size: 15px;
   line-height: 38px;
-  color: #5672f9;
+  color: #28a745;
   height: 38px;
   width: 38px;
-  border: 2px solid #5672f9;
+  border: 2px solid #28a745;
   background: #fff;
   border-radius: 100%;
 }
 ul.social-circle-icons li a:hover {
   text-decoration: none;
   color: #fff;
-  background: #5672f9;
+  background: #28a745;
 }
 
 .store-list h4 {
@@ -183,7 +183,7 @@ ul.social-circle-icons li a:hover {
 }
 .store-list ul li a:hover {
   text-decoration: underline;
-  color: #5672f9;
+  color: #28a745;
 }
 @media (max-width: 768px) {
   .store-list {
@@ -223,7 +223,7 @@ a:focus,
 a:hover {
   text-decoration: none;
   outline: 0;
-  color: #5672f9;
+  color: #28a745;
 }
 
 .form-control {
@@ -237,7 +237,7 @@ a:hover {
 .form-control:focus {
   color: #666;
   box-shadow: none;
-  border: 1px solid #5672f9;
+  border: 1px solid #28a745;
   background-color: transparent;
 }
 
@@ -349,7 +349,7 @@ button {
   right: 0;
   width: 40px;
   height: 5px;
-  background-color: #5672f9;
+  background-color: #28a745;
 }
 .section-title p {
   font-size: 18px;
@@ -420,7 +420,7 @@ button {
 }
 
 .btn-main, .btn-main-sm {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
 }
 .btn-main:hover, .btn-main-sm:hover {
@@ -439,15 +439,15 @@ button {
   border-color: #fff;
 }
 .btn-secondary:hover {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
   border-color: #fff;
 }
 
 .btn-transparent {
   background: transparent;
-  color: #5672f9;
-  border: 1px solid #5672f9;
+  color: #28a745;
+  border: 1px solid #28a745;
 }
 .btn-transparent:hover {
   background: #082de1;
@@ -522,7 +522,7 @@ button {
 }
 
 .page-title {
-  background: #5672f9;
+  background: #28a745;
   padding: 35px 0;
 }
 .page-title h3 {
@@ -550,12 +550,12 @@ ul.pagination li a {
   color: #666;
 }
 ul.pagination li a:hover {
-  background-color: #5672f9 !important;
+  background-color: #28a745 !important;
   color: #fff !important;
   border-color: transparent !important;
 }
 ul.pagination .active a {
-  background-color: #5672f9 !important;
+  background-color: #28a745 !important;
   color: #fff !important;
   border-color: transparent !important;
 }
@@ -569,7 +569,7 @@ ul.pagination .active a {
 }
 
 .page-search {
-  background: #5672f9;
+  background: #28a745;
   padding: 30px 0;
 }
 .page-search .advance-search .form-group {
@@ -623,7 +623,7 @@ ul.pagination .active a {
 }
 
 .bg-4 {
-  background: #5672f9;
+  background: #28a745;
 }
 
 .navigation {
@@ -692,15 +692,15 @@ ul.pagination .active a {
   border: none;
 }
 .main-nav .nav-item.active .nav-link {
-  color: #5672f9;
+  color: #28a745;
 }
 .main-nav .search .nav-link i {
   font-size: 15px;
   height: 43px;
   width: 43px;
   line-height: 43px;
-  color: #5672f9;
-  border: 1px solid #5672f9;
+  color: #28a745;
+  border: 1px solid #28a745;
   border-radius: 3px;
   text-align: center;
 }
@@ -708,9 +708,9 @@ ul.pagination .active a {
   width: 300px;
 }
 .main-nav .search .input-group .input-group-addon {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
-  border: 1px solid #5672f9;
+  border: 1px solid #28a745;
 }
 .main-nav .search .input-group .input-group-addon i {
   font-size: 15px;
@@ -735,11 +735,11 @@ ul.pagination .active a {
 
 .dropdown-item.active,
 .dropdown-item:active {
-  background: #5672f9;
+  background: #28a745;
 }
 
 .dropdown-submenu.active > a {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
 }
 
@@ -963,7 +963,7 @@ ul.pagination .active a {
   margin-bottom: 5px;
 }
 .user-dashboard-menu li.active a {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
 }
 .user-dashboard-menu li.active a:hover {
@@ -977,10 +977,10 @@ ul.pagination .active a {
   color: #555;
 }
 .user-dashboard-menu li a:hover {
-  color: #5672f9;
+  color: #28a745;
 }
 .user-dashboard-menu li a:hover span {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
 }
 .user-dashboard-menu li a i {
@@ -1137,12 +1137,12 @@ ul.pagination .active a {
   /* Microsoft Edge */
 }
 .hero-area-2 .coupon-ig input {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
   border-color: transparent;
 }
 .hero-area-2 .coupon-ig .input-group-addon {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
   border-left: none;
 }
@@ -1259,7 +1259,7 @@ ul.pagination .active a {
 .category-block .category-list li a i {
   margin-right: 6px;
   font-size: 12px;
-  color: #5672f9;
+  color: #28a745;
   vertical-align: middle;
 }
 
@@ -1349,7 +1349,7 @@ ul.pagination .active a {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
   display: inline-block;
   padding: 4px 8px;
@@ -1377,7 +1377,7 @@ ul.pagination .active a {
   cursor: pointer;
 }
 .product-item .product-ratings .selected i {
-  color: #5672f9;
+  color: #28a745;
 }
 
 .product-details .product-title {
@@ -1421,11 +1421,11 @@ ul.pagination .active a {
   background: #fff;
 }
 .product-details .content .nav .nav-item .nav-link:hover {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
 }
 .product-details .content .nav .nav-item .nav-link.active {
-  background: #5672f9;
+  background: #28a745;
 }
 .product-details .content .tab-content {
   background: #fff;
@@ -1439,7 +1439,7 @@ ul.pagination .active a {
   background: #888;
 }
 .product-slider .carousel-indicators li.active {
-  background: #5672f9;
+  background: #28a745;
 }
 .product-slider .slick-dots {
   display: flex;
@@ -1537,10 +1537,10 @@ ul.pagination .active a {
   color: #84919B;
 }
 .widget.category-list ul li a:hover {
-  color: #5672f9;
+  color: #28a745;
 }
 .widget.category-list ul li a:hover span {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
 }
 .widget.filter .nice-select {
@@ -1557,7 +1557,7 @@ ul.pagination .active a {
   width: 100%;
 }
 .widget.price-range .slider-handle {
-  background: #5672f9;
+  background: #28a745;
 }
 .widget.price-range .slider-track {
   margin-top: -2px;
@@ -1571,7 +1571,7 @@ ul.pagination .active a {
   box-shadow: none;
 }
 .widget.price {
-  background: #5672f9;
+  background: #28a745;
 }
 .widget.price h4 {
   color: #fff;
@@ -1599,7 +1599,7 @@ ul.pagination .active a {
   color: #848484;
 }
 .widget.category ul.category-list li a:hover {
-  color: #5672f9;
+  color: #28a745;
 }
 .widget.category ul.category-list li:last-child {
   margin-bottom: 5px;
@@ -1617,7 +1617,7 @@ ul.pagination .active a {
   color: #848484;
 }
 .widget.archive ul.archive-list li a:hover {
-  color: #5672f9;
+  color: #28a745;
   text-decoration: underline;
 }
 .widget.share-coupon .sbHolder, .widget.share-coupon .form-control {
@@ -1627,7 +1627,7 @@ ul.pagination .active a {
   width: 100%;
 }
 .widget.coupon {
-  background: #5672f9;
+  background: #28a745;
   padding: 35px 30px 40px 30px;
 }
 .widget.coupon p {
@@ -1660,10 +1660,10 @@ ul.pagination .active a {
   margin-right: 10px;
 }
 .widget.filter .form-check-label input[type=checkbox]:checked .form-check-label {
-  color: #5672f9 !important;
+  color: #28a745 !important;
 }
 .widget.filter .form-check-label:hover {
-  color: #5672f9;
+  color: #28a745;
 }
 .widget.user {
   padding-top: 50px;
@@ -1696,7 +1696,7 @@ ul.pagination .active a {
 }
 .widget.personal-info .form-group i, .widget.change-password .form-group i, .widget.change-email .form-group i {
   color: white;
-  background: #5672f9;
+  background: #28a745;
   font-size: 25px;
   height: 50px;
   width: 50px;
@@ -1731,7 +1731,7 @@ ul.pagination .active a {
   border: none;
 }
 .widget.search .input-group .input-group-addon {
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
   border: none;
 }
@@ -1830,7 +1830,7 @@ ul.pagination .active a {
 }
 .stores ul.store-list li a:hover {
   text-decoration: underline;
-  color: #5672f9;
+  color: #28a745;
 }
 
 .store-coupon {
@@ -1872,7 +1872,7 @@ ul.pagination .active a {
   border: none;
 }
 .store-coupon .block .media .media-body ul li a {
-  color: #5672f9;
+  color: #28a745;
 }
 .store-coupon .block .media .media-body p {
   font-size: 14px;
@@ -1911,17 +1911,17 @@ ul.pagination .active a {
   display: block;
   font-size: 15px;
   line-height: 38px;
-  color: #5672f9;
+  color: #28a745;
   height: 38px;
   width: 38px;
-  border: 2px solid #5672f9;
+  border: 2px solid #28a745;
   background: #fff;
   border-radius: 100%;
 }
 .store-coupon .block .social-content ul.social-circle-icons li a:hover {
   text-decoration: none;
   color: #fff;
-  background: #5672f9;
+  background: #28a745;
 }
 .store-coupon .block .social-content .share {
   font-size: 15px;
@@ -2007,7 +2007,7 @@ article ul li {
   color: #848484;
 }
 article ul li a {
-  color: #5672f9;
+  color: #28a745;
 }
 article p {
   line-height: 26px;
@@ -2073,7 +2073,7 @@ article.single-post p {
   line-height: 60px;
   text-transform: uppercase;
   background: #fff6f7;
-  border: 2px dashed #5672f9;
+  border: 2px dashed #28a745;
   border-radius: 3px;
   margin-bottom: 40px;
 }
@@ -2113,7 +2113,7 @@ article.single-post p {
 
 .product-ratings ul li i {
   font-size: 18px;
-  color: #5672f9;
+  color: #28a745;
 }
 
 .terms-condition-content p {
@@ -2126,7 +2126,7 @@ article.single-post p {
 .package-content .package-content-heading i {
   font-size: 50px;
   padding-bottom: 25px;
-  color: #5672f9;
+  color: #28a745;
 }
 .package-content .package-content-heading span {
   font-size: 30px;
@@ -2144,7 +2144,7 @@ article.single-post p {
 
 .counter-content i {
   font-size: 60px;
-  color: #5672f9;
+  color: #28a745;
 }
 .counter-content span {
   font-size: 24px;
@@ -2201,7 +2201,7 @@ form textarea {
   color: #797979;
 }
 .footer .block ul li a:hover {
-  color: #5672f9;
+  color: #28a745;
   text-decoration: underline;
 }
 .footer .block ul.terms-list {
@@ -2227,7 +2227,7 @@ form textarea {
   margin-bottom: 0;
 }
 .footer .block-2.discount-coupon p a {
-  color: #5672f9;
+  color: #28a745;
 }
 
 .footer-bottom {
@@ -2272,7 +2272,7 @@ form textarea {
   height: 40px;
   line-height: 40px;
   text-align: center;
-  background: #5672f9;
+  background: #28a745;
   color: #fff;
   transition: 0.3s;
   z-index: 999556;
