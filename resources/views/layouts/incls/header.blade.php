@@ -3,7 +3,7 @@
          <div class="row">
              <div class="col-md-12">
                  <nav class="navbar navbar-expand-lg navbar-light navigation">
-                     <a class="navbar-brand" href="index.html">
+                     <a class="navbar-brand" href="/">
                          <img src="{{ asset('images/Parliament-Logo-Kenya.png') }}" alt="Kenya Logo">
                      </a>
                      <button class="navbar-toggler" type="button" data-toggle="collapse"

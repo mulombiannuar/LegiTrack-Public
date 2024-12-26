@@ -198,7 +198,7 @@
                         </div>
                     </div>
 
-                    <!-- ad listing list  -->
+                    <!-- bill listing list  -->
                     <div class="ad-listing-list mt-20">
                         <div class="row p-lg-3 p-sm-5 p-4">
                             <div class="col-lg-12">
@@ -257,16 +257,16 @@
                                             </div>
                                             <ul class="list-inline mt-2 mb-3 product-meta">
                                                 <li class="list-inline-item">
+                                                    <a href="#"><i class="fa fa-calendar"></i> 12th
+                                                        February, 2024</a>
+                                                </li>
+                                                <li class="list-inline-item">
                                                     <a href="#">
                                                         <i class="fa fa-folder-open-o"></i> Data Privacy Bill</a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="#">
                                                         <i class="fa fa-calendar-plus-o"></i> 13th Parliament S2</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#"><i class="fa fa-calendar"></i> 12th
-                                                        February, 2024</a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="#"><i class="fa fa-address-book-o"></i> First Reading

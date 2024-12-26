@@ -8,3 +8,7 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('auth.login', ['title' => 'Login']);
 });
+
+Route::get('/bill', function () {
+    return view('app.pages.bill_page', ['title' => 'Bill Information']);
+});
