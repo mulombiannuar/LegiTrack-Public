@@ -15,8 +15,13 @@ class APIService
         $this->apiRepository = $apiRepository;
     }
 
-    public function getParliamentaryTerms(): array
+    public function getParliamentaryHouseTerms(int $houseCategoryId): array
     {
-        return $this->apiRepository->getParliamentaryTerms();
+        return $this->apiRepository->getParliamentaryHouseTerms($houseCategoryId)['data'];
+    }
+
+    public function getParliamentaryTermSessions(int $parliamentaryTermId): array
+    {
+        return $this->apiRepository->getParliamentaryTermSessions($parliamentaryTermId)['data'];
     }
 }

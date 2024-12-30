@@ -41,20 +41,19 @@
                                                     <option value="0">Senate</option>
                                                 </select>
                                             </div>
-                                            <div class="form-group col-xl-4 col-lg-3 col-md-6">
-                                                <select name="parliamentary_term_id" id="parliamentary_term_id"
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6"
+                                                id="parliamentary_term_block">
+                                                <select id="parliamentary_term_id" name="parliamentary_term_id"
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
-                                                    <option class="mb-1" value="">Select Parliamentary Term
-                                                    </option>
-                                                    <option value="1">13th Parliament</option>
+                                                    <option class="mb-1" value="">Select House First</option>
                                                 </select>
                                             </div>
-                                            <div class="form-group col-xl-4 col-lg-3 col-md-6">
+                                            <div class="form-group col-xl-4 col-lg-3 col-md-6"
+                                                id="parliamentary_session_block">
                                                 <select name="parliamentary_session_id" id="parliamentary_session_id"
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
                                                     <option class="mb-1" value="">Select Parliamentary Session
                                                     </option>
-                                                    <option value="1">Session 2</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
@@ -325,3 +324,58 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#house_category_id').change(function() {
+                const house_category_id = $(this).val();
+                const $parliamentaryTerms = $('#parliamentary_term_block');
+
+                if (house_category_id !== '') {
+                    $.ajax({
+                        url: "{{ route('get-parliamentary-house-terms') }}",
+                        type: 'POST',
+                        data: {
+                            house_category_id
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $parliamentaryTerms.empty().html(response.html);
+                        },
+                        error: function(xhr) {
+                            console.error('Error:', xhr);
+                        }
+                    });
+                }
+            });
+
+            // Use event delegation for dynamically added #parliamentary_term_id
+            $(document).on('change', '#parliamentary_term_id', function() {
+                const parliamentary_term_id = $(this).val();
+                const $parliamentarySessions = $('#parliamentary_session_block');
+
+                if (parliamentary_term_id !== '') {
+                    $.ajax({
+                        url: "{{ route('get-parliamentary-term-sessions') }}",
+                        type: 'POST',
+                        data: {
+                            parliamentary_term_id
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $parliamentarySessions.empty().html(response.html);
+                        },
+                        error: function(xhr) {
+                            console.error('Error:', xhr);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endpush

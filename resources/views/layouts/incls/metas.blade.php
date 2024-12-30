@@ -12,3 +12,4 @@
  <meta property="og:title" content="{{ ucwords($title) }} - Streamlining Bill Progress from Proposal to Passage" />
  <meta property="og:url" content="https://mulan.co.ke/legitrack" />
  <meta property="og:site_name" content="LegiTrack | Mulan Technologies" />
+ <title>{{ $title }} | Streamlining Bill Progress from Proposal to Passage</title>

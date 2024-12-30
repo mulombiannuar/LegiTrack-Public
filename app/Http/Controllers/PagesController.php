@@ -18,7 +18,6 @@ class PagesController extends Controller
     }
     public function homePage(): View
     {
-        dd($this->apiService->getParliamentaryTerms());
         $pageData = [
             'page_name' => 'pages',
             'title' => 'Home Page',

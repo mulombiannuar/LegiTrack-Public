@@ -6,5 +6,6 @@ namespace App\Interfaces;
 
 interface APIRepositoryInterface
 {
-    public function getParliamentaryTerms(): array;
+    public function getParliamentaryHouseTerms(int $houseCategoryId): array;
+    public function getParliamentaryTermSessions(int $parliamentaryTermId): array;
 }

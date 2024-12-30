@@ -15,8 +15,13 @@ class APICallService
         $this->apiCallRepository = $apiCallRepository;
     }
 
-    public function get(string $endPoint, string $errorMsg, bool $hasBearerToken = false): array
+    public function get(string $endPoint, string $errorMsg, ?string $bearerToken = null): array
     {
-        return $this->apiCallRepository->get($endPoint, $errorMsg, $hasBearerToken);
+        return $this->apiCallRepository->get($endPoint, $errorMsg, $bearerToken);
+    }
+
+    public function post(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array
+    {
+        return $this->apiCallRepository->post($endPoint, $errorMsg, $data, $bearerToken);
     }
 }
