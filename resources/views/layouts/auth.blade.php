@@ -12,7 +12,8 @@
     <section class="login py-5 border-top-1">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-8 align-item-center">
+                <div
+                    class="{{ request()->route()->uri === 'register' ? 'col-lg-8 col-md-8' : 'col-lg-5 col-md-8' }} align-item-center">
                     <div class="border">
                         <h3 class="bg-gray p-4">{{ ucwords($title) }}</h3>
                         @yield('content')

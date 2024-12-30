@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <!-- Header Contetnt -->
+                    <!-- Header Content -->
                     <div class="content-block">
                         <h1>Track Bills, Simplified</h1>
                         <p>Empowering Kenyans to stay informed and engaged. Track parliamentary bills with ease and

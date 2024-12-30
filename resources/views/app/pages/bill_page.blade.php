@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="content mt-1">
-                            <ul class="nav nav-pills justify-content-center" id="bill-tab" role="tablist">
+                            <ul class="nav nav-pills" id="bill-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="bill-home-tab" data-toggle="pill" href="#bill-home"
                                         role="tab" aria-controls="bill-home" aria-selected="true">Bill Information</a>

@@ -4,6 +4,17 @@
     <form id="register-form" action="#" method="post">
         <fieldset class="p-4">
             <div class="row">
+                @if (!config('app.iprs_enabled'))
+                    <div class="col-md-6 col-sm-12">
+                        <input class="form-control mb-3" type="text" name="first_name" id="first_name"
+                            placeholder="Enter your first name" autocomplete="off" autofocus required>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <input class="form-control mb-3" type="text" name="last_name" id="last_name"
+                            placeholder="Enter your last name" autocomplete="off" autofocus required>
+                    </div>
+                @endif
+
                 <div class="col-md-6 col-sm-12">
                     <input class="form-control mb-3" type="email" name="email" id="email"
                         placeholder="Enter your email address" autocomplete="off" autofocus required>
@@ -36,6 +47,14 @@
                         <option value="1">Sikhendu</option>
                         <option value="2">Sirende</option>
                     </select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <input class="form-control mb-3" type="password" name="password" id="password"
+                        placeholder="Enter your password" autocomplete="off" required>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <input class="form-control mb-3" type="password" name="password_confirmation" id="password_confirmation"
+                        placeholder="Confirm your password" autocomplete="off" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-success font-weight-bold mt-3" id="register-button">Register now</button>
