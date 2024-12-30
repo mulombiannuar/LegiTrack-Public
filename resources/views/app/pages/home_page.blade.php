@@ -59,9 +59,11 @@
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
                                                 <select name="bill_type_id" id="bill_type_id"
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
-                                                    <option class="mb-1" value="">
-                                                        Select Bill Type </option>
-                                                    <option value="1">Constitutional Amendment Bill</option>
+                                                    <option class="mb-1" value="">Select Bill Type </option>
+                                                    @foreach ($bill_types as $bill_type)
+                                                        <option value="{{ $bill_type['id'] }}">
+                                                            {{ ucwords($bill_type['name']) }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
@@ -69,7 +71,10 @@
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
                                                     <option class="mb-1" value="">
                                                         Select Bill Stage </option>
-                                                    <option value="1">Committee Stage</option>
+                                                    @foreach ($bill_stages as $bill_stage)
+                                                        <option value="{{ $bill_stage['id'] }}">
+                                                            {{ ucwords($bill_stage['name']) }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
@@ -77,7 +82,10 @@
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
                                                     <option class="mb-1" value="">
                                                         Select Sponsorship Type </option>
-                                                    <option value="1">Private Member Bill</option>
+                                                    @foreach ($sponsorship_types as $sponsorship_type)
+                                                        <option value="{{ $sponsorship_type['id'] }}">
+                                                            {{ ucwords($sponsorship_type['name']) }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
@@ -85,7 +93,10 @@
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
                                                     <option class="mb-1" value="">
                                                         Select Sponsoring Member </option>
-                                                    <option value="1">Hon. Kamau Thugge</option>
+                                                    @foreach ($bill_sponsors as $bill_sponsor)
+                                                        <option value="{{ $bill_sponsor['id'] }}">
+                                                            {{ ucwords($bill_sponsor['profile']['full_name']) }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6 align-self-center">

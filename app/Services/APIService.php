@@ -24,4 +24,24 @@ class APIService
     {
         return $this->apiRepository->getParliamentaryTermSessions($parliamentaryTermId)['data'];
     }
+
+    public function getBillTypes(): array
+    {
+        return $this->apiRepository->getBillTypes()['data']['data'];
+    }
+
+    public function getBillStages(): array
+    {
+        return $this->apiRepository->getBillStages()['data']['data'];
+    }
+
+    public function getBillSponsors(): array
+    {
+        return $this->apiRepository->getBillSponsors()['data']['data'];
+    }
+
+    public function getBillSponsorshipTypes(): array
+    {
+        return $this->apiRepository->getBillSponsorshipTypes()['data']['data'];
+    }
 }

@@ -36,4 +36,36 @@ class APIRepository implements APIRepositoryInterface
             ['parliamentary_term_id' => $parliamentaryTermId]
         );
     }
+
+    public function getBillTypes(): array
+    {
+        return $this->apiCallService->get(
+            'api/get-bill-types',
+            'Failed to fetch bill types',
+        );
+    }
+
+    public function getBillStages(): array
+    {
+        return $this->apiCallService->get(
+            'api/get-bill-stages',
+            'Failed to fetch bill stages',
+        );
+    }
+
+    public function getBillSponsors(): array
+    {
+        return $this->apiCallService->get(
+            'api/get-bill-sponsors',
+            'Failed to fetch bill sponsors',
+        );
+    }
+
+    public function getBillSponsorshipTypes(): array
+    {
+        return $this->apiCallService->get(
+            'api/get-sponsorship-types',
+            'Failed to fetch bill sponsorship types',
+        );
+    }
 }

@@ -21,6 +21,10 @@ class PagesController extends Controller
         $pageData = [
             'page_name' => 'pages',
             'title' => 'Home Page',
+            'bill_types' => $this->apiService->getBillTypes(),
+            'bill_stages' => $this->apiService->getBillStages(),
+            'bill_sponsors' => $this->apiService->getBillSponsors(),
+            'sponsorship_types' => $this->apiService->getBillSponsorshipTypes(),
         ];
         return view('app.pages.home_page', $pageData);
     }
