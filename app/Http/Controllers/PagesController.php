@@ -16,7 +16,7 @@ class PagesController extends Controller
     {
         $this->apiService = $apiService;
     }
-    public function homePage(): View
+    public function homePage(Request $request): View
     {
         $pageData = [
             'page_name' => 'pages',
@@ -26,6 +26,7 @@ class PagesController extends Controller
             'bill_sponsors' => $this->apiService->getBillSponsors(),
             'sponsorship_types' => $this->apiService->getBillSponsorshipTypes(),
         ];
+
         return view('app.pages.home_page', $pageData);
     }
 }

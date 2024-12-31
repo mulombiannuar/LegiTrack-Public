@@ -29,9 +29,9 @@
                                         @csrf
                                         <div class="form-row">
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
-                                                <input type="text" name="title" class="form-control my-2 my-lg-1"
-                                                    id="title" placeholder="Enter Bill Title" autocomplete="on"
-                                                    required>
+                                                <input type="text" name="search" class="form-control my-2 my-lg-1"
+                                                    id="search" placeholder="Enter Bill Title or Subject"
+                                                    autocomplete="on" required>
                                             </div>
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
                                                 <select name="house_category_id" id="house_category_id"
@@ -61,8 +61,12 @@
                                                     class="w-100 form-control mt-lg-1 mt-md-2">
                                                     <option class="mb-1" value="">Select Bill Type </option>
                                                     @foreach ($bill_types as $bill_type)
-                                                        <option value="{{ $bill_type['id'] }}">
-                                                            {{ ucwords($bill_type['name']) }}</option>
+                                                        @if ($bill_type['count'] > 0)
+                                                            <option value="{{ $bill_type['id'] }}">
+                                                                {{ ucwords($bill_type['name']) }}
+                                                                ({{ $bill_type['count'] }})
+                                                            </option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -83,8 +87,12 @@
                                                     <option class="mb-1" value="">
                                                         Select Sponsorship Type </option>
                                                     @foreach ($sponsorship_types as $sponsorship_type)
-                                                        <option value="{{ $sponsorship_type['id'] }}">
-                                                            {{ ucwords($sponsorship_type['name']) }}</option>
+                                                        @if ($sponsorship_type['count'] > 0)
+                                                            <option value="{{ $sponsorship_type['id'] }}">
+                                                                {{ ucwords($sponsorship_type['name']) }}
+                                                                ({{ $sponsorship_type['count'] }})
+                                                            </option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -95,7 +103,9 @@
                                                         Select Sponsoring Member </option>
                                                     @foreach ($bill_sponsors as $bill_sponsor)
                                                         <option value="{{ $bill_sponsor['id'] }}">
-                                                            {{ ucwords($bill_sponsor['profile']['full_name']) }}</option>
+                                                            {{ ucwords($bill_sponsor['profile']['full_name']) }}
+                                                            ({{ $bill_sponsor['bills_count'] }})
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -131,53 +141,32 @@
                         <div class="widget category-list">
                             <h4 class="widget-header">All Bill Types</h4>
                             <ul class="category-list">
-                                <li>
-                                    <a href="#">Public Bill <span>93</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Money Bill <span>233</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Appropriation Bill <span>183</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Finance Bill <span>343</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Constitutional Amendment Bill <span>343</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Supplementary Appropriation Bill <span>343</span></a>
-                                </li>
+                                @foreach ($bill_types as $bill_type)
+                                    @if ($bill_type['count'] > 0)
+                                        <li>
+                                            <a href="{{ route('home', ['bill_type_id' => $bill_type['id']]) }}">
+                                                {{ ucwords($bill_type['name']) }} <span>
+                                                    ({{ $bill_type['count'] }})
+                                                </span></a>
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
-
+                        {{-- Sponsorship Types --}}
                         <div class="widget product-shorting">
                             <h4 class="widget-header">By Sponsorship Types</h4>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                    Private Member Bill
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                    Committee Bill
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                    Government Bill
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                    Hybrid Bill
-                                </label>
-                            </div>
+                            @foreach ($sponsorship_types as $sponsorship_type)
+                                @if ($sponsorship_type['count'] > 0)
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox"
+                                                value="{{ $sponsorship_type['id'] }}" />
+                                            {{ ucwords($sponsorship_type['name']) }}
+                                        </label>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -207,6 +196,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('layouts.incls.loading')
 
                     <!-- bill listing list  -->
                     <div class="ad-listing-list mt-20">
