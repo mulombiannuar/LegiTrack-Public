@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Services\APIService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 
 class PagesController extends Controller
 {
@@ -28,5 +29,17 @@ class PagesController extends Controller
         ];
 
         return view('app.pages.home_page', $pageData);
+    }
+
+
+    public function getBillDetails(string $slug): View
+    {
+        $bill = $this->apiService->getBill($slug);
+        $pageData = [
+            'page_name' => 'pages',
+            'title' => $bill['data']['title'],
+            'bill' => $this->apiService->getBill($slug),
+        ];
+        return view('app.pages.bill_details_page', $pageData);
     }
 }

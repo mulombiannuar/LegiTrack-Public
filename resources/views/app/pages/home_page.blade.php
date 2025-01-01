@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12 col-md-12 align-content-center">
-                                    <form method="post" action="#">
+                                    <form method="get" action="{{ route('home') }}">
                                         @csrf
                                         <div class="form-row">
                                             <div class="form-group col-xl-4 col-lg-3 col-md-6">
@@ -128,7 +128,7 @@
     <section class="section-sm">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" id="search-header">
                     <div class="search-result bg-gray">
                         <h2>Results For "The Health Services Reform Act"</h2>
                         <p>123 Results on 12 December, 2024</p>
@@ -137,41 +137,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-4">
-                    <div class="category-sidebar">
-                        <div class="widget category-list">
-                            <h4 class="widget-header">All Bill Types</h4>
-                            <ul class="category-list">
-                                @foreach ($bill_types as $bill_type)
-                                    @if ($bill_type['count'] > 0)
-                                        <li>
-                                            <a href="{{ route('home', ['bill_type_id' => $bill_type['id']]) }}">
-                                                {{ ucwords($bill_type['name']) }} <span>
-                                                    ({{ $bill_type['count'] }})
-                                                </span></a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </div>
-                        {{-- Sponsorship Types --}}
-                        <div class="widget product-shorting">
-                            <h4 class="widget-header">By Sponsorship Types</h4>
-                            @foreach ($sponsorship_types as $sponsorship_type)
-                                @if ($sponsorship_type['count'] > 0)
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="{{ $sponsorship_type['id'] }}" />
-                                            {{ ucwords($sponsorship_type['name']) }}
-                                        </label>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
+                    @include('app.pages.partials.category_sidebar')
                 </div>
                 <div class="col-lg-9 col-md-8">
-                    <div class="category-search-filter">
+                    <div class="category-search-filter" id="search-filter">
                         <div class="row">
                             <div class="col-md-6 text-center text-md-left">
                                 <strong>Sort By</strong>
@@ -196,130 +165,11 @@
                             </div>
                         </div>
                     </div>
+
                     @include('layouts.incls.loading')
 
-                    <!-- bill listing list  -->
-                    <div class="ad-listing-list mt-20">
-                        <div class="row p-lg-3 p-sm-5 p-4">
-                            <div class="col-lg-12">
-                                <div class="row">
-                                    <div class="col-lg-9">
-                                        <div class="ad-listing-content">
-                                            <div>
-                                                <a href="#" class="font-weight-bold ad-listing-title">The Health
-                                                    Services Reform
-                                                    Act 2024</a>
-                                            </div>
-                                            <ul class="list-inline mt-2 mb-3 product-meta">
-                                                <li class="list-inline-item">
-                                                    <a href="#">
-                                                        <i class="fa fa-folder-open-o"></i> Appropriation Bill</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#">
-                                                        <i class="fa fa-calendar-plus-o"></i> 13th Parliament S2</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#"><i class="fa fa-calendar"></i> 26th
-                                                        December</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#"><i class="fa fa-address-book-o"></i> Committee
-                                                        Stage</a>
-                                                </li>
-                                            </ul>
-                                            <p class="pr-5">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                elit. Explicabo, aliquam!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 align-self-center">
-                                        <div class="product-ratings float-lg-right pb-3">
-                                            <a href="#" class="btn btn-main-sm"><i class="fa fa-sign-in"></i> View
-                                                Bill</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="ad-listing-list mt-20">
-                        <div class="row p-lg-3 p-sm-5 p-4">
-                            <div class="col-lg-12">
-                                <div class="row">
-                                    <div class="col-lg-9">
-                                        <div class="ad-listing-content">
-                                            <div>
-                                                <a href="#" class="font-weight-bold ad-listing-title">Data Privacy
-                                                    and Protection Act, 2024</a>
-                                            </div>
-                                            <ul class="list-inline mt-2 mb-3 product-meta">
-                                                <li class="list-inline-item">
-                                                    <a href="#"><i class="fa fa-calendar"></i> 12th
-                                                        February, 2024</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#">
-                                                        <i class="fa fa-folder-open-o"></i> Data Privacy Bill</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#">
-                                                        <i class="fa fa-calendar-plus-o"></i> 13th Parliament S2</a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#"><i class="fa fa-address-book-o"></i> First Reading
-                                                        Stage</a>
-                                                </li>
-                                            </ul>
-                                            <p class="pr-5">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                elit. Explicabo, aliquam!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 align-self-center">
-                                        <div class="product-ratings float-lg-right pb-3">
-                                            <a href="#" class="btn btn-main-sm"><i class="fa fa-sign-in"></i> View
-                                                Bill</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ad listing list  -->
-
-                    <!-- pagination -->
-                    <div class="pagination justify-content-center py-4">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- pagination -->
+                    <!-- bill listing block  -->
+                    <div id="bill-listing-block"></div>
                 </div>
             </div>
         </div>
@@ -329,6 +179,22 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            fetchBills();
+
+            $(document).on('click', '.pagination-link', function(e) {
+                e.preventDefault();
+
+                const url = $(this).attr('href');
+
+                if (url) {
+                    const page = new URL(url).searchParams.get(
+                        'page');
+                    fetchBills(page);
+                }
+            });
+
+
             $('#house_category_id').change(function() {
                 const house_category_id = $(this).val();
                 const $parliamentaryTerms = $('#parliamentary_term_block');
@@ -353,7 +219,6 @@
                 }
             });
 
-            // Use event delegation for dynamically added #parliamentary_term_id
             $(document).on('change', '#parliamentary_term_id', function() {
                 const parliamentary_term_id = $(this).val();
                 const $parliamentarySessions = $('#parliamentary_session_block');
@@ -377,6 +242,47 @@
                     });
                 }
             });
+
         });
+
+        function fetchBills(page = 1) {
+            const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
+            const $billsListing = $('#bill-listing-block');
+            const $loading = $('#loading');
+
+            console.log('Fetching bills...');
+
+            $.ajax({
+                url: `${remoteBaseUrl}/api/get-bills`,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    paginate: 2,
+                    page: page,
+                    with_html: true
+                },
+                beforeSend: function() {
+                    $loading.show();
+                    $billsListing.hide();
+                },
+                success: function(response) {
+                    console.log('Response:', response);
+                    if (response.status && response.data.html) {
+                        $billsListing.html(response.data.html);
+                    } else {
+                        console.error('Error: Invalid response format.');
+                    }
+                },
+                complete: function() {
+                    $loading.hide();
+                    $billsListing.show();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching bills:', xhr.responseJSON?.errors || error);
+                }
+            });
+        }
     </script>
 @endpush

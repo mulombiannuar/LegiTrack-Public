@@ -5,8 +5,29 @@
         <!-- Container Start -->
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-12 col-sm-12">
+                    @php
+                        $billAttributes = $bill['attributes'];
+                        $billRelationships = $bill['relationships'];
+
+                        $id = $bill['id'];
+                        $slug = $billAttributes['slug'];
+                        $subject = $billAttributes['subject'];
+                        $billTypeId = $billAttributes['bill_type_id'];
+                        $parliamentaryTermId = $billAttributes['parliamentary_term_id'];
+                        $parliamentaryTerm = $billAttributes['parliamentary_term'];
+                        $title = ucwords($billAttributes['title']);
+                        $description = $billAttributes['description'];
+                        $publishedBillNumber = 'Bill No.' . $billAttributes['published_bill_number'];
+                        $sponsor = $billRelationships['sponsor'];
+                        $billType = ucwords($billRelationships['bill_type']);
+                        $submissionDate = $billAttributes['submission_date'];
+                        $billActivities = $billRelationships['bill_activities'];
+                        $sponsorshipType = $billRelationships['sponsorship_type'];
+                        $billStageOutcome = $billRelationships['bill_stage_outcome'];
+                        $billStageName = $billRelationships['bill_stage_name'];
+                        $parliamentarySession = $billRelationships['parliamentary_session'];
+                    @endphp
                     <div class="product-details">
                         <h1 class="product-title">Data Privacy and Protection Act, 2024</h1>
                         <div class="product-meta">

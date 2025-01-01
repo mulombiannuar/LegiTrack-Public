@@ -68,4 +68,23 @@ class APIRepository implements APIRepositoryInterface
             'Failed to fetch bill sponsorship types',
         );
     }
+
+    public function getBills(array $params): array
+    {
+        return $this->apiCallService->post(
+            'api/get-bills',
+            'Failed to fetch bills',
+            $params
+        );
+    }
+
+
+    public function getBill(string $slug): array
+    {
+        return $this->apiCallService->post(
+            'api/get-bill',
+            'Failed to fetch bill',
+            ['slug' => $slug]
+        );
+    }
 }

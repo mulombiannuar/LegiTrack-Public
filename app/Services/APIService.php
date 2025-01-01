@@ -44,4 +44,14 @@ class APIService
     {
         return $this->apiRepository->getBillSponsorshipTypes()['data']['data'];
     }
+
+    public function getBills(array $params): array
+    {
+        return $this->apiRepository->getBills($params)['data'];
+    }
+
+    public function getBill(string $slug): array
+    {
+        return $this->apiRepository->getBill($slug)['data'];
+    }
 }

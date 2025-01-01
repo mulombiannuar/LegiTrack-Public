@@ -12,4 +12,6 @@ interface APIRepositoryInterface
     public function getBillStages(): array;
     public function getBillSponsors(): array;
     public function getBillSponsorshipTypes(): array;
+    public function getBills(array $params): array;
+    public function getBill(string $slug): array;
 }
