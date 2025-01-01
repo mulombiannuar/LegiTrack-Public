@@ -7,7 +7,7 @@
             @foreach ($bill_types as $bill_type)
                 @if ($bill_type['count'] > 0)
                     <li>
-                        <a href="{{ route('home', ['bill_type_id' => $bill_type['id']]) }}">
+                        <a href="javascript:void(0);" onclick="filterBills('pending reviews', this)">
                             {{ ucwords($bill_type['name']) }} <span>
                                 ({{ $bill_type['count'] }})
                             </span></a>

@@ -25,7 +25,7 @@
                         $billActivities = $billRelationships['bill_activities'];
                         $sponsorshipType = $billRelationships['sponsorship_type'];
                         $billStageOutcome = $billRelationships['bill_stage_outcome'];
-                        $billStageName = $billRelationships['bill_stage_name'];
+                        $billStageName = $billAttributes['bill_stage_name'];
                         $parliamentarySession = $billRelationships['parliamentary_session'];
                     @endphp
                     <div class="product-details">

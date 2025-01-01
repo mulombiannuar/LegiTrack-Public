@@ -81,10 +81,9 @@ class APIRepository implements APIRepositoryInterface
 
     public function getBill(string $slug): array
     {
-        return $this->apiCallService->post(
-            'api/get-bill',
-            'Failed to fetch bill',
-            ['slug' => $slug]
+        return $this->apiCallService->get(
+            "api/get-bills/{$slug}",
+            'Failed to fetch bill'
         );
     }
 }

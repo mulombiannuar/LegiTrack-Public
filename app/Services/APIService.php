@@ -52,6 +52,6 @@ class APIService
 
     public function getBill(string $slug): array
     {
-        return $this->apiRepository->getBill($slug)['data'];
+        return $this->apiRepository->getBill($slug)['data']['data'];
     }
 }

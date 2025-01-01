@@ -250,8 +250,6 @@
             const $billsListing = $('#bill-listing-block');
             const $loading = $('#loading');
 
-            console.log('Fetching bills...');
-
             $.ajax({
                 url: `${remoteBaseUrl}/api/get-bills`,
                 method: 'POST',
@@ -259,9 +257,48 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    paginate: 2,
+                    paginate: 10,
                     page: page,
                     with_html: true
+                },
+                beforeSend: function() {
+                    $loading.show();
+                    $billsListing.hide();
+                },
+                success: function(response) {
+                    console.log('Response:', response);
+                    if (response.status && response.data.html) {
+                        $billsListing.html(response.data.html);
+                    } else {
+                        console.error('Error: Invalid response format.');
+                    }
+                },
+                complete: function() {
+                    $loading.hide();
+                    $billsListing.show();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching bills:', xhr.responseJSON?.errors || error);
+                }
+            });
+        }
+
+        function filterBills($filterType, $id) {
+            const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
+            const $billsListing = $('#bill-listing-block');
+            const $loading = $('#loading');
+
+            console.log('Filtering bills...');
+
+            $.ajax({
+                url: `${remoteBaseUrl}/api/filter-bills`,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    filter_type: $filterType,
+                    id: $id,
                 },
                 beforeSend: function() {
                     $loading.show();

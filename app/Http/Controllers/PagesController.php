@@ -32,13 +32,13 @@ class PagesController extends Controller
     }
 
 
-    public function getBillDetails(string $slug): View
+    public function getBillDetails(string $slug) #: View
     {
-        $bill = $this->apiService->getBill($slug);
+        $billData = $this->apiService->getBill($slug);
         $pageData = [
+            'bill' => $billData,
             'page_name' => 'pages',
-            'title' => $bill['data']['title'],
-            'bill' => $this->apiService->getBill($slug),
+            'title' => $billData['attributes']['title'],
         ];
         return view('app.pages.bill_details_page', $pageData);
     }
