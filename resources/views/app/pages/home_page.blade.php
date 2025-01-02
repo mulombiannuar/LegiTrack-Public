@@ -127,11 +127,11 @@
 
     <section class="section-sm">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" id="search-header">
+            <div class="row" id="search-header" style="display: none">
+                <div class="col-md-12">
                     <div class="search-result bg-gray">
-                        <h2>Results For "The Health Services Reform Act"</h2>
-                        <p>123 Results on 12 December, 2024</p>
+                        <h2 id="search-title"></h2>
+                        <p id="search-desc"></p>
                     </div>
                 </div>
             </div>
@@ -266,7 +266,6 @@
                     $billsListing.hide();
                 },
                 success: function(response) {
-                    console.log('Response:', response);
                     if (response.status && response.data.html) {
                         $billsListing.html(response.data.html);
                     } else {
@@ -283,12 +282,10 @@
             });
         }
 
-        function filterBills($filterType, $id) {
+        function filterBills($filterType, $filterId) {
             const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
             const $billsListing = $('#bill-listing-block');
             const $loading = $('#loading');
-
-            console.log('Filtering bills...');
 
             $.ajax({
                 url: `${remoteBaseUrl}/api/filter-bills`,
@@ -298,16 +295,16 @@
                 },
                 data: {
                     filter_type: $filterType,
-                    id: $id,
+                    filter_id: $filterId,
                 },
                 beforeSend: function() {
                     $loading.show();
                     $billsListing.hide();
                 },
                 success: function(response) {
-                    console.log('Response:', response);
                     if (response.status && response.data.html) {
                         $billsListing.html(response.data.html);
+                        updateSearchHeader(response.data.search_title, response.data.search_desc);
                     } else {
                         console.error('Error: Invalid response format.');
                     }
@@ -320,6 +317,12 @@
                     console.error('Error fetching bills:', xhr.responseJSON?.errors || error);
                 }
             });
+        }
+
+        function updateSearchHeader($title, $desc) {
+            $('#search-title').text($title);
+            $('#search-desc').text($desc);
+            $('#search-header').show();
         }
     </script>
 @endpush
