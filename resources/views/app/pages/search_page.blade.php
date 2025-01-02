@@ -7,29 +7,22 @@
     </style>
 @endpush
 @section('content')
-    <section class="hero-area bg-1 text-center overly">
+    <section class="hero-area bg-1 text-center overly mb-100">
         <!-- Container Start -->
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <!-- Header Content -->
-                    @include('app.pages.partials.header_content')
-                    <!-- Advance Search -->
                     @include('app.pages.partials.advance_search')
                 </div>
             </div>
         </div>
         <!-- Container End -->
     </section>
-
     <section class="section-sm">
         <div class="container">
             @include('app.pages.partials.search_header')
             <div class="row">
-                <div class="col-lg-3 col-md-4">
-                    @include('app.pages.partials.category_sidebar')
-                </div>
-                <div class="col-lg-9 col-md-8">
+                <div class="col-lg-12 col-md-12">
                     <!-- category search filter  -->
                     @include('app.pages.partials.category_search_filter')
 
@@ -109,10 +102,9 @@
                     });
                 }
             });
-
         });
 
-        function fetchBills(page = 1) {
+        function fetchBills() {
             const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
             const $billsListing = $('#bill-listing-block');
             const $loading = $('#loading');
@@ -123,47 +115,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: {
-                    paginate: 10,
-                    page: page,
-                    with_html: true
-                },
-                beforeSend: function() {
-                    $loading.show();
-                    $billsListing.hide();
-                },
-                success: function(response) {
-                    if (response.status && response.data.html) {
-                        $billsListing.html(response.data.html);
-                    } else {
-                        console.error('Error: Invalid response format.');
-                    }
-                },
-                complete: function() {
-                    $loading.hide();
-                    $billsListing.show();
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching bills:', xhr.responseJSON?.errors || error);
-                }
-            });
-        }
-
-        function filterBills($filterType, $filterId) {
-            const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
-            const $billsListing = $('#bill-listing-block');
-            const $loading = $('#loading');
-
-            $.ajax({
-                url: `${remoteBaseUrl}/api/filter-bills`,
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    filter_type: $filterType,
-                    filter_id: $filterId,
-                },
+                data: @json($search_query),
                 beforeSend: function() {
                     $loading.show();
                     $billsListing.hide();

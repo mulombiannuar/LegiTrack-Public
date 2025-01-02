@@ -5,6 +5,7 @@ use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(PagesController::class)->group(function () {
+    Route::get('search', 'searchResults')->name('search');
     Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
     Route::get('/', 'homePage')->name('home');
 });

@@ -1,3 +1,60 @@
+@push('styles')
+    <style>
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .step .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .step.completed .circle {
+            background-color: #28a745;
+        }
+
+        .step.completed .label {
+            color: #28a745;
+        }
+
+        .step.active .circle {
+            background-color: #888;
+        }
+
+        .step.active .label {
+            font-weight: bold;
+        }
+
+        .step .line {
+            height: 40px;
+            width: 2px;
+            background-color: #e0e0e0;
+            margin: 0 auto;
+        }
+
+        .step .description {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-left: 40px;
+            margin-top: 5px;
+        }
+    </style>
+@endpush
 @extends('layouts.main')
 
 @section('content')
@@ -26,25 +83,28 @@
                         $sponsorshipType = $billRelationships['sponsorship_type'];
                         $billStageOutcome = $billRelationships['bill_stage_outcome'];
                         $billStageName = $billAttributes['bill_stage_name'];
+                        $updatedDate = $billAttributes['updated_at'];
                         $parliamentarySession = $billRelationships['parliamentary_session'];
                     @endphp
                     <div class="product-details">
-                        <h1 class="product-title">Data Privacy and Protection Act, 2024</h1>
+                        <h1 class="product-title">{{ $title }} | {{ $publishedBillNumber }}</h1>
                         <div class="product-meta">
                             <ul class="list-inline">
-                                <li class="list-inline-item"><i class="fa fa-calendar"></i> Published On: <a
-                                        href="#">12th February, 2024</a></li>
+                                <li class="list-inline-item"><i class="fa fa-calendar"></i> Submitted On: <a
+                                        href="javascript:void(0);">{{ format_date($submissionDate, 'd F Y h:i a') }}</a>
+                                </li>
                                 <li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Type: <a
-                                        href="#">Data
-                                        Privacy Bill</a></li>
+                                        href="javascript:void(0);">
+                                        {{ $billType }}</a></li>
                                 <li class="list-inline-item"><i class="fa fa-calendar-plus-o"></i> Session: <a
-                                        href="#">13th Parliament S2</a></li>
+                                        href="javascript:void(0);">{{ $parliamentaryTerm . ' - ' . $parliamentarySession }}</a>
+                                </li>
                                 <li class="list-inline-item"><i class="fa fa-calendar-plus-o"></i> Current Stage: <a
-                                        href="#">1st Reading</a></li>
-                                <li class="list-inline-item"><i class="fa fa-calendar-plus-o"></i> Next Stage: <a
-                                        href="#">2nd Reading</a></li>
-                                <li class="list-inline-item"><i class="fa fa-user"></i> Sponsorship: <a
-                                        href="#">Government Bill</a></li>
+                                        href="javascript:void(0);">{{ $billStageName }}</a></li>
+                                <li class="list-inline-item"><i class="fa fa-user"></i> Bill Sponsor: <a
+                                        href="javascript:void(0);">{{ $sponsor }}</a></li>
+                                <li class="list-inline-item"><i class="fa fa-address-book"></i> Sponsorship Type: <a
+                                        href="javascript:void(0);">{{ $sponsorshipType }}</a></li>
                             </ul>
                         </div>
 
@@ -78,69 +138,48 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="bill-tabContent">
+
+                                {{-- Bill Information --}}
                                 <div class="tab-pane fade show active" id="bill-home" role="tabpanel"
                                     aria-labelledby="bill-home-tab">
                                     <h3 class="tab-title">Bill Subject</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia laudantium beatae
-                                        quod perspiciatis, neque
-                                    </p>
+                                    <p>{{ $subject }}</p>
 
                                     <h3 class="tab-title">Bill Description</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia laudantium beatae
-                                        quod perspiciatis, neque
-                                        dolores eos rerum, ipsa iste cum culpa numquam amet provident eveniet pariatur, sunt
-                                        repellendus quas
-                                        voluptate dolor cumque autem molestias. Ab quod quaerat molestias culpa eius,
-                                        perferendis facere vitae commodi
-                                        maxime qui numquam ex voluptatem voluptate, fuga sequi, quasi! Accusantium eligendi
-                                        vitae unde iure officia
-                                        amet molestiae velit assumenda, quidem beatae explicabo dolore laboriosam mollitia
-                                        quod eos, eaque voluptas
-                                        enim fuga laborum, error provident labore nesciunt ad. Libero reiciendis
-                                        necessitatibus voluptates ab
-                                        excepturi rem non, nostrum aut aperiam? Itaque, aut. Quas nulla perferendis neque
-                                        eveniet ullam?</p>
+                                    {!! $description !!}
+
+                                    <ul class="list-inline mt-2 product-meta">
+                                        <li class="list-inline-item"
+                                            style="color: #000; font-size: 12px; font-style: italic;">
+                                            <i class="fa fa-clock-o"></i> Last updated
+                                            {{ format_date($updatedDate, 'd F Y h:i a') }}
+                                        </li>
+                                    </ul>
                                 </div>
+
+                                {{-- Bill Passage --}}
                                 <div class="tab-pane fade" id="bill-passage" role="tabpanel"
                                     aria-labelledby="bill-passage-tab">
-                                    <h3 class="tab-title">Product Specifications</h3>
-                                    <table class="table table-bordered product-table">
-                                        <tbody>
-                                            <tr>
-                                                <td>Seller Price</td>
-                                                <td>$450</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Added</td>
-                                                <td>26th December</td>
-                                            </tr>
-                                            <tr>
-                                                <td>State</td>
-                                                <td>Dhaka</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Brand</td>
-                                                <td>Apple</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Condition</td>
-                                                <td>Used</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Model</td>
-                                                <td>2017</td>
-                                            </tr>
-                                            <tr>
-                                                <td>State</td>
-                                                <td>Dhaka</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Battery Life</td>
-                                                <td>23</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <h3 class="tab-title">Bill Stages Passage</h3>
+                                    <div class="container">
+                                        <div class="d-flex flex-column align-items-start">
+                                            @foreach ($bill_completed_stages as $stage)
+                                                <div class="step {{ $stage['is_completed'] ? 'completed' : 'active' }}">
+                                                    <div class="step-header">
+                                                        <div class="circle"><i
+                                                                class="fa {{ $stage['is_completed'] ? 'fa-check' : 'fa-minus' }} "></i>
+                                                        </div>
+                                                        <div class="label">{{ ucwords($stage['name']) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="line"></div>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {{-- Bill Sponsor --}}
                                 <div class="tab-pane fade" id="bill-sponsor" role="tabpanel"
                                     aria-labelledby="bill-sponsor-tab">
                                     <h3 class="tab-title">Bill Sponsor</h3>
@@ -157,6 +196,8 @@
                                         </ul>
                                     </div>
                                 </div>
+
+                                {{-- Bill Versions --}}
                                 <div class="tab-pane fade" id="bill-versions" role="tabpanel"
                                     aria-labelledby="bill-versions-tab">
                                     <h3 class="tab-title">Bill Versions (3)</h3>
@@ -189,6 +230,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                {{-- Bill Feedback & Review --}}
                                 <div class="tab-pane fade" id="bill-review" role="tabpanel"
                                     aria-labelledby="bill-review-tab">
                                     <h3 class="tab-title">Bill Feedback & Review</h3>
@@ -245,6 +288,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- Bill Publications --}}
                                 <div class="tab-pane fade" id="bill-publications" role="tabpanel"
                                     aria-labelledby="bill-publications-tab">
                                     <h3 class="tab-title">Bill Publications</h3>
@@ -277,3 +322,7 @@
         <!-- Container End -->
     </section>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+@endpush

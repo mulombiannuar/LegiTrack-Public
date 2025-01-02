@@ -54,4 +54,9 @@ class APIService
     {
         return $this->apiRepository->getBill($slug)['data']['data'];
     }
+
+    public function getBillCompletedStages(int $bill_id): array
+    {
+        return $this->apiRepository->getBillCompletedStages($bill_id)['data']['data'];
+    }
 }

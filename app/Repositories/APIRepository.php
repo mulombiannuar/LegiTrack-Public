@@ -86,4 +86,13 @@ class APIRepository implements APIRepositoryInterface
             'Failed to fetch bill'
         );
     }
+
+    public function getBillCompletedStages(int $bill_id): array
+    {
+        return $this->apiCallService->post(
+            "api/get-completed-bill-stages",
+            'Failed to fetch bill completed stages',
+            ['bill_id' => $bill_id]
+        );
+    }
 }
