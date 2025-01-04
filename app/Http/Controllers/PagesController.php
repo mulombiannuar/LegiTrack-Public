@@ -20,12 +20,22 @@ class PagesController extends Controller
     }
     public function homePage(): View
     {
-        $pageData = array_merge([
+        $isaApiReachable = $this->apiService->isApiReachable();
+
+        $pageData = [
             'page_name' => 'pages',
             'title' => 'Home Page',
-        ], $this->getPageData());
+            'is_api_reachable' => $isaApiReachable,
+        ];
 
-        return view('app.pages.home_page', $pageData);
+        if (!$isaApiReachable) {
+            return view('app.pages.default_page', $pageData);
+        }
+
+        return view(
+            'app.pages.home_page',
+            array_merge($pageData, $this->getPageData())
+        );
     }
 
     public function searchResults(SearchBillsRequest $request): View

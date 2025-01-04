@@ -6,6 +6,7 @@ namespace App\Interfaces;
 
 interface APIRepositoryInterface
 {
+    public function isApiReachable(): bool;
     public function getParliamentaryHouseTerms(int $houseCategoryId): array;
     public function getParliamentaryTermSessions(int $parliamentaryTermId): array;
     public function getBillTypes(): array;

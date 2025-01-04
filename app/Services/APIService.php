@@ -10,6 +10,11 @@ class APIService
 {
     protected $apiRepository;
 
+    public function isApiReachable(): bool
+    {
+        return $this->apiRepository->isApiReachable();
+    }
+
     public function __construct(APIRepositoryInterface $apiRepository)
     {
         $this->apiRepository = $apiRepository;
