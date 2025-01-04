@@ -53,6 +53,35 @@ class PagesController extends Controller
         return view('app.pages.search_page', $pageData);
     }
 
+    public function sponsorBills(Request $request): View
+    {
+        $request->validate([
+            'sponsor_id' => 'required|integer|max:11',
+        ]);
+
+        $sponsorId = $request->input('sponsor_id');
+        $sponsor = $this->apiService->getUserById($sponsorId);
+
+        $title = $sponsor['name'] . ' Sponsored Published Bills';
+        $description = "Showing results for published bills sponsored by " . ucwords($sponsor['full_name']);
+
+        $searchQuery = [
+            'sponsor_id' => $sponsorId,
+            'with_html' => true,
+            'paginate' => 10,
+            'page' => 1
+        ];
+
+        $pageData = [
+            'title' => $title,
+            'page_name' => 'pages',
+            'description' => $description,
+            'search_query' => $searchQuery,
+        ];
+        //dd($pageData);
+        return view('app.pages.sponsor_bills_page', $pageData);
+    }
+
     public function getBillDetails(string $slug) #: View
     {
         $billData = $this->apiService->getBill($slug);
