@@ -184,14 +184,15 @@
                                     aria-labelledby="bill-sponsor-tab">
                                     <h3 class="tab-title">Bill Sponsor</h3>
                                     <div class="widget user text-center">
-                                        <img width="250px;" class="rounded-circle img-fluid mb-5 px-5"
-                                            src="images/user/user-thumb.jpg" alt="">
-                                        <h4><a href="#">Hon. Kimani Ichungwa, HSC</a></h4>
+                                        <img width="300px;" class="rounded-circle img-fluid mb-4 px-5"
+                                            src="{{ $bill_sponsor['profile_image'] }}"
+                                            alt="{{ ucwords($bill_sponsor['full_name']) }}">
+                                        <h4><a href="#">{{ ucwords($bill_sponsor['full_name']) }}</a></h4>
                                         <p class="member-time">Chairperson, Budget And Appropriations Committee</p>
-                                        <a href="#">View All Bills Sponsored</a>
                                         <ul class="list-inline mt-20">
                                             <li class="list-inline-item"><a href="#"
-                                                    class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">Contact</a>
+                                                    class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">View
+                                                    All Bills Sponsored</a>
                                             </li>
                                         </ul>
                                     </div>

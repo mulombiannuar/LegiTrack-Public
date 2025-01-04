@@ -64,4 +64,9 @@ class APIService
     {
         return $this->apiRepository->getBillCompletedStages($bill_id)['data']['data'];
     }
+
+    public function getUserById(int $userId): array
+    {
+        return $this->apiRepository->getUserById($userId)['data']['data'];
+    }
 }

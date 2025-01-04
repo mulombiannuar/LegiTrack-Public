@@ -42,7 +42,7 @@ class PagesController extends Controller
     {
         $searchQuery = ($request->isMethod('get') && count($request->except('_token')) > 0)
             ? $this->makeSearchQuery($request)
-            : null;
+            : ['with_html' => true, 'paginate' => 10, 'page' => 1];
 
         $pageData = array_merge([
             'page_name' => 'pages',
@@ -58,7 +58,6 @@ class PagesController extends Controller
         $billData = $this->apiService->getBill($slug);
         $billCompletedStages = $this->apiService->getBillCompletedStages($billData['id']);
         $bill = $billData['attributes'];
-
         if (empty($bill)) {
             abort(404);
         }
@@ -67,6 +66,7 @@ class PagesController extends Controller
             'page_name' => 'pages',
             'title' => $bill['title'],
             'bill_completed_stages' => $billCompletedStages,
+            'bill_sponsor' => $this->apiService->getUserById($bill['sponsor_id'])
         ];
         return view('app.pages.bill_details_page', $pageData);
     }

@@ -6,13 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(PagesController::class)->group(function () {
 
-    Route::controller(APIController::class)
-        ->middleware('api.available')
-        ->group(function () {
-            Route::get('search', 'searchResults')->name('search');
-            Route::get('contact-us', 'contactUs')->name('contact-us');
-            Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
-        });
+    Route::middleware('api.available')->group(function () {
+        Route::get('search', 'searchResults')->name('search');
+        Route::get('contact-us', 'contactUs')->name('contact-us');
+        Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
+    });
 
     Route::get('/', 'homePage')->name('home');
 });

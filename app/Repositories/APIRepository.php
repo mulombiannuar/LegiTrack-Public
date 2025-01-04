@@ -174,4 +174,17 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
+
+    public function getUserById(int $userId): array
+    {
+        try {
+            return $this->apiCallService->get(
+                "api/get-user-by-id/{$userId}",
+                'Failed to fetch user details'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching user details: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
 }

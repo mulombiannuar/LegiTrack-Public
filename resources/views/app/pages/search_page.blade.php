@@ -54,7 +54,6 @@
                 }
             });
 
-
             $('#house_category_id').change(function() {
                 const house_category_id = $(this).val();
                 const $parliamentaryTerms = $('#parliamentary_term_block');
@@ -121,6 +120,7 @@
                     $billsListing.hide();
                 },
                 success: function(response) {
+                    console.log('Response:', response);
                     if (response.status && response.data.html) {
                         $billsListing.html(response.data.html);
                         updateSearchHeader(response.data.search_title, response.data.search_desc);
