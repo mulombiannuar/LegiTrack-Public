@@ -82,11 +82,18 @@ class PagesController extends Controller
         return view('app.pages.sponsor_bills_page', $pageData);
     }
 
-    public function getBillDetails(string $slug) #: View
+    public function getBillDetails(string $slug): View
     {
         $billData = $this->apiService->getBill($slug);
         $billCompletedStages = $this->apiService->getBillCompletedStages($billData['id']);
         $bill = $billData['attributes'];
+        $billId = (int) $billData['id'];
+
+        $billSponsor = $this->apiService->getUserById($bill['sponsor_id']);
+
+        $billVersionsData = $this->apiService->getBillVersions($billId);
+        $billVersions = $billVersionsData['status'] ? $billVersionsData['data']['data'] : [];
+
         if (empty($bill)) {
             abort(404);
         }
@@ -94,8 +101,9 @@ class PagesController extends Controller
             'bill' => $billData,
             'page_name' => 'pages',
             'title' => $bill['title'],
+            'bill_sponsor' => $billSponsor,
+            'bill_versions' => $billVersions,
             'bill_completed_stages' => $billCompletedStages,
-            'bill_sponsor' => $this->apiService->getUserById($bill['sponsor_id'])
         ];
         return view('app.pages.bill_details_page', $pageData);
     }

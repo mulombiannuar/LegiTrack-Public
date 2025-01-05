@@ -69,4 +69,14 @@ class APIService
     {
         return $this->apiRepository->getUserById($userId)['data']['data'];
     }
+
+    public function getBillVersions(int $billId): array
+    {
+        return $this->apiRepository->getBillVersions($billId);
+    }
+
+    public function getBillVersion(int $billVersionId): array
+    {
+        return $this->apiRepository->getBillVersion($billVersionId);
+    }
 }

@@ -17,4 +17,6 @@ interface APIRepositoryInterface
     public function getBill(string $slug): array;
     public function getBillCompletedStages(int $bill_id): array;
     public function getUserById(int $userId): array;
+    public function getBillVersions(int $billId): array;
+    public function getBillVersion(int $billVersionId): array;
 }

@@ -53,6 +53,10 @@
             margin-left: 40px;
             margin-top: 5px;
         }
+
+        .product-table tr th {
+            padding-left: 25px;
+        }
     </style>
 @endpush
 @extends('layouts.main')
@@ -73,7 +77,7 @@
                         $billTypeId = $billAttributes['bill_type_id'];
                         $parliamentaryTermId = $billAttributes['parliamentary_term_id'];
                         $parliamentaryTerm = $billAttributes['parliamentary_term'];
-                        $title = ucwords($billAttributes['title']);
+                        $billTitle = ucwords($billAttributes['title']);
                         $description = $billAttributes['description'];
                         $publishedBillNumber = 'Bill No.' . $billAttributes['published_bill_number'];
                         $sponsor = $billRelationships['sponsor'];
@@ -87,7 +91,7 @@
                         $parliamentarySession = $billRelationships['parliamentary_session'];
                     @endphp
                     <div class="product-details">
-                        <h1 class="product-title">{{ $title }} | {{ $publishedBillNumber }}</h1>
+                        <h1 class="product-title">{{ $billTitle }} | {{ $publishedBillNumber }}</h1>
                         <div class="product-meta">
                             <ul class="list-inline">
                                 <li class="list-inline-item"><i class="fa fa-calendar"></i> Submitted On: <a
@@ -201,35 +205,49 @@
                                 {{-- Bill Versions --}}
                                 <div class="tab-pane fade" id="bill-versions" role="tabpanel"
                                     aria-labelledby="bill-versions-tab">
-                                    <h3 class="tab-title">Bill Versions (3)</h3>
-                                    <table class="table table-sm table-bordered table-hover product-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-content-center">S.N</th>
-                                                <th>Version</th>
-                                                <th>During Stage</th>
-                                                <th>Date Created</th>
-                                                <th>View</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>
-                                                    <a href="#">
-                                                        V1
-                                                    </a>
-                                                </td>
-                                                <td>Bill Publishing Stage</td>
-                                                <td>2024-09-20 10:44:21</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-sm btn-main-sm"><i
-                                                            class="fa fa-sign-in"></i>
-                                                        View Version</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <h3 class="tab-title">Bill Versions ({{ count($bill_versions) }})</h3>
+                                    @if ($bill_versions)
+                                        <table class="table table-sm table-bordered table-hover product-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.N</th>
+                                                    <th>Version</th>
+                                                    <th>During Stage</th>
+                                                    <th>Date Created</th>
+                                                    <th>View</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($bill_versions as $bill_version)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            <a title="Click to view this bill version" href="#">
+                                                                V{{ $bill_version['version_number'] }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $bill_version['bill_stage_name'] }} Stage</td>
+                                                        <td>{{ format_date($bill_version['created_at'], 'd M. Y h:i A') }}
+                                                        </td>
+                                                        <td>
+                                                            <a title="Click to view this bill version" href="#"
+                                                                class="btn btn-sm btn-main-sm"><i
+                                                                    class="fa fa-sign-in"></i>
+                                                                View Version</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <div class="row p-lg-3 p-sm-5 p-4 justify-content-center">
+                                            <div class="w-100 alert alert-warning font-weight-bold">
+                                                No bills versions are available for "{{ $billTitle }}". Please check
+                                                back
+                                                later
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 {{-- Bill Feedback & Review --}}

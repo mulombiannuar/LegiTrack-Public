@@ -175,6 +175,32 @@ class APIRepository implements APIRepositoryInterface
         }
     }
 
+    public function getBillVersions(int $billId): array
+    {
+        try {
+            return $this->apiCallService->get(
+                "api/get-bill-versions/{$billId}",
+                'Failed to fetch bill versions'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching bill versions: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function getBillVersion(int $billVersionId): array
+    {
+        try {
+            return $this->apiCallService->get(
+                "api/get-version-by-id/{$billVersionId}",
+                'Failed to fetch bill version details'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching bill version details: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
     public function getUserById(int $userId): array
     {
         try {

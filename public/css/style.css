@@ -1468,7 +1468,7 @@ ul.pagination .active a {
 .product-table tr td:first-child {
   background: #f9f9f9;
 }
-.product-table tr td {
+.product-table tr td,th {
   padding-left: 25px;
 }
 
