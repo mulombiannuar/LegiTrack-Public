@@ -52,14 +52,14 @@
                      <div class="mobile d-flex  align-items-center">
                          <a href="index.html">
                              <!-- Icon -->
-                             <img src="images/footer/phone-icon.png" alt="mobile-icon">
+                             <img src="{{ asset('images/footer/phone-icon.png') }}" alt="mobile-icon">
                          </a>
                          <p class="mb-0">Get the Dealsy Mobile App and Save more</p>
                      </div>
                      <div class="download-btn d-flex my-3">
-                         <a href="index.html"><img src="images/apps/google-play-store.png" class="img-fluid"
-                                 alt=""></a>
-                         <a href="index.html" class=" ml-3"><img src="images/apps/apple-app-store.png"
+                         <a href="index.html"><img src="{{ asset('images/apps/google-play-store.png') }}"
+                                 class="img-fluid" alt=""></a>
+                         <a href="index.html" class=" ml-3"><img src="{{ asset('images/apps/apple-app-store.png') }}"
                                  class="img-fluid" alt=""></a>
                      </div>
                  </div>

@@ -1,4 +1,5 @@
- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+ {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
+ <script src="{{ asset('lib/js/libs/jquery.min.js') }}" type="text/javascript"></script>
  <script src="{{ asset('plugins/bootstrap/popper.min.js') }}"></script>
  <script src="{{ asset('plugins/bootstrap/bootstrap.min.js') }}"></script>
  <script src="{{ asset('plugins/bootstrap/bootstrap-slider.js') }}"></script>

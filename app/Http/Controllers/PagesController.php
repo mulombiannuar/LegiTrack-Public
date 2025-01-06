@@ -108,6 +108,21 @@ class PagesController extends Controller
         return view('app.pages.bill_details_page', $pageData);
     }
 
+    public function getBillVersion(int $billVersionId): View
+    {
+        $billVersionData = $this->apiService->getBillVersion($billVersionId);
+        $billVersion = $billVersionData['status'] ? $billVersionData['data']['data'] : [];
+        $title = $billVersionData['status'] ? $billVersion['bill_title'] . ' Bill Version ' . $billVersion['version_number'] : 'Bill Version Details';
+
+        //dd($billVersion);
+        $pageData = [
+            'page_name' => 'pages',
+            'title' => $title,
+            'bill_version' => $billVersion
+        ];
+        return view('app.pages.bill_version_page', $pageData);
+    }
+
     private function getPageData(): array
     {
         return [

@@ -222,7 +222,8 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>
-                                                            <a title="Click to view this bill version" href="#">
+                                                            <a title="Click to view this bill version"
+                                                                href="{{ route('bill-version', $bill_version['id']) }}">
                                                                 V{{ $bill_version['version_number'] }}
                                                             </a>
                                                         </td>
@@ -230,7 +231,8 @@
                                                         <td>{{ format_date($bill_version['created_at'], 'd M. Y h:i A') }}
                                                         </td>
                                                         <td>
-                                                            <a title="Click to view this bill version" href="#"
+                                                            <a title="Click to view this bill version"
+                                                                href="{{ route('bill-version', $bill_version['id']) }}"
                                                                 class="btn btn-sm btn-main-sm"><i
                                                                     class="fa fa-sign-in"></i>
                                                                 View Version</a>

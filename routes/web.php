@@ -9,6 +9,7 @@ Route::controller(PagesController::class)->group(function () {
     Route::middleware('api.available')->group(function () {
         Route::get('search', 'searchResults')->name('search');
         Route::get('contact-us', 'contactUs')->name('contact-us');
+        Route::get('/{id}/bill-version', 'getBillVersion')->name('bill-version');
         Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
     });
 
