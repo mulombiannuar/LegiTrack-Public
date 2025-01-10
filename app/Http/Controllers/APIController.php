@@ -38,4 +38,26 @@ class APIController extends Controller
         )->render();
         return response()->json(['html' => $view]);
     }
+
+    public function getSubCounties(Request $request): JsonResponse
+    {
+        $countyId = (int) $request->county_id;
+        $subCounties = $this->apiService->getSubCounties($countyId);
+        $view = view(
+            'partials.loaded_sub_counties',
+            ['sub_counties' => $subCounties]
+        )->render();
+        return response()->json(['html' => $view]);
+    }
+
+    public function getWards(Request $request): JsonResponse
+    {
+        $subCountyId = (int) $request->sub_county_id;
+        $wards = $this->apiService->getWards($subCountyId);
+        $view = view(
+            'partials.loaded_wards',
+            ['wards' => $wards]
+        )->render();
+        return response()->json(['html' => $view]);
+    }
 }

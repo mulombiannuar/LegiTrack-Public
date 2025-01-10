@@ -19,4 +19,7 @@ interface APIRepositoryInterface
     public function getUserById(int $userId): array;
     public function getBillVersions(int $billId): array;
     public function getBillVersion(int $billVersionId): array;
+    public function getCounties(): array;
+    public function getSubCounties(int $countyId): array;
+    public function getWards(int $subCountyId): array;
 }

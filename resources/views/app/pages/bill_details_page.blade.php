@@ -317,9 +317,11 @@
                                                 logged in. Please click the button below to log in. If you don't have an
                                                 account, you will need to register.
                                             </div>
-                                            <a class="nav-link login-button" href="{{ route('login') }}"><i
+                                            <a class="nav-link login-button"
+                                                href="{{ route('login', ['next' => request()->path()]) }}"><i
                                                     class="fa fa-sign-in"></i> Login</a>
-                                            <a class="nav-link text-white add-button" href="{{ route('register') }}"><i
+                                            <a class="nav-link text-white add-button"
+                                                href="{{ route('register', ['next' => request()->path()]) }}"><i
                                                     class="fa fa-user-plus"></i> Register</a>
                                         </div>
                                     @endauth

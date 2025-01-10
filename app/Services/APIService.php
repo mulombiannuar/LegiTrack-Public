@@ -79,4 +79,17 @@ class APIService
     {
         return $this->apiRepository->getBillVersion($billVersionId);
     }
+
+    public function getCounties(): array
+    {
+        return $this->apiRepository->getCounties()['data']['data'];
+    }
+    public function getSubCounties(int $countyId): array
+    {
+        return $this->apiRepository->getSubCounties($countyId)['data']['data'];
+    }
+    public function getWards(int $subCountyId): array
+    {
+        return $this->apiRepository->getWards($subCountyId)['data']['data'];
+    }
 }

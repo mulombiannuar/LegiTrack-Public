@@ -40,6 +40,8 @@ Route::controller(PagesController::class)->group(function () {
 Route::controller(APIController::class)
     ->middleware('api.available')
     ->group(function () {
+        Route::post('get-wards', 'getWards')->name('get-wards');
+        Route::post('get-sub-counties', 'getSubCounties')->name('get-sub-counties');
         Route::post('get-parliamentary-house-terms', 'getParliamentaryHouseTerms')->name('get-parliamentary-house-terms');
         Route::post('get-parliamentary-term-sessions', 'getParliamentaryTermSessions')->name('get-parliamentary-term-sessions');
     });

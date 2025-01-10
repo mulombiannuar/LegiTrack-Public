@@ -9,6 +9,7 @@
 
 <body class="body-wrapper">
     @include('layouts.incls.header')
+    @include('layouts.incls.alerts')
     @yield('content')
     @include('layouts.incls.footer')
     @include('layouts.incls.scripts')

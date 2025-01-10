@@ -49,7 +49,6 @@ class APIRepository implements APIRepositoryInterface
         }
     }
 
-
     public function getParliamentaryHouseTerms(int $houseCategoryId): array
     {
         try {
@@ -78,7 +77,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
 
     public function getBillTypes(): array
     {
@@ -210,6 +208,47 @@ class APIRepository implements APIRepositoryInterface
             );
         } catch (\Exception $e) {
             $this->logsService->logError('Error fetching user details: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function getCounties(): array
+    {
+        try {
+            return $this->apiCallService->get(
+                'api/get-counties',
+                'Failed to fetch counties'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching counties: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function getSubCounties(int $countyId): array
+    {
+        try {
+            return $this->apiCallService->post(
+                'api/get-sub-counties',
+                'Failed to fetch subcounties',
+                ['county_id' => $countyId]
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching sub counties: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function getWards(int $subCountyId): array
+    {
+        try {
+            return $this->apiCallService->post(
+                'api/get-wards',
+                'Failed to fetch sub county wards',
+                ['sub_county_id' => $subCountyId]
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching sub county wards: ' . $e->getMessage(), $e);
             return [];
         }
     }

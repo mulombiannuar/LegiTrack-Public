@@ -37,14 +37,28 @@
                              </li>
                          </ul>
                          <ul class="navbar-nav ml-auto mt-10">
-                             <li class="nav-item">
-                                 <a class="nav-link login-button" href="{{ route('login') }}"><i
-                                         class="fa fa-sign-in"></i> Login</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link text-white add-button" href="{{ route('register') }}"><i
-                                         class="fa fa-user-plus"></i> Register</a>
-                             </li>
+                             @auth
+                                 <li class="nav-item">
+                                     <a class="nav-link text-white red-button" href="{{ route('logout') }}"
+                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                             class="fa fa-sign-out"></i> Logout</a>
+                                 </li>
+                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                     style="display: none;">
+                                     @csrf
+                                 </form>
+                             @else
+                                 <li class="nav-item">
+                                     <a class="nav-link login-button"
+                                         href="{{ route('login', ['next' => request()->path()]) }}"><i
+                                             class="fa fa-sign-in"></i> Login</a>
+                                 </li>
+                                 <li class="nav-item">
+                                     <a class="nav-link text-white add-button"
+                                         href="{{ route('register', ['next' => request()->path()]) }}"><i
+                                             class="fa fa-user-plus"></i> Register</a>
+                                 </li>
+                             @endauth
                          </ul>
                      </div>
                  </nav>

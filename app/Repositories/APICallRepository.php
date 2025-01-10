@@ -23,6 +23,7 @@ class APICallRepository implements APICallRepositoryInterface
 
     public function get(string $endPoint, string $errorMsg, ?string $bearerToken = null): array
     {
+
         try {
             // Prepare headers
             $headers = ['Content-Type' => 'application/json'];
@@ -73,7 +74,7 @@ class APICallRepository implements APICallRepositoryInterface
     {
         try {
             // Prepare headers
-            $headers = ['Content-Type' => 'application/json'];
+            $headers = ['Content-Type' => 'application/json', 'Accept' => 'application/json'];
             if ($bearerToken) {
                 $headers['Authorization'] = "Bearer $bearerToken";
             }
@@ -97,7 +98,29 @@ class APICallRepository implements APICallRepositoryInterface
                 ];
             }
 
-            // Log and return failure response for non-200 status
+            // Handle form validation error (422 Unprocessable Entity)
+            if ($response->getStatusCode() === 422) {
+                $errors = $responseData['data']['errors'] ?? [];
+                $formattedErrors = [];
+                foreach ($errors as $field => $messages) {
+                    foreach ($messages as $message) {
+                        $formattedErrors[] = ucfirst(str_replace('_', ' ', $field)) . ': ' . $message;
+                    }
+                }
+
+                $this->logsService->logError(
+                    $errorMsg,
+                    new \Exception("Validation errors: " . implode(', ', $formattedErrors))
+                );
+
+                return [
+                    'status' => false,
+                    'message' => "Form validation failed. Errors: " . implode(', ', $formattedErrors),
+                    'errors' => $formattedErrors
+                ];
+            }
+
+            // Log and return failure response for non-200 and non-422 status
             $this->logsService->logError(
                 $errorMsg,
                 new \Exception("Unexpected status code: {$response->getStatusCode()}")
