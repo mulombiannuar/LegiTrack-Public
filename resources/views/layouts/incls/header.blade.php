@@ -38,11 +38,12 @@
                          </ul>
                          <ul class="navbar-nav ml-auto mt-10">
                              <li class="nav-item">
-                                 <a class="nav-link login-button" href="login.html">Login</a>
+                                 <a class="nav-link login-button" href="{{ route('login') }}"><i
+                                         class="fa fa-sign-in"></i> Login</a>
                              </li>
                              <li class="nav-item">
-                                 <a class="nav-link text-white add-button" href="#"><i
-                                         class="fa fa-plus-circle"></i> Register</a>
+                                 <a class="nav-link text-white add-button" href="{{ route('register') }}"><i
+                                         class="fa fa-user-plus"></i> Register</a>
                              </li>
                          </ul>
                      </div>

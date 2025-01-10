@@ -1,9 +1,29 @@
 <?php
 
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
+//Auth routes
+Route::controller(AuthController::class)
+    ->group(function () {
+        Route::get('login', 'showLoginForm')->name('login');
+        Route::post('login', 'login')->name('login.store');
+
+        Route::post('logout', 'logout')->name('logout');
+
+        Route::get('register', 'showRegistrationForm')->name('register');
+        Route::post('register', 'register')->name('register.store');
+
+        Route::get('forgot-password', 'showForgotPasswordForm')->name('password.request');
+        Route::post('forgot-password', 'sendResetLinkEmail')->name('password.email');
+
+        Route::get('reset-password/{token}', 'showResetPasswordForm')->name('password.reset');
+        Route::post('reset-password', 'resetPassword')->name('password.update');
+    });
+
+//Pages routes
 Route::controller(PagesController::class)->group(function () {
 
     Route::middleware('api.available')->group(function () {
@@ -16,6 +36,7 @@ Route::controller(PagesController::class)->group(function () {
     Route::get('/', 'homePage')->name('home');
 });
 
+//API routes
 Route::controller(APIController::class)
     ->middleware('api.available')
     ->group(function () {

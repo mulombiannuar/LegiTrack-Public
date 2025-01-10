@@ -256,58 +256,73 @@
                                 <div class="tab-pane fade" id="bill-review" role="tabpanel"
                                     aria-labelledby="bill-review-tab">
                                     <h3 class="tab-title">Bill Feedback & Review</h3>
-                                    <div class="product-review">
-                                        <div class="media">
-                                            <!-- Avater -->
-                                            <img src="images/user/user-thumb.jpg" alt="avater">
-                                            <div class="media-body">
-                                                <div class="name">
-                                                    <h5>Jessica Brown</h5>
+                                    @auth
+                                        <div class="product-review">
+                                            <div class="media">
+                                                <!-- Avater -->
+                                                <img src="images/user/user-thumb.jpg" alt="avater">
+                                                <div class="media-body">
+                                                    <div class="name">
+                                                        <h5>Jessica Brown</h5>
+                                                    </div>
+                                                    <div class="date">
+                                                        <p>Mar 20, 2018</p>
+                                                    </div>
+                                                    <div class="review-comment">
+                                                        <p>
+                                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                            accusantium doloremqe laudant tota rem ape
+                                                            riamipsa eaque.
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div class="date">
-                                                    <p>Mar 20, 2018</p>
-                                                </div>
-                                                <div class="review-comment">
-                                                    <p>
-                                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                                        accusantium doloremqe laudant tota rem ape
-                                                        riamipsa eaque.
-                                                    </p>
+                                            </div>
+                                            <div class="review-submission">
+                                                <h3 class="tab-title">Submit your review</h3>
+                                                <div class="review-submit">
+                                                    <form action="#" method="POST" class="row">
+                                                        <div class="col-lg-6 mb-3">
+                                                            <select name="feedback_type" id="feedback_type"
+                                                                class="w-100 form-control mt-lg-1 mt-md-2" required>
+                                                                <option class="mb-1" value="">
+                                                                    -- Select Type Below --</option>
+                                                                <option value="1">Bill Review</option>
+                                                                <option value="0">Bill Feedback</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <select name="feedback_type" id="feedback_type"
+                                                                class="w-100 form-control mt-lg-1 mt-md-2">
+                                                                <option value="1">I Support</option>
+                                                                <option value="0">I do not support</option>
+                                                                <option value="2">Other (specify below)</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 mb-3">
+                                                            <textarea name="content" id="content" rows="6" class="form-control"
+                                                                placeholder="Please provide your detailed feedback/review or suggestions regarding this bill" required></textarea>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <button type="submit" class="btn btn-main">Submit</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="review-submission">
-                                            <h3 class="tab-title">Submit your review</h3>
-                                            <div class="review-submit">
-                                                <form action="#" method="POST" class="row">
-                                                    <div class="col-lg-6 mb-3">
-                                                        <select name="feedback_type" id="feedback_type"
-                                                            class="w-100 form-control mt-lg-1 mt-md-2" required>
-                                                            <option class="mb-1" value="">
-                                                                -- Select Type Below --</option>
-                                                            <option value="1">Bill Review</option>
-                                                            <option value="0">Bill Feedback</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <select name="feedback_type" id="feedback_type"
-                                                            class="w-100 form-control mt-lg-1 mt-md-2">
-                                                            <option value="1">I Support</option>
-                                                            <option value="0">I do not support</option>
-                                                            <option value="2">Other (specify below)</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-12 mb-3">
-                                                        <textarea name="content" id="content" rows="6" class="form-control"
-                                                            placeholder="Please provide your detailed feedback/review or suggestions regarding this bill" required></textarea>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <button type="submit" class="btn btn-main">Submit</button>
-                                                    </div>
-                                                </form>
+                                    @else
+                                        <div class="row p-lg-3 p-sm-5 p-4 justify-content-center">
+                                            <div class="w-100 alert alert-warning font-weight-bold">
+                                                You can only submit a review/feedback for this bill to Parliament for
+                                                consideration once you are
+                                                logged in. Please click the button below to log in. If you don't have an
+                                                account, you will need to register.
                                             </div>
+                                            <a class="nav-link login-button" href="{{ route('login') }}"><i
+                                                    class="fa fa-sign-in"></i> Login</a>
+                                            <a class="nav-link text-white add-button" href="{{ route('register') }}"><i
+                                                    class="fa fa-user-plus"></i> Register</a>
                                         </div>
-                                    </div>
+                                    @endauth
                                 </div>
 
                                 {{-- Bill Publications --}}
