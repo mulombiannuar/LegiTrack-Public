@@ -7,7 +7,7 @@
                 autofocus required>
             <input class="form-control mb-3" type="password" name="password_confirmation" id="password_confirmation"
                 placeholder="Confirm new password" required>
-            <button type="submit" id="reset-button" class="btn btn-success font-weight-bold mt-3">Update
+            <button type="submit" id="reset-button" class="btn btn-success font-weight-bold mt-3 disable-button">Update
                 Password</button>
         </fieldset>
     </form>

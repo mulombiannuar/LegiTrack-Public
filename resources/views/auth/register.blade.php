@@ -59,7 +59,8 @@
                         placeholder="Confirm your password" autocomplete="off" value="{{ old('password') }}" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success font-weight-bold mt-3" id="register-button">Register now</button>
+            <button type="submit" class="btn btn-success font-weight-bold mt-3 disable-button"
+                id="register-button">Register now</button>
         </fieldset>
     </form>
 @endsection

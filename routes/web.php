@@ -6,22 +6,22 @@ use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
 //Auth routes
-Route::controller(AuthController::class)
-    ->group(function () {
-        Route::get('login', 'showLoginForm')->name('login');
-        Route::post('login', 'login')->name('login.store');
+Route::middleware('redirect.if.authenticated')->group(function () {
 
-        Route::post('logout', 'logout')->name('logout');
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login.store');
 
-        Route::get('register', 'showRegistrationForm')->name('register');
-        Route::post('register', 'register')->name('register.store');
+    Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [AuthController::class, 'register'])->name('register.store');
 
-        Route::get('forgot-password', 'showForgotPasswordForm')->name('password.request');
-        Route::post('forgot-password', 'sendResetLinkEmail')->name('password.email');
+    Route::get('forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+    Route::post('forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
 
-        Route::get('reset-password/{token}', 'showResetPasswordForm')->name('password.reset');
-        Route::post('reset-password', 'resetPassword')->name('password.update');
-    });
+    Route::get('reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+});
+
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 //Pages routes
 Route::controller(PagesController::class)->group(function () {
