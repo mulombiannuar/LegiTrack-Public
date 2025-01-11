@@ -25,6 +25,16 @@ class AuthService
         return $this->authRepository->register($userData);
     }
 
+    public function sendResetLinkEmail(array $requestData): bool
+    {
+        return $this->authRepository->sendResetLinkEmail(($requestData));
+    }
+
+    public function updatePassword(array $requestData): bool
+    {
+        return $this->authRepository->updatePassword($requestData);
+    }
+
     public function logout(): bool
     {
         return $this->authRepository->logout();

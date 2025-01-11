@@ -50,8 +50,42 @@ class AuthRepository implements AuthRepositoryInterface
             return [];
         }
     }
-    public function sendResetLinkEmail() {}
-    public function updatePassword() {}
+    public function sendResetLinkEmail(array $requestData): bool
+    {
+        try {
+            $response = $this->apiCallService->post(
+                endPoint: 'api/send-password-link',
+                errorMsg: 'Failed to send password reset link',
+                data: $requestData
+            );
+            if (!$response['status']) {
+                $this->logsService->logWarning('Failed to send password reset link.');
+                return false;
+            }
+            return true;
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error while sending password reset link: ' . $e->getMessage(), $e);
+            return false;
+        }
+    }
+    public function updatePassword(array $requestData): bool
+    {
+        try {
+            $response = $this->apiCallService->post(
+                endPoint: 'api/update-password',
+                errorMsg: 'Failed to update user password',
+                data: $requestData
+            );
+            if (!$response['status']) {
+                $this->logsService->logWarning('Failed to update user password.');
+                return false;
+            }
+            return true;
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error while updating user password: ' . $e->getMessage(), $e);
+            return false;
+        }
+    }
 
     public function logout(): bool
     {

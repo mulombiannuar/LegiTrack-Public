@@ -16,7 +16,9 @@
                     class="{{ request()->route()->uri === 'register' ? 'col-lg-8 col-md-8' : 'col-lg-5 col-md-8' }} align-item-center">
                     <div class="border">
                         <h3 class="bg-gray p-4">{{ ucwords($title) }}</h3>
-                        @include('layouts.incls.alerts')
+                        <div class="mr-2 ml-2">
+                            @include('layouts.incls.alerts')
+                        </div>
                         @yield('content')
                     </div>
                 </div>

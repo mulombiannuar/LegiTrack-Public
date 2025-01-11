@@ -18,7 +18,7 @@ Route::middleware('redirect.if.authenticated')->group(function () {
     Route::post('forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
 
     Route::get('reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
-    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+    Route::post('reset-password', [AuthController::class, 'updatePassword'])->name('password.update');
 });
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');

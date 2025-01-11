@@ -29,22 +29,22 @@
  @endif
 
  @if (session('success'))
-     <div class="alert alert-success mt-3 alert-dismissible container">
+     <div class="alert alert-success alert-dismissible container">
          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-         <h5><i class="icon fa fa-check-circle"></i><small> {{ session('success') }} </small></h5>
+         <h5><i class="fa fa-check-circle"></i><small> {{ session('success') }} </small></h5>
      </div>
  @endif
 
  @if (session('danger'))
-     <div class="alert alert-danger mt-3 alert-dismissible container">
+     <div class="alert alert-danger alert-dismissible container">
          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-         <h5><i class="icon fa fa-exclamation-circle"></i><small> {{ session('danger') }}</small></h5>
+         <h5><i class="fa fa-exclamation-circle"></i><small> {{ session('danger') }}</small></h5>
      </div>
  @endif
 
  @if (session('warning'))
-     <div class="alert alert-warning mt-3 alert-dismissible container">
+     <div class="alert alert-warning alert-dismissible container">
          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-         <h5><i class="icon fas fa-exclamation-circle"></i> <small> {{ session('warning') }}</small> </h5>
+         <h5><i class="fa fa-exclamation-circle"></i> <small> {{ session('warning') }}</small> </h5>
      </div>
  @endif

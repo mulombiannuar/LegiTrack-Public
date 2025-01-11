@@ -6,6 +6,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\SendPasswordResetLinkRequest;
+use App\Http\Requests\ShowResetPasswordFormRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Services\APIService;
 use App\Services\AuthService;
 use Illuminate\Contracts\View\View;
@@ -37,7 +40,11 @@ class AuthController extends Controller
         $requestData = $request->except(['_method', '_token', 'next']);
         $userData = $this->authService->login($requestData);
 
-        if (empty($userData || !$userData['status'])) {
+        if (empty($userData)) {
+            return back()->with('warning', 'Error occurred while logging in. Please try again.');
+        }
+
+        if (!$userData['status']) {
             return back()->with('warning', 'Invalid credentials. Please try again.');
         }
 
@@ -79,14 +86,33 @@ class AuthController extends Controller
         return view('auth.forgot_password', ['title' => 'Forgot Password']);
     }
 
-    public function sendResetLinkEmail(Request $request) {}
-
-    public function showResetPasswordForm(): View
+    public function sendResetLinkEmail(SendPasswordResetLinkRequest $request): RedirectResponse
     {
-        return view('auth.reset_password', ['title' => 'Reset Password']);
+        $linkSent = $this->authService->sendResetLinkEmail(['email' => $request->email]);
+        if (!$linkSent) {
+            return back()->with('warning', 'We could not find a user with that email address or account not active. Please try again');
+        }
+        return back()->with('success', 'A password reset link has been sent to your email. Please check your inbox and click the link to reset your password');
     }
 
-    public function resetPassword(Request $request) {}
+    public function showResetPasswordForm(ShowResetPasswordFormRequest $request, string $token): View
+    {
+        return view('auth.reset_password', [
+            'title' => 'Reset Password',
+            'email' => $request->email,
+            'token' => $token
+        ]);
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $requestData = $request->except(['_method', '_token']);
+        $passwordUpdated = $this->authService->updatePassword($requestData);
+        if (!$passwordUpdated) {
+            return back()->with('warning', 'There was a problem while updating your account password. Please try again');
+        }
+        return redirect(route('login'))->with('success', 'Your account password was successfully updated');
+    }
 
     public function logout(Request $request): RedirectResponse
     {
