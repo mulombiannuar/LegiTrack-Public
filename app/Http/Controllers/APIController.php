@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubmitBillFeedbackRequest;
 use App\Services\APIService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -60,4 +61,18 @@ class APIController extends Controller
         )->render();
         return response()->json(['html' => $view]);
     }
+
+    public function submitBillFeedback(SubmitBillFeedbackRequest $request)
+    {
+        $requestData = $request->except(['_method', '_token']);
+        $billSubmitted = $this->apiService->submitFeedback($requestData);
+
+        if (empty($billSubmitted || !$billSubmitted['status'])) {
+            return back()->with('warning', "An error has occured while submitting your bill feedback. Please try again later");
+        }
+        $trackingNumber = $billSubmitted['data']['data']['tracking_number'];
+        return back()->with('success', "Your feedback with reference number {$trackingNumber} has been successfully submitted to Parliament for review, and a confirmation email has been sent to you. Thank you for participating in this bill");
+    }
+    public function updateBillFeedback(Request $request, string $id) {}
+    public function deleteBillFeedback(Request $request, string $id) {}
 }

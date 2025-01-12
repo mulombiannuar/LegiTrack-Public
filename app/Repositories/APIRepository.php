@@ -9,6 +9,7 @@ use App\Services\APICallService;
 use App\Services\LogsService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Auth;
 
 class APIRepository implements APIRepositoryInterface
 {
@@ -91,7 +92,6 @@ class APIRepository implements APIRepositoryInterface
         }
     }
 
-
     public function getBillStages(): array
     {
         try {
@@ -104,7 +104,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
 
     public function getBillSponsors(): array
     {
@@ -131,7 +130,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getBills(array $params): array
     {
         try {
@@ -158,7 +156,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getBillCompletedStages(int $bill_id): array
     {
         try {
@@ -185,7 +182,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getBillVersion(int $billVersionId): array
     {
         try {
@@ -198,7 +194,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getUserById(int $userId): array
     {
         try {
@@ -211,7 +206,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getCounties(): array
     {
         try {
@@ -224,7 +218,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getSubCounties(int $countyId): array
     {
         try {
@@ -252,4 +245,38 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
+
+    public function submitFeedback(array $data): array
+    {
+        try {
+            $data['user_id'] = Auth::id();
+            return $this->apiCallService->post(
+                'api/save-bill-feedback',
+                'Failed to submit bill feedback',
+                $data,
+                session('api_token')
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error saving bill feedback: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function getBillFeedbacks(int $billId, int $userId = null): array
+    {
+        try {
+            return $this->apiCallService->post(
+                "api/get-bill-feedbacks/{$billId}",
+                'Failed to fetch bill feedbacks',
+                ['user_id' => $userId],
+                session('api_token')
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching bill feedbacks: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function updateFeedback(array $data, int $id) {}
+    public function deleteFeedback(int $id) {}
 }

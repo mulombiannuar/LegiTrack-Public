@@ -44,4 +44,11 @@ Route::controller(APIController::class)
         Route::post('get-sub-counties', 'getSubCounties')->name('get-sub-counties');
         Route::post('get-parliamentary-house-terms', 'getParliamentaryHouseTerms')->name('get-parliamentary-house-terms');
         Route::post('get-parliamentary-term-sessions', 'getParliamentaryTermSessions')->name('get-parliamentary-term-sessions');
+
+        //logged in routes
+        Route::middleware('auth')->group(function () {
+            Route::post('submit-bill-feedback', 'submitBillFeedback')->name('submit-bill-feedback');
+            Route::put('update-bill-feedback/{id}', 'updateBillFeedback')->name('update-bill-feedback');
+            Route::delete('delete-bill-feedback/{id}', 'deleteBillFeedback')->name('delete-bill-feedback');
+        });
     });

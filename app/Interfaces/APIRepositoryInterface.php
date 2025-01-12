@@ -22,4 +22,6 @@ interface APIRepositoryInterface
     public function getCounties(): array;
     public function getSubCounties(int $countyId): array;
     public function getWards(int $subCountyId): array;
+    public function submitFeedback(array $data): array;
+    public function getBillFeedbacks(int $billId, int $userId = null): array;
 }

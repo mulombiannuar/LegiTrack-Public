@@ -92,4 +92,13 @@ class APIService
     {
         return $this->apiRepository->getWards($subCountyId)['data']['data'];
     }
+    public function submitFeedback(array $data): array
+    {
+        return $this->apiRepository->submitFeedback($data);
+    }
+
+    public function getBillFeedbacks(int $billId, int $userId = null): array
+    {
+        return $this->apiRepository->getBillFeedbacks($billId, $userId);
+    }
 }

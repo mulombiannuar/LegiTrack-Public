@@ -14,11 +14,10 @@ function user(): ?User
     return Auth::user();
 }
 
-//Get User profile
-function user_profile($userId = null): ?object
+//Get User id
+function userId(): ?Int
 {
-    $userId = $userId ?? Auth::id();
-    return User::find($userId)->profile ?? null;
+    return Auth::id();
 }
 
 //Change date format to specified one

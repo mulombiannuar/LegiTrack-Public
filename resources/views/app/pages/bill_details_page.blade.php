@@ -138,7 +138,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="bill-publications-tab" data-toggle="pill"
                                         href="#bill-publications" role="tab" aria-controls="bill-publications"
-                                        aria-selected="false">Publications</a>
+                                        aria-selected="false">News & Publications</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="bill-tabContent">
@@ -255,32 +255,62 @@
                                 {{-- Bill Feedback & Review --}}
                                 <div class="tab-pane fade" id="bill-review" role="tabpanel"
                                     aria-labelledby="bill-review-tab">
-                                    <h3 class="tab-title">Bill Feedback & Review</h3>
                                     @auth
+                                        @if (count($bill_feedbacks) > 0)
+                                            <h3 class="tab-title">Bill Feedback & Review ({{ count($bill_feedbacks) }}) </h3>
+                                        @endif
                                         <div class="product-review">
-                                            <div class="media">
-                                                <!-- Avater -->
-                                                <img src="images/user/user-thumb.jpg" alt="avater">
-                                                <div class="media-body">
-                                                    <div class="name">
-                                                        <h5>Jessica Brown</h5>
+                                            @if (count($bill_feedbacks) > 0)
+                                                @foreach ($bill_feedbacks as $feedback)
+                                                    <!-- BEGIN : Feedback -->
+                                                    <div class="media">
+                                                        <img src="{{ asset('images/user/user-thumb.png') }}" alt="avater">
+                                                        <div class="media-body">
+                                                            <div class="name">
+                                                                <h5>{{ ucwords($feedback['full_name']) }} |
+                                                                    {{ $feedback['tracking_number'] }}</h5>
+                                                            </div>
+                                                            <div class="date">
+                                                                <p>{{ format_date($feedback['created_at'], 'd F Y h:i a') }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="review-comment">
+                                                                <p>{{ $feedback['content'] }}</p>
+                                                            </div>
+
+                                                            {{-- Replies  --}}
+                                                            @if (count($feedback['replies']) > 0)
+                                                                <hr>
+                                                                <div class="ml-3">
+                                                                    <div class="name">
+                                                                        <h5 class="italic">Replies
+                                                                            ({{ count($feedback['replies']) }})
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="review-comment">
+                                                                        @foreach ($feedback['replies'] as $reply)
+                                                                            <p style="font-style: italic">
+                                                                                <strong>[{{ format_date($reply['created_at']) }}]</strong>
+                                                                                {{ $reply['content'] }}
+                                                                            </p>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                    <div class="date">
-                                                        <p>Mar 20, 2018</p>
-                                                    </div>
-                                                    <div class="review-comment">
-                                                        <p>
-                                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                                            accusantium doloremqe laudant tota rem ape
-                                                            riamipsa eaque.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    <!-- BEGIN : Feedback -->
+                                                @endforeach
+                                            @endif
                                             <div class="review-submission">
-                                                <h3 class="tab-title">Submit your review</h3>
+                                                <h3 class="tab-title">
+                                                    {{ count($bill_feedbacks) > 0 ? 'Submit another Review' : 'Submit your Review' }}
+                                                </h3>
                                                 <div class="review-submit">
-                                                    <form action="#" method="POST" class="row">
+                                                    <form action="{{ route('submit-bill-feedback') }}" method="POST"
+                                                        class="row">
+                                                        @csrf
+                                                        <input type="hidden" name="bill_id" value="{{ $bill['id'] }}">
                                                         <div class="col-lg-6 mb-3">
                                                             <select name="feedback_type" id="feedback_type"
                                                                 class="w-100 form-control mt-lg-1 mt-md-2" required>
@@ -291,8 +321,8 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <select name="feedback_type" id="feedback_type"
-                                                                class="w-100 form-control mt-lg-1 mt-md-2">
+                                                            <select name="bill_support" id="bill_support"
+                                                                class="w-100 form-control mt-lg-1 mt-md-2" required>
                                                                 <option value="1">I Support</option>
                                                                 <option value="0">I do not support</option>
                                                                 <option value="2">Other (specify below)</option>
@@ -303,7 +333,8 @@
                                                                 placeholder="Please provide your detailed feedback/review or suggestions regarding this bill" required></textarea>
                                                         </div>
                                                         <div class="col-12">
-                                                            <button type="submit" class="btn btn-main">Submit</button>
+                                                            <button type="submit"
+                                                                class="btn btn-main disable-button">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -311,6 +342,7 @@
                                         </div>
                                     @else
                                         <div class="row p-lg-3 p-sm-5 p-4 justify-content-center">
+                                            <h3 class="tab-title">Submit Bill Feedback & Review </h3>
                                             <div class="w-100 alert alert-warning font-weight-bold">
                                                 You can only submit a review/feedback for this bill to Parliament for
                                                 consideration once you are
@@ -330,15 +362,23 @@
                                 {{-- Bill Publications --}}
                                 <div class="tab-pane fade" id="bill-publications" role="tabpanel"
                                     aria-labelledby="bill-publications-tab">
-                                    <h3 class="tab-title">Bill Publications</h3>
+                                    <h3 class="tab-title">Bill News & Publications (0)</h3>
                                     <div class="product-review">
                                         <div class="media">
                                             <div class="media-body">
                                                 <div class="name">
-                                                    <h5>Jessica Brown</h5>
+                                                    <h5>
+                                                        <a href="#">
+                                                            Parliament to hold public participation hearings on Data Privacy
+                                                            And
+                                                            Protection Act, 2024
+                                                        </a>
+                                                    </h5>
                                                 </div>
                                                 <div class="date">
-                                                    <p>Mar 20, 2018</p>
+                                                    <p><i class="fa fa-clock-o"></i> 23 September 2024 08:10 pm | <i
+                                                            class="fa fa-newspaper-o"></i> News &
+                                                        Update</p>
                                                 </div>
                                                 <div class="review-comment">
                                                     <p>
@@ -346,6 +386,8 @@
                                                         accusantium doloremqe laudant tota rem ape
                                                         riamipsa eaque.
                                                     </p>
+                                                    <a class="nav-link text-white add-button" href="#"> Read More <i
+                                                            class="fa fa-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>

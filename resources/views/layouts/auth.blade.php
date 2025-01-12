@@ -27,20 +27,7 @@
     </section>
     @include('layouts.incls.footer')
     @include('layouts.incls.scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
 
-            const form = document.querySelector('form');
-            const button = document.querySelector('.disable-button');
-
-            if (button) {
-                form.addEventListener('submit', function(event) {
-                    button.disabled = true;
-                    button.innerHTML = 'Please wait...';
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>

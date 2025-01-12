@@ -1,5 +1,5 @@
  @if ($errors->any())
-     <div class="container-fluid mt-3">
+     <div class="container mt-3">
          <div class="alert alert-danger alert-dismissible">
              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
              <h4><i class="icon fa fa-exclamation-circle"></i> Form Validation Failed with
@@ -7,21 +7,6 @@
              <ul>
                  @foreach ($errors->all() as $error)
                      <li class="ml-3">{{ $error }}</li>
-                 @endforeach
-             </ul>
-         </div>
-     </div>
- @endif
-
- @if (isset($formErrors) && is_array($formErrors))
-     <div class="container-fluid mt-3">
-         <div class="alert alert-danger alert-dismissible">
-             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-             <h4><i class="icon fa fa-exclamation-circle"></i> Form Validation Failed with
-                 Error{{ count($formErrors) > 1 ? 's' : '' }}</h4>
-             <ul>
-                 @foreach ($formErrors as $field => $messages)
-                     <li class="ml-3">{{ $message }}</li>
                  @endforeach
              </ul>
          </div>
