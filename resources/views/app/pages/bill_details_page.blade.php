@@ -365,31 +365,12 @@
                                     <h3 class="tab-title">Bill News & Publications (0)</h3>
                                     <div class="product-review">
                                         <div class="media">
-                                            <div class="media-body">
-                                                <div class="name">
-                                                    <h5>
-                                                        <a href="#">
-                                                            Parliament to hold public participation hearings on Data Privacy
-                                                            And
-                                                            Protection Act, 2024
-                                                        </a>
-                                                    </h5>
-                                                </div>
-                                                <div class="date">
-                                                    <p><i class="fa fa-clock-o"></i> 23 September 2024 08:10 pm | <i
-                                                            class="fa fa-newspaper-o"></i> News &
-                                                        Update</p>
-                                                </div>
-                                                <div class="review-comment">
-                                                    <p>
-                                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                                        accusantium doloremqe laudant tota rem ape
-                                                        riamipsa eaque.
-                                                    </p>
-                                                    <a class="nav-link text-white add-button" href="#"> Read More <i
-                                                            class="fa fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
+
+                                            <!-- Loading block  -->
+                                            @include('layouts.incls.loading')
+
+                                            <!-- bill listing block  -->
+                                            <div id="publications-listing-block"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -405,4 +386,64 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+@endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+
+            fetchPublications(1);
+
+            $(document).on('click', '.pagination-link', function(e) {
+                e.preventDefault();
+
+                const url = $(this).attr('href');
+
+                if (url) {
+                    const page = new URL(url).searchParams.get(
+                        'page');
+                    fetchPublications(page);
+                }
+            });
+        });
+
+        function fetchPublications(page) {
+            const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
+            const $publicationListing = $('#publications-listing-block');
+            const $loading = $('#loading');
+
+            $.ajax({
+                url: `${remoteBaseUrl}/api/get-bill-publications`,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    bill_id: {{ $id }},
+                    paginate: 5,
+                    page: page,
+                    with_html: true
+                },
+                beforeSend: function() {
+                    $loading.show();
+                    $publicationListing.hide();
+                },
+                success: function(response) {
+                    console.log('Response:', response);
+                    if (response.status && response.data.html) {
+                        $publicationListing.html(response.data.html);
+                    } else {
+                        console.error('Error: Invalid response format.');
+                    }
+                },
+                complete: function() {
+                    $loading.hide();
+                    $publicationListing.show();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching bill publications:', xhr.responseJSON?.errors || error);
+                }
+            });
+        }
+    </script>
 @endpush
