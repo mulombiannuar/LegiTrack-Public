@@ -120,9 +120,10 @@ class PagesController extends Controller
     {
         $billVersionData = $this->apiService->getBillVersion($billVersionId);
         $billVersion = $billVersionData['status'] ? $billVersionData['data']['data'] : [];
-        $title = $billVersionData['status'] ? $billVersion['bill_title'] . ' Bill Version ' . $billVersion['version_number'] : 'Bill Version Details';
+        $title = $billVersionData['status']
+            ? $billVersion['bill_title'] . ' Bill Version ' . $billVersion['version_number']
+            : 'Bill Version Details Not Found';
 
-        //dd($billVersion);
         $pageData = [
             'page_name' => 'pages',
             'title' => $title,
@@ -130,6 +131,30 @@ class PagesController extends Controller
         ];
         return view('app.pages.bill_version_page', $pageData);
     }
+
+    public function media(): View
+    {
+        $pageData = [
+            'page_name' => 'pages',
+            'title' => 'News & Publications',
+        ];
+        return view('app.pages.media_page', $pageData);
+    }
+
+    public function getMediaBySlug(string $slug): View
+    {
+        $publicationData = $this->apiService->getPublication($slug);
+        $publication = $publicationData['status'] ? $publicationData['data']['data'] : [];
+        $title = $publicationData['status'] ? $publication['title']  : 'Publication not found';
+
+        $pageData = [
+            'title' => $title,
+            'page_name' => 'pages',
+            'publication' => $publication
+        ];
+        return view('app.pages.single_media_page', $pageData);
+    }
+
 
     private function getPageData(): array
     {

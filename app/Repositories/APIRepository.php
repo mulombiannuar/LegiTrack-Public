@@ -277,6 +277,34 @@ class APIRepository implements APIRepositoryInterface
         }
     }
 
+    public function getPublications(array $params): array
+    {
+        try {
+            return $this->apiCallService->post(
+                'api/get-bill-publications',
+                'Failed to bill publications',
+                $params
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching bill publications: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
+    public function getPublication(string $slug): array
+    {
+        try {
+            $slug = strtolower($slug);
+            return $this->apiCallService->get(
+                "api/get-bill-publication/{$slug}",
+                "Failed to bill publication with slug : $slug"
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError("Error fetching bill publication with slug : {$slug}" . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
     public function updateFeedback(array $data, int $id) {}
     public function deleteFeedback(int $id) {}
 }

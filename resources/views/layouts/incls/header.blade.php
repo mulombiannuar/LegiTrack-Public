@@ -25,7 +25,8 @@
                                      Media <span><i class="fa fa-angle-down"></i></span>
                                  </a>
                                  <ul class="dropdown-menu">
-                                     <li><a class="dropdown-item" href="#">News</a></li>
+                                     <li><a class="dropdown-item" href="{{ route('media') }}">News & Publications</a>
+                                     </li>
                                      <li><a class="dropdown-item" href="#">Downloads</a></li>
                                  </ul>
                              </li>

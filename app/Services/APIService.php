@@ -101,4 +101,13 @@ class APIService
     {
         return $this->apiRepository->getBillFeedbacks($billId, $userId);
     }
+
+    public function getPublication(string $slug): array
+    {
+        return $this->apiRepository->getPublication($slug);
+    }
+    public function getPublications(array $params): array
+    {
+        return $this->apiRepository->getPublications($params);
+    }
 }
