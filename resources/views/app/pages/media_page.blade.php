@@ -37,8 +37,10 @@
                             <!-- Widget Header -->
                             <h5 class="widget-header">Categories</h5>
                             <ul class="category-list">
-                                <li><a href="#">Publications <span class="float-right">(2)</span></a></li>
-                                <li><a href="#">News & Updates <span class="float-right">(5)</span></a></li>
+                                <li><a href="javascript:void(0);" onclick="fetchPublications(1, 1)">Publications <span
+                                            class="float-right"></span></a></li>
+                                <li><a href="javascript:void(0);" onclick="fetchPublications(1, 0)">News & Updates <span
+                                            class="float-right"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -67,7 +69,7 @@
             });
         });
 
-        function fetchPublications(page = 1) {
+        function fetchPublications(page = 1, category = null) {
             const remoteBaseUrl = "{{ config('app.remote_base_url') }}";
             const $publicationsListing = $('#publications-listing-block');
             const $loading = $('#loading');
@@ -83,12 +85,14 @@
                     page: page,
                     with_html: true,
                     blog_listing: true,
+                    category_id: category
                 },
                 beforeSend: function() {
                     $loading.show();
                     $publicationsListing.hide();
                 },
                 success: function(response) {
+                    // console.log(response)
                     if (response.status && response.data.html) {
                         $publicationsListing.html(response.data.html);
                     } else {

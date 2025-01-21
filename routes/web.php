@@ -5,6 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [PagesController::class, 'homePage'])->name('home');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
 //Auth routes
 Route::middleware('redirect.if.authenticated')->group(function () {
 
@@ -21,27 +24,25 @@ Route::middleware('redirect.if.authenticated')->group(function () {
     Route::post('reset-password', [AuthController::class, 'updatePassword'])->name('password.update');
 });
 
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
 //Pages routes
-Route::controller(PagesController::class)->group(function () {
+Route::controller(PagesController::class)
+    ->middleware('api.available')
+    ->group(function () {
 
-    Route::middleware('api.available')->group(function () {
         Route::get('search', 'searchResults')->name('search');
         Route::get('contact-us', 'contactUs')->name('contact-us');
         Route::get('media', 'media')->name('media');
+        Route::get('about-us', 'aboutPage')->name('about-us');
         Route::get('media/{slug}', 'getMediaBySlug')->name('get-media');
         Route::get('/{id}/bill-version', 'getBillVersion')->name('bill-version');
         Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
     });
 
-    Route::get('/', 'homePage')->name('home');
-});
-
 //API routes
 Route::controller(APIController::class)
     ->middleware('api.available')
     ->group(function () {
+
         Route::post('get-wards', 'getWards')->name('get-wards');
         Route::post('get-sub-counties', 'getSubCounties')->name('get-sub-counties');
         Route::post('get-parliamentary-house-terms', 'getParliamentaryHouseTerms')->name('get-parliamentary-house-terms');

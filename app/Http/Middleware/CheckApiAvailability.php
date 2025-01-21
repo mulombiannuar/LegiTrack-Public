@@ -21,7 +21,11 @@ class CheckApiAvailability
         // Check if the API is reachable using the isApiReachable method
         if (!$this->apiService->isApiReachable()) {
             // Redirect to a default page if the API is not reachable
-            return Redirect::route('home')->with('danger', 'The API is currently unavailable.');
+            return Redirect::route('home')
+                ->with(
+                    'danger',
+                    'Service is temporarily unavailable. Please check back soon'
+                );
         }
 
         return $next($request);

@@ -169,7 +169,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getBillVersions(int $billId): array
     {
         try {
@@ -231,7 +230,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getWards(int $subCountyId): array
     {
         try {
@@ -245,7 +243,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function submitFeedback(array $data): array
     {
         try {
@@ -261,7 +258,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getBillFeedbacks(int $billId, int $userId = null): array
     {
         try {
@@ -276,7 +272,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getPublications(array $params): array
     {
         try {
@@ -290,7 +285,6 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
     public function getPublication(string $slug): array
     {
         try {
@@ -301,6 +295,18 @@ class APIRepository implements APIRepositoryInterface
             );
         } catch (\Exception $e) {
             $this->logsService->logError("Error fetching bill publication with slug : {$slug}" . $e->getMessage(), $e);
+            return [];
+        }
+    }
+    public function getAboutStats(): array
+    {
+        try {
+            return $this->apiCallService->get(
+                'api/get-about-stats',
+                'Failed to about us stats',
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching about us stats: ' . $e->getMessage(), $e);
             return [];
         }
     }

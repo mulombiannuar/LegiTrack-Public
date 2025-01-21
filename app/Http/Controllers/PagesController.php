@@ -38,6 +38,17 @@ class PagesController extends Controller
         );
     }
 
+    public function aboutPage(): View
+    {
+        $pageData = [
+            'page_name' => 'pages',
+            'title' => 'About Us',
+            'stats' => $this->apiService->getAboutStats(),
+        ];
+        return view('app.pages.about_page', $pageData);
+    }
+
+
     public function searchResults(SearchBillsRequest $request): View
     {
         $searchQuery = ($request->isMethod('get') && count($request->except('_token')) > 0)

@@ -110,4 +110,8 @@ class APIService
     {
         return $this->apiRepository->getPublications($params);
     }
+    public function getAboutStats(): array
+    {
+        return $this->apiRepository->getAboutStats()['data']['data'];
+    }
 }

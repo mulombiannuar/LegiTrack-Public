@@ -26,4 +26,5 @@ interface APIRepositoryInterface
     public function getBillFeedbacks(int $billId, int $userId = null): array;
     public function getPublication(string $slug): array;
     public function getPublications(array $params): array;
+    public function getAboutStats(): array;
 }
