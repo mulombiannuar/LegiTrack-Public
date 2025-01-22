@@ -114,4 +114,8 @@ class APIService
     {
         return $this->apiRepository->getAboutStats()['data']['data'];
     }
+    public function saveContact(array $params): array
+    {
+        return $this->apiRepository->saveContact($params);
+    }
 }

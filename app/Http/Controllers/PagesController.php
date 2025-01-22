@@ -48,6 +48,14 @@ class PagesController extends Controller
         return view('app.pages.about_page', $pageData);
     }
 
+    public function contactPage(): View
+    {
+        $pageData = [
+            'page_name' => 'pages',
+            'title' => 'Contact Us',
+        ];
+        return view('app.pages.contact_page', $pageData);
+    }
 
     public function searchResults(SearchBillsRequest $request): View
     {

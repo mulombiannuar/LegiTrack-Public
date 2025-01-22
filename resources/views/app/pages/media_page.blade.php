@@ -1,18 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <section class="page-title">
-        <!-- Container Start -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2 text-center">
-                    <!-- Title text -->
-                    <h3>{{ $title }}</h3>
-                </div>
-            </div>
-        </div>
-        <!-- Container End -->
-    </section>
+    @include('app.pages.partials.page_title')
     <section class="blog section">
         <div class="container">
             <div class="row">

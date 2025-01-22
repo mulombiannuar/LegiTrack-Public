@@ -34,7 +34,7 @@
                                  <a class="nav-link" href="#">Public Feedbacks</a>
                              </li>
                              <li class="nav-item">
-                                 <a class="nav-link" href="#">Contact Us</a>
+                                 <a class="nav-link" href="{{ route('contact-us') }}">Contact Us</a>
                              </li>
                          </ul>
                          <ul class="navbar-nav ml-auto mt-10">

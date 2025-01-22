@@ -333,8 +333,8 @@
                                                                 placeholder="Please provide your detailed feedback/review or suggestions regarding this bill" required></textarea>
                                                         </div>
                                                         <div class="col-12">
-                                                            <button type="submit"
-                                                                class="btn btn-main disable-button">Submit</button>
+                                                            <button type="submit" class="btn btn-main disable-button">Submit
+                                                                Message</button>
                                                         </div>
                                                     </form>
                                                 </div>

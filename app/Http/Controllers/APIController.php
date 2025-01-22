@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmitBillFeedbackRequest;
+use App\Http\Requests\SubmitContactRequest;
 use App\Services\APIService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class APIController extends Controller
@@ -62,7 +64,7 @@ class APIController extends Controller
         return response()->json(['html' => $view]);
     }
 
-    public function submitBillFeedback(SubmitBillFeedbackRequest $request)
+    public function submitBillFeedback(SubmitBillFeedbackRequest $request): RedirectResponse
     {
         $requestData = $request->except(['_method', '_token']);
         $billSubmitted = $this->apiService->submitFeedback($requestData);
@@ -73,6 +75,22 @@ class APIController extends Controller
         $trackingNumber = $billSubmitted['data']['data']['tracking_number'];
         return back()->with('success', "Your feedback with reference number {$trackingNumber} has been successfully submitted to Parliament for review, and a confirmation email has been sent to you. Thank you for participating in this bill");
     }
+
+    public function submitContact(SubmitContactRequest $request): RedirectResponse
+    {
+        if (!empty($request->address)) {
+            return redirect()->back()->with('error', 'Spam detected');
+        }
+
+        $requestData = $request->except(['_method', '_token']);
+        $contactSubmitted = $this->apiService->saveContact($requestData);
+
+        if (empty($contactSubmitted || !$contactSubmitted['status'])) {
+            return back()->with('warning', "An error has occured while submitting your message. Please try again later");
+        }
+        return back()->with('success', "Your message has been successfully submitted for review, and a confirmation email has been sent to you.");
+    }
+
     public function updateBillFeedback(Request $request, string $id) {}
     public function deleteBillFeedback(Request $request, string $id) {}
 }

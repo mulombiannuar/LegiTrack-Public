@@ -30,7 +30,7 @@ Route::controller(PagesController::class)
     ->group(function () {
 
         Route::get('search', 'searchResults')->name('search');
-        Route::get('contact-us', 'contactUs')->name('contact-us');
+        Route::get('contact-us', 'contactPage')->name('contact-us');
         Route::get('media', 'media')->name('media');
         Route::get('about-us', 'aboutPage')->name('about-us');
         Route::get('media/{slug}', 'getMediaBySlug')->name('get-media');
@@ -44,6 +44,7 @@ Route::controller(APIController::class)
     ->group(function () {
 
         Route::post('get-wards', 'getWards')->name('get-wards');
+        Route::post('submit-contact', 'submitContact')->name('submit-contact');
         Route::post('get-sub-counties', 'getSubCounties')->name('get-sub-counties');
         Route::post('get-parliamentary-house-terms', 'getParliamentaryHouseTerms')->name('get-parliamentary-house-terms');
         Route::post('get-parliamentary-term-sessions', 'getParliamentaryTermSessions')->name('get-parliamentary-term-sessions');

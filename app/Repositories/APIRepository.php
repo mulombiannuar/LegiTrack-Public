@@ -243,14 +243,14 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-    public function submitFeedback(array $data): array
+    public function submitFeedback(array $params): array
     {
         try {
-            $data['user_id'] = Auth::id();
+            $params['user_id'] = Auth::id();
             return $this->apiCallService->post(
                 'api/save-bill-feedback',
                 'Failed to submit bill feedback',
-                $data,
+                $params,
                 session('api_token')
             );
         } catch (\Exception $e) {
@@ -307,6 +307,20 @@ class APIRepository implements APIRepositoryInterface
             );
         } catch (\Exception $e) {
             $this->logsService->logError('Error fetching about us stats: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+    public function saveContact(array $params): array
+    {
+        try {
+            $params['user_id'] = Auth::id();
+            return $this->apiCallService->post(
+                'api/save-contact',
+                'Failed to submit contact details',
+                $params
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error saving contact details: ' . $e->getMessage(), $e);
             return [];
         }
     }
