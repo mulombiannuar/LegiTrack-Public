@@ -324,7 +324,18 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
-
+    public function getDownload(string $slug): array
+    {
+        try {
+            return $this->apiCallService->get(
+                "api/get-download/{$slug}",
+                'Failed to fetch download details'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching download details: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
     public function updateFeedback(array $data, int $id) {}
     public function deleteFeedback(int $id) {}
 }

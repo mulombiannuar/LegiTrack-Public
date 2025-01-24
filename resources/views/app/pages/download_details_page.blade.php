@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @if ($bill_version)
+        @if ($download)
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -18,14 +18,14 @@
         @else
             <div class="row p-lg-3 p-sm-5 p-4 justify-content-center">
                 <div class="w-100 alert alert-warning font-weight-bold">
-                    No bills version content found. Please check back later
+                    No download content found. Please check back later
                 </div>
             </div>
         @endif
     </div>
 @endsection
 
-@if ($bill_version)
+@if ($download)
     @push('styles')
         <style>
             .card {
@@ -53,7 +53,7 @@
         <script src="{{ asset('lib/js/dflip.min.js') }}" type="text/javascript"></script>
         <script>
             jQuery(document).ready(function() {
-                var pdf = "{{ 'data:application/pdf;base64,' . $bill_version['version_url'] }}";
+                var pdf = "{{ $download['media_file'] }}";
                 var options = {
                     height: 700,
                     duration: 700,

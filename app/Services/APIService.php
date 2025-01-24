@@ -118,4 +118,8 @@ class APIService
     {
         return $this->apiRepository->saveContact($params);
     }
+    public function getDownload(string $slug): array
+    {
+        return $this->apiRepository->getDownload($slug);
+    }
 }

@@ -27,7 +27,7 @@
                                  <ul class="dropdown-menu">
                                      <li><a class="dropdown-item" href="{{ route('media') }}">News & Publications</a>
                                      </li>
-                                     <li><a class="dropdown-item" href="#">Downloads</a></li>
+                                     <li><a class="dropdown-item" href="{{ route('downloads') }}">Downloads</a></li>
                                  </ul>
                              </li>
                              <li class="nav-item">

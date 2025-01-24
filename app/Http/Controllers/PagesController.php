@@ -151,7 +151,7 @@ class PagesController extends Controller
         return view('app.pages.bill_version_page', $pageData);
     }
 
-    public function media(): View
+    public function mediaPage(): View
     {
         $pageData = [
             'page_name' => 'pages',
@@ -174,6 +174,28 @@ class PagesController extends Controller
         return view('app.pages.single_media_page', $pageData);
     }
 
+    public function downloadsPage(): View
+    {
+        $pageData = [
+            'page_name' => 'downloads',
+            'title' => 'Downloads',
+        ];
+        return view('app.pages.downloads_page', $pageData);
+    }
+
+    public function getDownloadBySlug(string $slug): View
+    {
+        $downloadData = $this->apiService->getDownload($slug);
+        $download = $downloadData['status'] ? $downloadData['data']['data'] : [];
+        $title = $downloadData['status'] ? $download['name'] : 'Download Details Not Found';
+
+        $pageData = [
+            'title' => $title,
+            'page_name' => 'pages',
+            'download' => $download
+        ];
+        return view('app.pages.download_details_page', $pageData);
+    }
 
     private function getPageData(): array
     {

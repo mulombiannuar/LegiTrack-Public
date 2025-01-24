@@ -28,4 +28,5 @@ interface APIRepositoryInterface
     public function getPublications(array $params): array;
     public function getAboutStats(): array;
     public function saveContact(array $params): array;
+    public function getDownload(string $slug): array;
 }

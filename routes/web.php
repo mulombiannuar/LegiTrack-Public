@@ -31,8 +31,10 @@ Route::controller(PagesController::class)
 
         Route::get('search', 'searchResults')->name('search');
         Route::get('contact-us', 'contactPage')->name('contact-us');
-        Route::get('media', 'media')->name('media');
+        Route::get('media', 'mediaPage')->name('media');
+        Route::get('downloads', 'downloadsPage')->name('downloads');
         Route::get('about-us', 'aboutPage')->name('about-us');
+        Route::get('downloads/{slug}', 'getDownloadBySlug')->name('get-download');
         Route::get('media/{slug}', 'getMediaBySlug')->name('get-media');
         Route::get('/{id}/bill-version', 'getBillVersion')->name('bill-version');
         Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
