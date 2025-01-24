@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-lg-12 pt-5 pt-lg-0">
                     <div class="about-content">
-                        <h3 class="font-weight-bold">About Legitrack</h3>
-                        <p>Welcome to Legitrack, a cutting-edge legislative tracking and feedback system designed to enhance
+                        <h3 class="font-weight-bold">About LegiTrack</h3>
+                        <p>Welcome to LegiTrack, a cutting-edge legislative tracking and feedback system designed to enhance
                             transparency, collaboration, and public engagement in the legislative process. Legitrack is
                             tailored to serve both internal users within the parliamentary system and the public, ensuring
                             that every voice matters in the journey of lawmaking.</p>
