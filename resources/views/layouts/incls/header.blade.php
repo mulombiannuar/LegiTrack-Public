@@ -19,6 +19,9 @@
                              <li class="nav-item">
                                  <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
                              </li>
+                             <li class="nav-item">
+                                 <a class="nav-link" href="{{ route('search') }}">Bills</a>
+                             </li>
                              <li class="nav-item dropdown dropdown-slide">
                                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="false">
@@ -31,14 +34,15 @@
                                  </ul>
                              </li>
                              <li class="nav-item">
-                                 <a class="nav-link" href="#">Public Feedbacks</a>
-                             </li>
-                             <li class="nav-item">
                                  <a class="nav-link" href="{{ route('contact-us') }}">Contact Us</a>
                              </li>
                          </ul>
                          <ul class="navbar-nav ml-auto mt-10">
                              @auth
+                                 <li class="nav-item">
+                                     <a class="nav-link login-button" target="_blank" href="/logs"><i
+                                             class="fa fa-history"></i> Logs</a>
+                                 </li>
                                  <li class="nav-item">
                                      <a class="nav-link text-white red-button" href="{{ route('logout') }}"
                                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i

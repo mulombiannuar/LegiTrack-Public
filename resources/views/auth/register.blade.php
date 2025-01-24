@@ -3,6 +3,7 @@
 @section('content')
     <form id="register-form" action="{{ route('register.store') }}" method="post">
         @csrf
+        <input type="text" name="address" id="address" style="display:none;" autocomplete="off">
         <input type="hidden" name="next" value="{{ $next }}">
         <fieldset class="p-4">
             <div class="row">
@@ -118,4 +119,14 @@
             });
         });
     </script>
+@endpush
+@push('styles')
+    <style>
+        #hidden_field {
+            visibility: hidden;
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+    </style>
 @endpush

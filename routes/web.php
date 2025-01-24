@@ -29,7 +29,7 @@ Route::controller(PagesController::class)
     ->middleware('api.available')
     ->group(function () {
 
-        Route::get('search', 'searchResults')->name('search');
+        Route::get('bills', 'searchResults')->name('search');
         Route::get('contact-us', 'contactPage')->name('contact-us');
         Route::get('media', 'mediaPage')->name('media');
         Route::get('downloads', 'downloadsPage')->name('downloads');

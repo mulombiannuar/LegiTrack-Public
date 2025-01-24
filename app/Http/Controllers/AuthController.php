@@ -65,6 +65,11 @@ class AuthController extends Controller
     }
     public function register(RegisterUserRequest $request): RedirectResponse
     {
+        // Honeypot validation: Reject if the hidden field is filled
+        if (!empty($request->address)) {
+            return redirect()->back()->with('error', 'Spam detected');
+        }
+
         $appName = config('app.name');
         $nextPage = $request->input('next', null);
         $requestData = $request->except(['_method', '_token', 'next']);
@@ -134,5 +139,8 @@ class AuthController extends Controller
 
         // Store the token in session or cookie for further authenticated requests
         session(['api_token' => $token]);
+
+        // Store the user role in session or cookie for further authenticated requests
+        session(['role' => $user['role']]);
     }
 }
