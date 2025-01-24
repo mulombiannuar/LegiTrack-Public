@@ -6,7 +6,7 @@ use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'homePage'])->name('home');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 //Auth routes
 Route::middleware('redirect.if.authenticated')->group(function () {

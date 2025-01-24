@@ -39,10 +39,12 @@
                          </ul>
                          <ul class="navbar-nav ml-auto mt-10">
                              @auth
-                                 <li class="nav-item">
-                                     <a class="nav-link login-button" target="_blank" href="/logs"><i
-                                             class="fa fa-history"></i> Logs</a>
-                                 </li>
+                                 @if (in_array(session('role'), [1, 2]))
+                                     <li class="nav-item">
+                                         <a class="nav-link login-button" target="_blank" href="/logs"><i
+                                                 class="fa fa-history"></i> Logs</a>
+                                     </li>
+                                 @endif
                                  <li class="nav-item">
                                      <a class="nav-link text-white red-button" href="{{ route('logout') }}"
                                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i

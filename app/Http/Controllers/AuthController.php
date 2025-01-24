@@ -131,11 +131,14 @@ class AuthController extends Controller
     private function handleUserLogin(array $userData): void
     {
         // Extract the token and user data
-        $token = $userData['data']['token'];
         $user = $userData['data']['user'];
+        $token = $userData['data']['token'];
 
         // Log the user into the current application using Sanctum
         Auth::loginUsingId($user['id'], true);
+
+        // Store the user data in session
+        session(['user' => $user]);
 
         // Store the token in session or cookie for further authenticated requests
         session(['api_token' => $token]);
