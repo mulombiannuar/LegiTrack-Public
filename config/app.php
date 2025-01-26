@@ -126,4 +126,7 @@ return [
     'iprs_enabled' => (bool) env('IPRS_ENABLED', true),
     'remote_base_url' => env('REMOTE_BASE_URL', 'http://localhost:8000'),
 
+    'jwt_key' => env('JWT_KEY', 'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ'),
+    'jwt_auth_enabled' => (bool) env('JWT_AUTH_ENABLED', true),
+
 ];

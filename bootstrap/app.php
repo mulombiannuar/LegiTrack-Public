@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckApiAvailability;
 use App\Http\Middleware\IsAdminMiddleware;
+use App\Http\Middleware\JwtMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,6 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+
+        // if (config('app.jwt_auth_enabled')) {
+        //     $middleware->api(prepend: [
+        //         JwtMiddleware::class,
+        //     ]);
+        // }
+
         $middleware->alias([
             'is_admin' => IsAdminMiddleware::class,
             'api.available' => CheckApiAvailability::class,
