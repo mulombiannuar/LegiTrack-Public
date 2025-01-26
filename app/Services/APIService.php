@@ -79,7 +79,10 @@ class APIService
     {
         return $this->apiRepository->getBillVersion($billVersionId);
     }
-
+    public function getHouseCategories(): array
+    {
+        return $this->apiRepository->getHouseCategories()['data']['data'];
+    }
     public function getCounties(): array
     {
         return $this->apiRepository->getCounties()['data']['data'];

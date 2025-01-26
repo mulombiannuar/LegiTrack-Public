@@ -26,6 +26,7 @@ class PagesController extends Controller
             'page_name' => 'pages',
             'title' => 'Home Page',
             'is_api_reachable' => $isaApiReachable,
+            'house_categories' => $this->apiService->getHouseCategories(),
         ];
 
         if (!$isaApiReachable) {
@@ -67,6 +68,7 @@ class PagesController extends Controller
             'page_name' => 'pages',
             'title' => 'Search Results',
             'search_query' => $searchQuery,
+            'house_categories' => $this->apiService->getHouseCategories(),
         ], $this->getPageData());
         //dd($pageData);
         return view('app.pages.search_page', $pageData);

@@ -13,8 +13,10 @@
                              <select name="house_category_id" id="house_category_id"
                                  class="w-100 form-control mt-lg-1 mt-md-2">
                                  <option class="mb-1" value="">Select Originating House</option>
-                                 <option value="1">National Assembly</option>
-                                 <option value="0">Senate</option>
+                                 @foreach ($house_categories as $house_category)
+                                     <option value="{{ $house_category['id'] }}">
+                                         {{ $house_category['name'] }}</option>
+                                 @endforeach
                              </select>
                          </div>
                          <div class="form-group col-xl-4 col-lg-3 col-md-6" id="parliamentary_term_block">

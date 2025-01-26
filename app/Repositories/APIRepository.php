@@ -92,6 +92,19 @@ class APIRepository implements APIRepositoryInterface
         }
     }
 
+    public function getHouseCategories(): array
+    {
+        try {
+            return $this->apiCallService->get(
+                'api/get-house-categories',
+                'Failed to fetch house categories'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching house categories: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
+
     public function getBillStages(): array
     {
         try {
