@@ -4,7 +4,7 @@
     <section class="blog single-blog section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     @if ($publication)
                         <article class="single-post">
                             <h2>{{ ucwords($publication['title']) }}</h2>
@@ -44,26 +44,6 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-lg-4">
-                    <div class="sidebar">
-                        <!-- Search Widget -->
-                        <div class="widget search p-0">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="expire" placeholder="Search...">
-                                <span class="input-group-addon"><i class="fa fa-search px-3"></i></span>
-                            </div>
-                        </div>
-                        <!-- Category Widget -->
-                        <div class="widget category">
-                            <!-- Widget Header -->
-                            <h5 class="widget-header">Categories</h5>
-                            <ul class="category-list">
-                                <li><a href="#">Publications <span class="float-right">(2)</span></a></li>
-                                <li><a href="#">News & Updates <span class="float-right">(5)</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -81,7 +61,7 @@
             jQuery(document).ready(function() {
                 var pdf = "{{ $publication['media_file'] }}";
                 var options = {
-                    height: 500,
+                    height: 700,
                     duration: 700,
                     backgroundColor: "#888",
                 };
