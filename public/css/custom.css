@@ -19,3 +19,8 @@ body {
     padding: 8px 20px !important;
     display: inline-block;
 }
+
+.p-150 {
+    padding-left: 150px;
+    padding-right: 150px;
+}

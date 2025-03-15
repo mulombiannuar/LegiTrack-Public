@@ -76,15 +76,25 @@ class PagesController extends Controller
 
     public function sponsorBills(Request $request): View
     {
-        $request->validate([
-            'sponsor_id' => 'required|integer|max:11',
-        ]);
+        // $request->validate([
+        //     'sponsor_id' => 'required|integer|max:11',
+        // ]);
 
-        $sponsorId = $request->input('sponsor_id');
-        $sponsor = $this->apiService->getUserById($sponsorId);
+        $sponsorId = (int) $request->input('sponsor_id');
+        $sponsorStatus = $this->apiService->getUserById($sponsorId);
 
-        $title = $sponsor['name'] . ' Sponsored Published Bills';
-        $description = "Showing results for published bills sponsored by " . ucwords($sponsor['full_name']);
+        if (!$sponsorStatus['status']) {
+            return view('app.pages.bill_not_found', [
+                'title' => 'Bill not found',
+                'page_name' => 'pages',
+            ]);
+        }
+
+        $sponsor = $this->apiService->getUserById($sponsorId)['data']['data'];
+        $billSponsorPositions = $this->apiService->getUserPositions($sponsor['id']);
+
+        $title = $sponsor['full_name'] . ' Sponsored Published Bills';
+        $description = "Showing results of published bills sponsored by " . ucwords($sponsor['full_name']);
 
         $searchQuery = [
             'sponsor_id' => $sponsorId,
@@ -96,8 +106,11 @@ class PagesController extends Controller
         $pageData = [
             'title' => $title,
             'page_name' => 'pages',
-            'description' => $description,
+            'search_title' => $title,
+            'search_desc' => $description,
             'search_query' => $searchQuery,
+            'bill_sponsor' => $sponsor,
+            'user_positions' => $billSponsorPositions['data']
         ];
         //dd($pageData);
         return view('app.pages.sponsor_bills_page', $pageData);
@@ -115,7 +128,7 @@ class PagesController extends Controller
 
         $billId = (int) $billData['id'];
 
-        $billSponsor = $this->apiService->getUserById($bill['sponsor_id']);
+        $billSponsor = $this->apiService->getUserById($bill['sponsor_id'])['data']['data'];
 
         $billVersionsData = $this->apiService->getBillVersions($billId);
         $billVersions = $billVersionsData['status'] ? $billVersionsData['data']['data'] : [];

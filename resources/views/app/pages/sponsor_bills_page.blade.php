@@ -10,10 +10,18 @@
     <section class="section-sm">
         <div class="container">
             @include('app.pages.partials.search_header')
+            <div class="widget user text-center">
+                <img width="300px;" class="rounded-circle img-fluid px-5" src="{{ $bill_sponsor['profile_image'] }}"
+                    alt="{{ ucwords($bill_sponsor['full_name']) }}">
+                <h4><a href="#">{{ ucwords($bill_sponsor['full_name']) }}</a></h4>
+                @if ($user_positions)
+                    <p class="member-time p-150">{{ $user_positions }}</p>
+                @endif
+            </div>
+
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <!-- category search filter  -->
-                    @include('app.pages.partials.category_search_filter')
 
                     <!-- Loading block  -->
                     @include('layouts.incls.loading')
@@ -67,8 +75,8 @@
                 success: function(response) {
                     console.log('Response:', response);
                     if (response.status && response.data.html) {
-                        $searchDesc.text({{ $search_desc }});
-                        $searchTitle.text({{ $search_title }});
+                        $searchDesc.text("{{ addslashes($search_desc) }}");
+                        $searchTitle.text("{{ addslashes($search_title) }}");
                         $billsListing.html(response.data.html);
                     } else {
                         console.error('Error: Invalid response format.');

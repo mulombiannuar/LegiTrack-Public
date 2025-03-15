@@ -30,6 +30,7 @@ Route::controller(PagesController::class)
     ->group(function () {
 
         Route::get('bills', 'searchResults')->name('search');
+        Route::get('sponsor-bills', 'sponsorBills')->name('sponsor-bills');
         Route::get('contact-us', 'contactPage')->name('contact-us');
         Route::get('media', 'mediaPage')->name('media');
         Route::get('downloads', 'downloadsPage')->name('downloads');

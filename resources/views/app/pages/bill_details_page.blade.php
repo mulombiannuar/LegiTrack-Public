@@ -57,11 +57,7 @@
         .product-table tr th {
             padding-left: 25px;
         }
-
-        .p-150 {
-            padding-left: 150px;
-            padding-right: 150px;
-        }
+      
     </style>
 @endpush
 @extends('layouts.main')
@@ -201,7 +197,8 @@
                                             <p class="member-time p-150">{{ $user_positions }}</p>
                                         @endif
                                         <ul class="list-inline mt-20">
-                                            <li class="list-inline-item"><a href="#"
+                                            <li class="list-inline-item"><a
+                                                    href="{{ route('sponsor-bills', ['sponsor_id' => $bill_sponsor['id']]) }}"
                                                     class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">View
                                                     All Bills Sponsored</a>
                                             </li>

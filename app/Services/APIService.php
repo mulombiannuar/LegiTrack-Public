@@ -67,7 +67,7 @@ class APIService
 
     public function getUserById(int $userId): array
     {
-        return $this->apiRepository->getUserById($userId)['data']['data'];
+        return $this->apiRepository->getUserById($userId);
     }
     public function getUserPositions(int $userId): array
     {
