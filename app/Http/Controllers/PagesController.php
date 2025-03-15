@@ -123,7 +123,7 @@ class PagesController extends Controller
         $billFeedbacks = $this->apiService->getBillFeedbacks($billId, userId());
         $billFeedbacks = $billFeedbacks['status'] ? $billFeedbacks['data']['data'] : [];
 
-        //dd($billFeedbacks);
+        $billSponsorPositions = $this->apiService->getUserPositions($billSponsor['id']);
 
         $pageData = [
             'bill' => $billData,
@@ -133,6 +133,7 @@ class PagesController extends Controller
             'bill_versions' => $billVersions,
             'bill_feedbacks' => $billFeedbacks,
             'bill_completed_stages' => $billCompletedStages,
+            'user_positions' => $billSponsorPositions['data']
         ];
         return view('app.pages.bill_details_page', $pageData);
     }

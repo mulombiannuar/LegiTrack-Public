@@ -57,6 +57,11 @@
         .product-table tr th {
             padding-left: 25px;
         }
+
+        .p-150 {
+            padding-left: 150px;
+            padding-right: 150px;
+        }
     </style>
 @endpush
 @extends('layouts.main')
@@ -192,7 +197,9 @@
                                             src="{{ $bill_sponsor['profile_image'] }}"
                                             alt="{{ ucwords($bill_sponsor['full_name']) }}">
                                         <h4><a href="#">{{ ucwords($bill_sponsor['full_name']) }}</a></h4>
-                                        <p class="member-time">Chairperson, Budget And Appropriations Committee</p>
+                                        @if ($user_positions)
+                                            <p class="member-time p-150">{{ $user_positions }}</p>
+                                        @endif
                                         <ul class="list-inline mt-20">
                                             <li class="list-inline-item"><a href="#"
                                                     class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">View

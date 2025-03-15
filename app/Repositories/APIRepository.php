@@ -218,6 +218,18 @@ class APIRepository implements APIRepositoryInterface
             return [];
         }
     }
+    public function getUserPositions(int $userId): array
+    {
+        try {
+            return $this->apiCallService->get(
+                "api/get-user-positions/{$userId}",
+                'Failed to fetch user position details'
+            );
+        } catch (\Exception $e) {
+            $this->logsService->logError('Error fetching user position details: ' . $e->getMessage(), $e);
+            return [];
+        }
+    }
     public function getCounties(): array
     {
         try {
