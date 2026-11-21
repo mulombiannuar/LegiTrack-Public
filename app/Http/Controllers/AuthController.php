@@ -12,25 +12,22 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Services\APIService;
 use App\Services\AuthService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    protected $apiService;
-    protected $authService;
+    public function __construct(
+        private readonly APIService $apiService,
+        private readonly AuthService $authService,
+    ) {}
 
-    public function __construct(APIService $apiService, AuthService $authService)
-    {
-        $this->apiService = $apiService;
-        $this->authService = $authService;
-    }
     public function showLoginForm(): View
     {
         return view('auth.login', [
             'title' => 'Login',
-            'next' => request()->query('next', null)
+            'next' => request()->query('next', null),
         ]);
     }
 
@@ -40,11 +37,7 @@ class AuthController extends Controller
         $requestData = $request->except(['_method', '_token', 'next']);
         $userData = $this->authService->login($requestData);
 
-        if (empty($userData)) {
-            return back()->with('warning', 'Error occurred while logging in. Please try again.');
-        }
-
-        if (!$userData['status']) {
+        if (empty($userData['status'])) {
             return back()->with('warning', 'Invalid credentials. Please try again.');
         }
 
@@ -63,10 +56,11 @@ class AuthController extends Controller
             'next' => request()->query('next', null),
         ]);
     }
+
     public function register(RegisterUserRequest $request): RedirectResponse
     {
         // Honeypot validation: Reject if the hidden field is filled
-        if (!empty($request->address)) {
+        if (! empty($request->address)) {
             return redirect()->back()->with('error', 'Spam detected');
         }
 
@@ -75,7 +69,7 @@ class AuthController extends Controller
         $requestData = $request->except(['_method', '_token', 'next']);
         $userData = $this->authService->register($requestData);
 
-        if (empty($userData || !$userData['status'])) {
+        if (empty($userData['status'])) {
             return back()->with('warning', "An error has occured while creating your $appName account. Please try again later");
         }
 
@@ -94,9 +88,10 @@ class AuthController extends Controller
     public function sendResetLinkEmail(SendPasswordResetLinkRequest $request): RedirectResponse
     {
         $linkSent = $this->authService->sendResetLinkEmail(['email' => $request->email]);
-        if (!$linkSent) {
+        if (! $linkSent) {
             return back()->with('warning', 'We could not find a user with that email address or account not active. Please try again');
         }
+
         return back()->with('success', 'A password reset link has been sent to your email. Please check your inbox and click the link to reset your password');
     }
 
@@ -105,7 +100,7 @@ class AuthController extends Controller
         return view('auth.reset_password', [
             'title' => 'Reset Password',
             'email' => $request->email,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
@@ -113,18 +108,20 @@ class AuthController extends Controller
     {
         $requestData = $request->except(['_method', '_token']);
         $passwordUpdated = $this->authService->updatePassword($requestData);
-        if (!$passwordUpdated) {
+        if (! $passwordUpdated) {
             return back()->with('warning', 'There was a problem while updating your account password. Please try again');
         }
+
         return redirect(route('login'))->with('success', 'Your account password was successfully updated');
     }
 
     public function logout(Request $request): RedirectResponse
     {
         $userLoggedOut = $this->authService->logout();
-        if (!$userLoggedOut) {
+        if (! $userLoggedOut) {
             return back()->with('warning', 'There was a problem while logging out your account. Please try again');
         }
+
         return back()->with('success', 'You are logged out successfully');
     }
 

@@ -39,7 +39,7 @@
             }
 
             .card-header {
-                background-color: #28a745;
+                background-color: #26447b;
                 color: #fff;
                 padding: 10px;
                 font-weight: bold;

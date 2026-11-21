@@ -13,32 +13,31 @@ use Illuminate\Http\Request;
 
 class APIController extends Controller
 {
-    protected $apiService;
-
-    public function __construct(APIService $apiService)
-    {
-        $this->apiService = $apiService;
-    }
+    public function __construct(
+        private readonly APIService $apiService,
+    ) {}
 
     public function getParliamentaryHouseTerms(Request $request): JsonResponse
     {
         $houseCategoryId = (int) $request->house_category_id;
-        $parliamentaryTerms = $this->apiService->getParliamentaryHouseTerms(houseCategoryId: $houseCategoryId)['data'];
+        $parliamentaryTerms = $this->apiService->getParliamentaryHouseTerms(houseCategoryId: $houseCategoryId)['data'] ?? [];
         $view = view(
             'partials.loaded_parliamentary_terms',
             ['parliamentary_terms' => $parliamentaryTerms]
         )->render();
+
         return response()->json(['html' => $view]);
     }
 
     public function getParliamentaryTermSessions(Request $request): JsonResponse
     {
         $parliamentaryTermId = (int) $request->parliamentary_term_id;
-        $parliamentarySessions = $this->apiService->getParliamentaryTermSessions($parliamentaryTermId)['data'];
+        $parliamentarySessions = $this->apiService->getParliamentaryTermSessions($parliamentaryTermId)['data'] ?? [];
         $view = view(
             'partials.loaded_parliamentary_sessions',
             ['parliamentary_sessions' => $parliamentarySessions]
         )->render();
+
         return response()->json(['html' => $view]);
     }
 
@@ -50,6 +49,7 @@ class APIController extends Controller
             'partials.loaded_sub_counties',
             ['sub_counties' => $subCounties]
         )->render();
+
         return response()->json(['html' => $view]);
     }
 
@@ -61,6 +61,7 @@ class APIController extends Controller
             'partials.loaded_wards',
             ['wards' => $wards]
         )->render();
+
         return response()->json(['html' => $view]);
     }
 
@@ -69,29 +70,32 @@ class APIController extends Controller
         $requestData = $request->except(['_method', '_token']);
         $billSubmitted = $this->apiService->submitFeedback($requestData);
 
-        if (!$billSubmitted['status'] || empty($billSubmitted)) {
-            return back()->with('warning', "An error has occured while submitting your bill feedback. Please logout and login again to submit your feedback");
+        if (empty($billSubmitted['status'])) {
+            return back()->with('warning', 'An error has occured while submitting your bill feedback. Please logout and login again to submit your feedback');
         }
-        $trackingNumber = $billSubmitted['data']['data']['tracking_number'];
+        $trackingNumber = data_get($billSubmitted, 'data.data.tracking_number', '');
+
         return back()->with('success', "Your feedback with reference number {$trackingNumber} has been successfully submitted to Parliament for review, and a confirmation email has been sent to you. Thank you for participating in this bill");
     }
 
     public function submitContact(SubmitContactRequest $request): RedirectResponse
     {
         // Honeypot validation: Reject if the hidden field is filled
-        if (!empty($request->address)) {
+        if (! empty($request->address)) {
             return redirect()->back()->with('error', 'Spam detected');
         }
 
         $requestData = $request->except(['_method', '_token']);
         $contactSubmitted = $this->apiService->saveContact($requestData);
 
-        if (!$contactSubmitted['status'] || empty($contactSubmitted)) {
-            return back()->with('warning', "An error has occured while submitting your message. Please try again later");
+        if (empty($contactSubmitted['status'])) {
+            return back()->with('warning', 'An error has occured while submitting your message. Please try again later');
         }
-        return back()->with('success', "Your message has been successfully submitted for review, and a confirmation email has been sent to you.");
+
+        return back()->with('success', 'Your message has been successfully submitted for review, and a confirmation email has been sent to you.');
     }
 
     public function updateBillFeedback(Request $request, string $id) {}
+
     public function deleteBillFeedback(Request $request, string $id) {}
 }

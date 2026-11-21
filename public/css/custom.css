@@ -13,13 +13,6 @@ body {
     margin-top: auto;
     /* This pushes the footer to the bottom */
 }
-.red-button {
-    background: #dc3545;
-    color: #fff;
-    padding: 8px 20px !important;
-    display: inline-block;
-}
-
 .p-150 {
     padding-left: 150px;
     padding-right: 150px;

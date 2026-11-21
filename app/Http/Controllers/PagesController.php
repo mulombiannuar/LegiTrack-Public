@@ -6,30 +6,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchBillsRequest;
 use App\Services\APIService;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    protected $apiService;
+    public function __construct(
+        private readonly APIService $apiService,
+    ) {}
 
-    public function __construct(APIService $apiService)
-    {
-        $this->apiService = $apiService;
-    }
     public function homePage(): View
     {
-        $isaApiReachable = $this->apiService->isApiReachable();
+        $isApiReachable = $this->apiService->isApiReachable();
 
         $pageData = [
             'page_name' => 'pages',
             'title' => 'Home Page',
-            'is_api_reachable' => $isaApiReachable,
-            'house_categories' => $this->apiService->getHouseCategories(),
+            'is_api_reachable' => $isApiReachable,
+            'house_categories' => $isApiReachable ? $this->apiService->getHouseCategories() : [],
         ];
 
-        if (!$isaApiReachable) {
+        if (! $isApiReachable) {
             return view('app.pages.default_page', $pageData);
         }
 
@@ -46,6 +43,7 @@ class PagesController extends Controller
             'title' => 'About Us',
             'stats' => $this->apiService->getAboutStats(),
         ];
+
         return view('app.pages.about_page', $pageData);
     }
 
@@ -55,6 +53,7 @@ class PagesController extends Controller
             'page_name' => 'pages',
             'title' => 'Contact Us',
         ];
+
         return view('app.pages.contact_page', $pageData);
     }
 
@@ -70,37 +69,32 @@ class PagesController extends Controller
             'search_query' => $searchQuery,
             'house_categories' => $this->apiService->getHouseCategories(),
         ], $this->getPageData());
-        //dd($pageData);
+
         return view('app.pages.search_page', $pageData);
     }
 
     public function sponsorBills(Request $request): View
     {
-        // $request->validate([
-        //     'sponsor_id' => 'required|integer|max:11',
-        // ]);
-
         $sponsorId = (int) $request->input('sponsor_id');
-        $sponsorStatus = $this->apiService->getUserById($sponsorId);
+        $sponsor = data_get($this->apiService->getUserById($sponsorId), 'data.data');
 
-        if (!$sponsorStatus['status']) {
+        if (! is_array($sponsor) || empty($sponsor['id'])) {
             return view('app.pages.bill_not_found', [
                 'title' => 'Bill not found',
                 'page_name' => 'pages',
             ]);
         }
 
-        $sponsor = $this->apiService->getUserById($sponsorId)['data']['data'];
         $billSponsorPositions = $this->apiService->getUserPositions($sponsor['id']);
 
-        $title = $sponsor['full_name'] . ' Sponsored Published Bills';
-        $description = "Showing results of published bills sponsored by " . ucwords($sponsor['full_name']);
+        $title = $sponsor['full_name'].' Sponsored Published Bills';
+        $description = 'Showing results of published bills sponsored by '.ucwords($sponsor['full_name']);
 
         $searchQuery = [
             'sponsor_id' => $sponsorId,
             'with_html' => true,
             'paginate' => 10,
-            'page' => 1
+            'page' => 1,
         ];
 
         $pageData = [
@@ -110,25 +104,22 @@ class PagesController extends Controller
             'search_desc' => $description,
             'search_query' => $searchQuery,
             'bill_sponsor' => $sponsor,
-            'user_positions' => $billSponsorPositions['data']
+            'user_positions' => $billSponsorPositions['data'] ?? [],
         ];
-        //dd($pageData);
+
         return view('app.pages.sponsor_bills_page', $pageData);
     }
 
     public function getBillDetails(string $slug): View
     {
         $billData = $this->apiService->getBill($slug);
-        $billCompletedStages = $this->apiService->getBillCompletedStages($billData['id']);
-        $bill = $billData['attributes'];
+        $bill = $billData['attributes'] ?? [];
 
-        if (empty($bill)) {
-            abort(404);
-        }
+        abort_if(empty($bill) || empty($billData['id']), 404);
 
         $billId = (int) $billData['id'];
-
-        $billSponsor = $this->apiService->getUserById($bill['sponsor_id'])['data']['data'];
+        $billCompletedStages = $this->apiService->getBillCompletedStages($billId);
+        $billSponsor = data_get($this->apiService->getUserById((int) $bill['sponsor_id']), 'data.data', []);
 
         $billVersionsData = $this->apiService->getBillVersions($billId);
         $billVersions = $billVersionsData['status'] ? $billVersionsData['data']['data'] : [];
@@ -136,7 +127,7 @@ class PagesController extends Controller
         $billFeedbacks = $this->apiService->getBillFeedbacks($billId, userId());
         $billFeedbacks = $billFeedbacks['status'] ? $billFeedbacks['data']['data'] : [];
 
-        $billSponsorPositions = $this->apiService->getUserPositions($billSponsor['id']);
+        $billSponsorPositions = isset($billSponsor['id']) ? $this->apiService->getUserPositions((int) $billSponsor['id']) : [];
 
         $pageData = [
             'bill' => $billData,
@@ -146,8 +137,9 @@ class PagesController extends Controller
             'bill_versions' => $billVersions,
             'bill_feedbacks' => $billFeedbacks,
             'bill_completed_stages' => $billCompletedStages,
-            'user_positions' => $billSponsorPositions['data']
+            'user_positions' => $billSponsorPositions['data'] ?? [],
         ];
+
         return view('app.pages.bill_details_page', $pageData);
     }
 
@@ -156,14 +148,15 @@ class PagesController extends Controller
         $billVersionData = $this->apiService->getBillVersion($billVersionId);
         $billVersion = $billVersionData['status'] ? $billVersionData['data']['data'] : [];
         $title = $billVersionData['status']
-            ? $billVersion['bill_title'] . ' Bill Version ' . $billVersion['version_number']
+            ? $billVersion['bill_title'].' Bill Version '.$billVersion['version_number']
             : 'Bill Version Details Not Found';
 
         $pageData = [
             'page_name' => 'pages',
             'title' => $title,
-            'bill_version' => $billVersion
+            'bill_version' => $billVersion,
         ];
+
         return view('app.pages.bill_version_page', $pageData);
     }
 
@@ -173,6 +166,7 @@ class PagesController extends Controller
             'page_name' => 'pages',
             'title' => 'News & Publications',
         ];
+
         return view('app.pages.media_page', $pageData);
     }
 
@@ -180,13 +174,14 @@ class PagesController extends Controller
     {
         $publicationData = $this->apiService->getPublication($slug);
         $publication = $publicationData['status'] ? $publicationData['data']['data'] : [];
-        $title = $publicationData['status'] ? $publication['title']  : 'Publication not found';
+        $title = $publicationData['status'] ? $publication['title'] : 'Publication not found';
 
         $pageData = [
             'title' => $title,
             'page_name' => 'pages',
-            'publication' => $publication
+            'publication' => $publication,
         ];
+
         return view('app.pages.single_media_page', $pageData);
     }
 
@@ -196,6 +191,7 @@ class PagesController extends Controller
             'page_name' => 'downloads',
             'title' => 'Downloads',
         ];
+
         return view('app.pages.downloads_page', $pageData);
     }
 
@@ -208,8 +204,9 @@ class PagesController extends Controller
         $pageData = [
             'title' => $title,
             'page_name' => 'pages',
-            'download' => $download
+            'download' => $download,
         ];
+
         return view('app.pages.download_details_page', $pageData);
     }
 
@@ -226,15 +223,15 @@ class PagesController extends Controller
     private function makeSearchQuery(Request $request): array
     {
         return [
-            "search" => $request->input('search', null),
-            "parliamentary_term_id" => $request->input('parliamentary_term_id', null),
-            "parliamentary_session_id" => $request->input('parliamentary_session_id', null),
-            "bill_type_id" => $request->input('bill_type_id', null),
-            "bill_stage_id" => $request->input('bill_stage_id', null),
-            "sponsorship_type_id" => $request->input('sponsorship_type_id', null),
-            "sponsor_id" => $request->input('sponsor_id', null),
-            "paginate" => $request->input('paginate', 10),
-            "page" => $request->input('page', 1),
+            'search' => $request->input('search', null),
+            'parliamentary_term_id' => $request->input('parliamentary_term_id', null),
+            'parliamentary_session_id' => $request->input('parliamentary_session_id', null),
+            'bill_type_id' => $request->input('bill_type_id', null),
+            'bill_stage_id' => $request->input('bill_stage_id', null),
+            'sponsorship_type_id' => $request->input('sponsorship_type_id', null),
+            'sponsor_id' => $request->input('sponsor_id', null),
+            'paginate' => $request->input('paginate', 10),
+            'page' => $request->input('page', 1),
             'with_html' => $request->input('with_html', true),
         ];
     }

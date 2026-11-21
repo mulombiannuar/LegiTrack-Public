@@ -8,12 +8,9 @@ use App\Interfaces\APICallRepositoryInterface;
 
 class APICallService
 {
-    protected $apiCallRepository;
-
-    public function __construct(APICallRepositoryInterface $apiCallRepository)
-    {
-        $this->apiCallRepository = $apiCallRepository;
-    }
+    public function __construct(
+        private readonly APICallRepositoryInterface $apiCallRepository,
+    ) {}
 
     public function get(string $endPoint, string $errorMsg, ?string $bearerToken = null): array
     {

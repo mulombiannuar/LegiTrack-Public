@@ -6,19 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,7 +21,7 @@ class RegisterUserRequest extends FormRequest
             'sub_county_id' => 'required|integer',
             'county_id' => 'required|integer',
             'password' => 'required|string|min:8|confirmed',
-            'next' => 'nullable|string|max:255'
+            'next' => 'nullable|string|max:255',
         ];
     }
 }

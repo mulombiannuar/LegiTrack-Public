@@ -4,7 +4,7 @@
              <div class="col-md-12">
                  <nav class="navbar navbar-expand-lg navbar-light navigation">
                      <a class="navbar-brand" href="{{ route('home') }}">
-                         <img src="{{ asset('images/Parliament-Logo-Kenya.png') }}" alt="Kenya Logo">
+                         <img src="{{ asset('images/logos/legitrack-logo.png') }}" alt="LegiTrack" class="brand-logo">
                      </a>
                      <button class="navbar-toggler" type="button" data-toggle="collapse"
                          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -13,16 +13,16 @@
                      </button>
                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
                          <ul class="navbar-nav ml-auto main-nav ">
-                             <li class="nav-item active">
+                             <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                                  <a class="nav-link" href="{{ route('home') }}">Home</a>
                              </li>
-                             <li class="nav-item">
+                             <li class="nav-item {{ request()->routeIs('about-us') ? 'active' : '' }}">
                                  <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
                              </li>
-                             <li class="nav-item">
+                             <li class="nav-item {{ request()->routeIs('search', 'sponsor-bills', 'get-bill-details', 'bill-version') ? 'active' : '' }}">
                                  <a class="nav-link" href="{{ route('search') }}">Bills</a>
                              </li>
-                             <li class="nav-item dropdown dropdown-slide">
+                             <li class="nav-item dropdown dropdown-slide {{ request()->routeIs('media', 'get-media', 'downloads', 'get-download') ? 'active' : '' }}">
                                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="false">
                                      Media <span><i class="fa fa-angle-down"></i></span>
@@ -33,7 +33,7 @@
                                      <li><a class="dropdown-item" href="{{ route('downloads') }}">Downloads</a></li>
                                  </ul>
                              </li>
-                             <li class="nav-item">
+                             <li class="nav-item {{ request()->routeIs('contact-us') ? 'active' : '' }}">
                                  <a class="nav-link" href="{{ route('contact-us') }}">Contact Us</a>
                              </li>
                          </ul>
@@ -46,7 +46,7 @@
                                      </li>
                                  @endif
                                  <li class="nav-item">
-                                     <a class="nav-link text-white red-button" href="{{ route('logout') }}"
+                                     <a class="nav-link logout-button" href="{{ route('logout') }}"
                                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                                              class="fa fa-sign-out"></i> Logout</a>
                                  </li>

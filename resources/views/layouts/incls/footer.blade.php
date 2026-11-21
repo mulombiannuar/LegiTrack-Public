@@ -4,14 +4,14 @@
      <div class="container">
          <div class="row">
              <div class="col-lg-6 text-center text-lg-left mb-3 mb-lg-0">
+                 <img src="{{ asset('images/logos/legitrack-logo-white.png') }}" alt="LegiTrack" class="footer-logo">
                  <!-- Copyright -->
                  <div class="copyright">
                      <p>Copyright &copy;
                          <script>
                              var CurrentYear = new Date().getFullYear()
                              document.write(CurrentYear)
-                         </script>. Designed & Developed by <a class="text-white"
-                             href="https://mulan.co.ke">Mulan Technologies</a>
+                         </script>. Designed & Developed by <a href="https://mulan.co.ke">Mulan Technologies</a>
                      </p>
                  </div>
              </div>

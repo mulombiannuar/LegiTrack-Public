@@ -25,11 +25,11 @@
         }
 
         .step.completed .circle {
-            background-color: #28a745;
+            background-color: #26447b;
         }
 
         .step.completed .label {
-            color: #28a745;
+            color: #26447b;
         }
 
         .step.active .circle {

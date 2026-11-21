@@ -6,5 +6,7 @@
   <link href="{{ asset('plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="{{ asset('css/legitrack-theme.css') }}" rel="stylesheet">
   <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
   @stack('styles')

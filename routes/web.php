@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PagesController::class, 'homePage'])->name('home');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-//Auth routes
+// Auth routes
 Route::middleware('redirect.if.authenticated')->group(function () {
 
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -24,7 +24,7 @@ Route::middleware('redirect.if.authenticated')->group(function () {
     Route::post('reset-password', [AuthController::class, 'updatePassword'])->name('password.update');
 });
 
-//Pages routes
+// Pages routes
 Route::controller(PagesController::class)
     ->middleware('api.available')
     ->group(function () {
@@ -41,7 +41,7 @@ Route::controller(PagesController::class)
         Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
     });
 
-//API routes
+// API routes
 Route::controller(APIController::class)
     ->middleware('api.available')
     ->group(function () {
@@ -52,7 +52,7 @@ Route::controller(APIController::class)
         Route::post('get-parliamentary-house-terms', 'getParliamentaryHouseTerms')->name('get-parliamentary-house-terms');
         Route::post('get-parliamentary-term-sessions', 'getParliamentaryTermSessions')->name('get-parliamentary-term-sessions');
 
-        //logged in routes
+        // logged in routes
         Route::middleware('auth')->group(function () {
             Route::post('submit-bill-feedback', 'submitBillFeedback')->name('submit-bill-feedback');
             Route::put('update-bill-feedback/{id}', 'updateBillFeedback')->name('update-bill-feedback');
