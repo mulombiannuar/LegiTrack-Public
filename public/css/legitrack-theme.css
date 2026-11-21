@@ -372,3 +372,15 @@ section.login h3.bg-gray {
     color: var(--lt-navy);
     font-weight: 700;
 }
+
+/* ------------------------------------------------------------------
+   Loader shown while bills, search results, media and downloads load.
+   ------------------------------------------------------------------ */
+.lt-inline-loader { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; padding: 18px 0; color: var(--lt-body, #3b4658); font-weight: 500; width: 100%; }
+.lt-spinner {
+    width: 30px; height: 30px; border-radius: 50%; flex: none;
+    border: 3px solid rgba(38, 68, 123, .15); border-top-color: var(--lt-navy, #26447b); border-right-color: var(--lt-sky, #5c9fd2);
+    animation: lt-spin .8s linear infinite;
+}
+@keyframes lt-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .lt-spinner { animation-duration: 2.4s; } }

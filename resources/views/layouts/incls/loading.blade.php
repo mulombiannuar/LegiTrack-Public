@@ -1,3 +1,5 @@
-<div class="row" style="display: none; justify-content: center; align-items: center; margin-top: 10px;" id="loading">
-    <img width="200px" src="{{ asset('images/loading/pleasewait.gif') }}" alt="Loading..." />
+{{-- Shown with $('#loading').show() while results load; hidden again with .hide(). --}}
+<div id="loading" class="lt-inline-loader" style="display: none;" role="status" aria-live="polite">
+    <span class="lt-spinner" aria-hidden="true"></span>
+    <span>Loading…</span>
 </div>
