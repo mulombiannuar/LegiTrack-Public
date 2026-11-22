@@ -71,11 +71,15 @@ class APIController extends Controller
         $billSubmitted = $this->apiService->submitFeedback($requestData);
 
         if (empty($billSubmitted['status'])) {
-            return back()->with('warning', 'An error has occured while submitting your bill feedback. Please logout and login again to submit your feedback');
+            // Show Parliament's reason (e.g. the call for memoranda has closed) when there is one.
+            $reason = collect($billSubmitted['errors'] ?? [])->first();
+            $reason = $reason ? preg_replace('/^[^:]+:\s*/', '', (string) $reason) : null;
+
+            return back()->withInput()->with('warning', $reason ?: 'An error has occured while submitting your submission. Please sign out and sign in again, then try once more.');
         }
         $trackingNumber = data_get($billSubmitted, 'data.data.tracking_number', '');
 
-        return back()->with('success', "Your feedback with reference number {$trackingNumber} has been successfully submitted to Parliament for review, and a confirmation email has been sent to you. Thank you for participating in this bill");
+        return back()->with('success', "Your submission (reference {$trackingNumber}) has been received by Parliament and sent to the committee considering this Bill. A confirmation email has been sent to you. Thank you for taking part.");
     }
 
     public function submitContact(SubmitContactRequest $request): RedirectResponse
