@@ -13,6 +13,8 @@ interface APICallRepositoryInterface
      */
     public function getRaw(string $endPoint, string $errorMsg): ?string;
 
+    public function delete(string $endPoint, string $errorMsg, ?string $bearerToken = null): array;
+
     public function post(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array;
 
     public function put(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array;

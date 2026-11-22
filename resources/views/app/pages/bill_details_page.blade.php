@@ -93,6 +93,7 @@
                     @endphp
                     @include('partials.participation_banner')
                     @include('partials.bill_at_a_glance', ['public' => $public_bill])
+                    @include('partials.follow_bill', ['slug' => $public_bill['slug'] ?? '', 'follow' => $follow ?? ['following' => false, 'followers' => 0]])
                     <div class="product-details">
                         <h1 class="product-title">{{ $billTitle }}@if ($publishedBillNumber) | {{ $publishedBillNumber }}@endif</h1>
                         <div class="product-meta">

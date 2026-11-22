@@ -35,6 +35,14 @@ interface APIRepositoryInterface
 
     public function getPublicBill(string $slug): array;
 
+    public function getBillFollowing(string $slug): array;
+
+    public function followBill(string $slug): array;
+
+    public function unfollowBill(string $slug): array;
+
+    public function unfollowByToken(string $token): array;
+
     /**
      * @param  array<string, mixed>  $filters
      */

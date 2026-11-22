@@ -477,3 +477,7 @@ section.login h3.bg-gray {
 .tracker-stopped .tracker-state { background: #fde2e4; color: #8f1d26; }
 .tracker-upcoming .tracker-state { background: transparent; color: #9aa4b2; }
 .tracker-meta { font-size: 13px; color: var(--lt-muted, #6b7689); margin-top: 2px; }
+
+/* Follow a Bill */
+.follow-bill { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: #fff; border: 1px solid var(--lt-line, #e2e8f0); border-radius: 14px; padding: 14px 20px; }
+.follow-bill form { margin: 0; }

@@ -47,6 +47,11 @@ class APICallRepository implements APICallRepositoryInterface
         return $this->request('post', $endPoint, $errorMsg, $data, $bearerToken);
     }
 
+    public function delete(string $endPoint, string $errorMsg, ?string $bearerToken = null): array
+    {
+        return $this->request('delete', $endPoint, $errorMsg, [], $bearerToken);
+    }
+
     public function put(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array
     {
         return $this->request('put', $endPoint, $errorMsg, $data, $bearerToken);
