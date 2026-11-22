@@ -26,6 +26,20 @@ interface APIRepositoryInterface
 
     public function getBill(string $slug): array;
 
+    /**
+     * Published Bills for the public list (filters: q, house, status, category, open, sort, page).
+     *
+     * @param  array<string, mixed>  $filters
+     */
+    public function getPublicBills(array $filters): array;
+
+    public function getPublicBill(string $slug): array;
+
+    /**
+     * @param  array<string, mixed>  $filters
+     */
+    public function exportPublicBillsCsv(array $filters): ?string;
+
     public function getUserPositions(int $userId): array;
 
     public function getBillCompletedStages(int $bill_id): array;

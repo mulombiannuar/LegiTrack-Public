@@ -92,6 +92,7 @@
                         $parliamentarySession = $billRelationships['parliamentary_session'];
                     @endphp
                     @include('partials.participation_banner')
+                    @include('partials.bill_at_a_glance', ['public' => $public_bill])
                     <div class="product-details">
                         <h1 class="product-title">{{ $billTitle }}@if ($publishedBillNumber) | {{ $publishedBillNumber }}@endif</h1>
                         <div class="product-meta">
@@ -122,7 +123,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="bill-passage-tab" data-toggle="pill" href="#bill-passage"
-                                        role="tab" aria-controls="bill-passage" aria-selected="false">Bill Passage</a>
+                                        role="tab" aria-controls="bill-passage" aria-selected="false">Journey through Parliament</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="bill-sponsor-tab" data-toggle="pill" href="#bill-sponsor"
@@ -166,23 +167,8 @@
                                 {{-- Bill Passage --}}
                                 <div class="tab-pane fade" id="bill-passage" role="tabpanel"
                                     aria-labelledby="bill-passage-tab">
-                                    <h3 class="tab-title">Bill Stages Passage</h3>
-                                    <div class="container">
-                                        <div class="d-flex flex-column align-items-start">
-                                            @foreach ($bill_completed_stages as $stage)
-                                                <div class="step {{ $stage['is_completed'] ? 'completed' : 'active' }}">
-                                                    <div class="step-header">
-                                                        <div class="circle"><i
-                                                                class="fa {{ $stage['is_completed'] ? 'fa-check' : 'fa-minus' }} "></i>
-                                                        </div>
-                                                        <div class="label">{{ ucwords($stage['name']) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="line"></div>
-                                            @endforeach
-                                        </div>
-                                    </div>
+                                    <h3 class="tab-title">Journey through Parliament</h3>
+                                    @include('partials.bill_tracker', ['tracker' => $public_bill['tracker'] ?? []])
                                 </div>
 
                                 {{-- Bill Sponsor --}}

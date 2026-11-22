@@ -30,6 +30,7 @@ Route::controller(PagesController::class)
     ->group(function () {
 
         Route::get('bills', 'searchResults')->name('search');
+        Route::get('bills/export.csv', 'exportBills')->name('bills.export')->middleware('throttle:10,1');
         Route::get('sponsor-bills', 'sponsorBills')->name('sponsor-bills');
         Route::get('contact-us', 'contactPage')->name('contact-us');
         Route::get('media', 'mediaPage')->name('media');

@@ -59,18 +59,48 @@ class PagesController extends Controller
 
     public function searchResults(SearchBillsRequest $request): View
     {
-        $searchQuery = ($request->isMethod('get') && count($request->except('_token')) > 0)
-            ? $this->makeSearchQuery($request)
-            : ['with_html' => true, 'paginate' => 10, 'page' => 1];
+        $filters = $this->billFilters($request);
+        $result = $this->apiService->getPublicBills($filters + ['page' => $request->integer('page', 1)]);
 
-        $pageData = array_merge([
+        return view('app.pages.bills_page', [
             'page_name' => 'pages',
-            'title' => 'Search Results',
-            'search_query' => $searchQuery,
-            'house_categories' => $this->apiService->getHouseCategories(),
-        ], $this->getPageData());
+            'title' => 'Bills',
+            'bills' => $result['bills'],
+            'meta' => $result['meta'],
+            'filters' => $filters,
+            'house_categories' => collect($this->apiService->getHouseCategories())
+                ->mapWithKeys(fn ($house) => [(int) data_get($house, 'id') => (string) data_get($house, 'attributes.name', data_get($house, 'name'))])
+                ->filter(),
+        ]);
+    }
 
-        return view('app.pages.search_page', $pageData);
+    /**
+     * Open data: the Bills on the current list as a CSV file.
+     */
+    public function exportBills(SearchBillsRequest $request): \Symfony\Component\HttpFoundation\Response
+    {
+        $csv = $this->apiService->exportPublicBillsCsv($this->billFilters($request));
+        abort_if($csv === null, 503, 'The data download is not available right now. Please try again shortly.');
+
+        return response($csv, 200, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="kenya-bills-'.now()->format('Y-m-d').'.csv"',
+        ]);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function billFilters(SearchBillsRequest $request): array
+    {
+        return array_filter([
+            'q' => $request->input('q', $request->input('search')),
+            'house' => $request->input('house', $request->input('house_category_id')),
+            'status' => $request->input('status'),
+            'category' => $request->input('category'),
+            'open' => $request->boolean('open') ? 1 : null,
+            'sort' => $request->input('sort'),
+        ], fn ($value) => $value !== null && $value !== '');
     }
 
     public function sponsorBills(Request $request): View
@@ -112,6 +142,10 @@ class PagesController extends Controller
 
     public function getBillDetails(string $slug): View
     {
+        // Only Bills published in the Kenya Gazette are public; drafts are not.
+        $publicBill = $this->apiService->getPublicBill($slug);
+        abort_if(empty($publicBill), 404);
+
         $billData = $this->apiService->getBill($slug);
         $bill = $billData['attributes'] ?? [];
 
@@ -139,7 +173,8 @@ class PagesController extends Controller
             'bill_completed_stages' => $billCompletedStages,
             'user_positions' => $billSponsorPositions['data'] ?? [],
             // The committee's call for memoranda (Art. 118): open, upcoming or closed
-            'participation' => $bill['participation'] ?? null,
+            'participation' => $publicBill['participation'] ?? $bill['participation'] ?? null,
+            'public_bill' => $publicBill,
         ];
 
         return view('app.pages.bill_details_page', $pageData);
