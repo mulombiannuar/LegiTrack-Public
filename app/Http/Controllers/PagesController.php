@@ -75,6 +75,20 @@ class PagesController extends Controller
     }
 
     /**
+     * One-click unsubscribe from a Bill update email.
+     */
+    public function unfollowFromEmail(string $token): View
+    {
+        $title = $this->apiService->unfollowByToken($token);
+
+        return view('app.pages.unfollow_page', [
+            'page_name' => 'pages',
+            'title' => 'Bill updates',
+            'bill_title' => $title,
+        ]);
+    }
+
+    /**
      * Open data: the Bills on the current list as a CSV file.
      */
     public function exportBills(SearchBillsRequest $request): \Symfony\Component\HttpFoundation\Response
@@ -175,6 +189,7 @@ class PagesController extends Controller
             // The committee's call for memoranda (Art. 118): open, upcoming or closed
             'participation' => $publicBill['participation'] ?? $bill['participation'] ?? null,
             'public_bill' => $publicBill,
+            'follow' => auth()->check() ? $this->apiService->getBillFollowing($slug) : ['following' => false, 'followers' => (int) ($publicBill['followers'] ?? 0)],
         ];
 
         return view('app.pages.bill_details_page', $pageData);

@@ -109,6 +109,26 @@ class APIRepository implements APIRepositoryInterface
         return $this->apiCallService->get('api/public/bills/'.rawurlencode($slug), 'Failed to fetch bill');
     }
 
+    public function getBillFollowing(string $slug): array
+    {
+        return $this->apiCallService->get('api/public/bills/'.rawurlencode($slug).'/following', 'Failed to fetch follow status', session('api_token'));
+    }
+
+    public function followBill(string $slug): array
+    {
+        return $this->apiCallService->post('api/public/bills/'.rawurlencode($slug).'/follow', 'Failed to follow bill', [], session('api_token'));
+    }
+
+    public function unfollowBill(string $slug): array
+    {
+        return $this->apiCallService->delete('api/public/bills/'.rawurlencode($slug).'/follow', 'Failed to unfollow bill', session('api_token'));
+    }
+
+    public function unfollowByToken(string $token): array
+    {
+        return $this->apiCallService->get('api/public/bills/unfollow/'.rawurlencode($token), 'Failed to unsubscribe');
+    }
+
     public function exportPublicBillsCsv(array $filters): ?string
     {
         return $this->apiCallService->getRaw('api/public/bills/export.csv?'.http_build_query($filters), 'Failed to export bills');

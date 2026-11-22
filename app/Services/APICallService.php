@@ -12,6 +12,11 @@ class APICallService
         private readonly APICallRepositoryInterface $apiCallRepository,
     ) {}
 
+    public function delete(string $endPoint, string $errorMsg, ?string $bearerToken = null): array
+    {
+        return $this->apiCallRepository->delete($endPoint, $errorMsg, $bearerToken);
+    }
+
     public function getRaw(string $endPoint, string $errorMsg): ?string
     {
         return $this->apiCallRepository->getRaw($endPoint, $errorMsg);

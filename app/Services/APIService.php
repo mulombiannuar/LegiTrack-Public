@@ -63,6 +63,33 @@ class APIService
         return ['bills' => $data['bills'] ?? [], 'meta' => $data['meta'] ?? ['total' => 0, 'page' => 1, 'last_page' => 1, 'status_counts' => [], 'open_for_comment' => 0]];
     }
 
+    /**
+     * @return array{following: bool, followers: int}
+     */
+    public function getBillFollowing(string $slug): array
+    {
+        $data = $this->unwrap($this->apiRepository->getBillFollowing($slug), 'data');
+
+        return ['following' => (bool) ($data['following'] ?? false), 'followers' => (int) ($data['followers'] ?? 0)];
+    }
+
+    public function followBill(string $slug, bool $follow): bool
+    {
+        $result = $follow ? $this->apiRepository->followBill($slug) : $this->apiRepository->unfollowBill($slug);
+
+        return ! empty($result['status']);
+    }
+
+    /**
+     * @return string|null the Bill's title, or null if the link was not recognised
+     */
+    public function unfollowByToken(string $token): ?string
+    {
+        $data = $this->unwrap($this->apiRepository->unfollowByToken($token), 'data');
+
+        return ! empty($data['unfollowed']) ? (string) ($data['bill_title'] ?? '') : null;
+    }
+
     public function getPublicBill(string $slug): array
     {
         return $this->unwrap($this->apiRepository->getPublicBill($slug), 'data');

@@ -122,4 +122,37 @@ class BillsPagesTest extends TestCase
         $this->assertStringContainsString('President to assent or refer the Bill back: by 20 Jun 2026', $glance);
         $this->assertStringContainsString('https://legitrack.test/get-bill-version-pdf/3', $glance);
     }
+
+    public function test_signed_in_visitors_follow_and_unfollow_a_bill(): void
+    {
+        Http::fake([
+            'legitrack.test/up' => Http::response('', 200),
+            'legitrack.test/api/public/bills/the-health-services-bill/follow' => Http::response(['data' => ['following' => true, 'followers' => 1]]),
+        ]);
+        $user = \App\Models\User::factory()->create();
+
+        $this->post(route('bill.follow', 'the-health-services-bill'))->assertRedirect(route('login'));
+
+        $this->actingAs($user)->withSession(['api_token' => 'token-123'])->from('/the-health-services-bill')
+            ->post(route('bill.follow', 'the-health-services-bill'))->assertRedirect('/the-health-services-bill')->assertSessionHas('success');
+        Http::assertSent(fn (Request $r) => $r->method() === 'POST' && str_ends_with($r->url(), '/api/public/bills/the-health-services-bill/follow') && $r->hasHeader('Authorization', 'Bearer token-123'));
+
+        $this->from('/the-health-services-bill')->delete(route('bill.unfollow', 'the-health-services-bill'))->assertSessionHas('success');
+        Http::assertSent(fn (Request $r) => $r->method() === 'DELETE' && str_ends_with($r->url(), '/follow'));
+    }
+
+    public function test_the_follow_button_and_one_click_unsubscribe(): void
+    {
+        $html = view('partials.follow_bill', ['slug' => 'the-health-services-bill', 'follow' => ['following' => false, 'followers' => 12]])->render();
+        $this->assertStringContainsString('Sign in to follow', $html);
+        $this->assertStringContainsString('12 people follow this Bill.', $html);
+
+        Http::fake([
+            'legitrack.test/up' => Http::response('', 200),
+            'legitrack.test/api/public/bills/unfollow/good-token' => Http::response(['data' => ['unfollowed' => true, 'bill_title' => 'the health services bill']]),
+            'legitrack.test/api/public/bills/unfollow/*' => Http::response(['data' => ['unfollowed' => false]], 404),
+        ]);
+        $this->get(route('unfollow', 'good-token'))->assertOk()->assertSee('You have stopped following')->assertSee('The Health Services Bill');
+        $this->get(route('unfollow', 'used-token'))->assertOk()->assertSee('This link has already been used');
+    }
 }

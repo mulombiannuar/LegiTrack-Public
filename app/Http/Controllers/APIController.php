@@ -99,6 +99,23 @@ class APIController extends Controller
         return back()->with('success', 'Your message has been successfully submitted for review, and a confirmation email has been sent to you.');
     }
 
+    /**
+     * Follow a Bill: email updates when it moves or opens for comment.
+     */
+    public function followBill(string $slug): RedirectResponse
+    {
+        return $this->apiService->followBill($slug, true)
+            ? back()->with('success', 'You are now following this Bill. We will email you when it moves or opens for public comment.')
+            : back()->with('warning', 'We could not follow this Bill just now. Please sign out and sign in again, then try once more.');
+    }
+
+    public function unfollowBill(string $slug): RedirectResponse
+    {
+        return $this->apiService->followBill($slug, false)
+            ? back()->with('success', 'You will no longer get updates about this Bill.')
+            : back()->with('warning', 'We could not update your choice just now. Please try again.');
+    }
+
     public function updateBillFeedback(Request $request, string $id) {}
 
     public function deleteBillFeedback(Request $request, string $id) {}

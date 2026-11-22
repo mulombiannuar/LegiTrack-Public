@@ -38,6 +38,7 @@ Route::controller(PagesController::class)
         Route::get('about-us', 'aboutPage')->name('about-us');
         Route::get('downloads/{slug}', 'getDownloadBySlug')->name('get-download');
         Route::get('media/{slug}', 'getMediaBySlug')->name('get-media');
+        Route::get('unfollow/{token}', 'unfollowFromEmail')->name('unfollow')->middleware('throttle:20,1');
         Route::get('/{id}/bill-version', 'getBillVersion')->name('bill-version');
         Route::get('/{slug}', 'getBillDetails')->name('get-bill-details');
     });
@@ -56,6 +57,8 @@ Route::controller(APIController::class)
         // logged in routes
         Route::middleware('auth')->group(function () {
             Route::post('submit-bill-feedback', 'submitBillFeedback')->name('submit-bill-feedback');
+            Route::post('{slug}/follow', 'followBill')->name('bill.follow')->middleware('throttle:30,1');
+            Route::delete('{slug}/follow', 'unfollowBill')->name('bill.unfollow')->middleware('throttle:30,1');
             Route::put('update-bill-feedback/{id}', 'updateBillFeedback')->name('update-bill-feedback');
             Route::delete('delete-bill-feedback/{id}', 'deleteBillFeedback')->name('delete-bill-feedback');
         });
