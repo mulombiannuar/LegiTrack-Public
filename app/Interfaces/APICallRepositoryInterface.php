@@ -8,6 +8,11 @@ interface APICallRepositoryInterface
 {
     public function get(string $endPoint, string $errorMsg, ?string $bearerToken = null): array;
 
+    /**
+     * Raw body of a GET request (e.g. a CSV file), or null if it failed.
+     */
+    public function getRaw(string $endPoint, string $errorMsg): ?string;
+
     public function post(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array;
 
     public function put(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array;

@@ -99,6 +99,21 @@ class APIRepository implements APIRepositoryInterface
         return $this->apiCallService->post('api/get-bills', 'Failed to fetch bills', $params);
     }
 
+    public function getPublicBills(array $filters): array
+    {
+        return $this->apiCallService->get('api/public/bills?'.http_build_query($filters), 'Failed to fetch published bills');
+    }
+
+    public function getPublicBill(string $slug): array
+    {
+        return $this->apiCallService->get('api/public/bills/'.rawurlencode($slug), 'Failed to fetch bill');
+    }
+
+    public function exportPublicBillsCsv(array $filters): ?string
+    {
+        return $this->apiCallService->getRaw('api/public/bills/export.csv?'.http_build_query($filters), 'Failed to export bills');
+    }
+
     public function getBill(string $slug): array
     {
         return $this->apiCallService->get('api/get-bills/'.rawurlencode($slug), 'Failed to fetch bill');

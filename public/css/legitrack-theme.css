@@ -400,3 +400,80 @@ section.login h3.bg-gray {
 .participation-countdown span { font-size: 12px; }
 .participation-open .btn-main { background: #fff; color: #26447b; border-color: #fff; }
 .participation-open .participation-notice, .participation-open .participation-title, .participation-open .participation-meta, .participation-open .participation-kicker { color: #fff !important; }
+
+/* ------------------------------------------------------------------
+   Public bills list (Phase 4).
+   ------------------------------------------------------------------ */
+.bills-hero { background: linear-gradient(135deg, var(--lt-navy, #26447b) 0%, #3f6aa8 100%); color: #fff; padding: 44px 0 36px; }
+.bills-hero h1 { color: #fff; font-size: 30px; font-weight: 800; margin-bottom: 6px; }
+.bills-hero p { color: #dbe7f5; margin-bottom: 18px; max-width: 720px; }
+.bills-search { display: flex; gap: 8px; max-width: 720px; }
+.bills-search input { flex: 1; min-width: 0; border: 0; border-radius: 10px; padding: 12px 16px; font-size: 16px; }
+.bills-search .btn { border-radius: 10px; white-space: nowrap; background: #fff; color: var(--lt-navy, #26447b); border-color: #fff; }
+.bills-list-section { padding-top: 24px; }
+.bills-tabs { display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid var(--lt-line, #e2e8f0); margin-bottom: 16px; }
+.bills-tabs a { padding: 10px 14px; border-radius: 10px 10px 0 0; color: var(--lt-body, #3b4658); font-weight: 600; font-size: 14px; border-bottom: 3px solid transparent; text-decoration: none; }
+.bills-tabs a:hover { color: var(--lt-navy, #26447b); }
+.bills-tabs a.active { color: var(--lt-navy, #26447b); border-bottom-color: var(--lt-sky, #5c9fd2); }
+.bills-tabs .count { display: inline-block; min-width: 22px; padding: 0 6px; border-radius: 10px; background: #eef3fa; font-size: 12px; text-align: center; }
+.bills-tabs a.tab-open .count { background: #dcf3e6; color: #135c3a; }
+.bills-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+.bills-filters select { border: 1px solid var(--lt-line, #e2e8f0); border-radius: 8px; padding: 7px 10px; font-size: 14px; background: #fff; color: var(--lt-body, #3b4658); }
+.bills-filters .flex-grow { flex: 1; }
+.bills-filters .clear-link, .bills-filters .download-link { font-size: 14px; font-weight: 600; }
+.bills-count { color: var(--lt-muted, #6b7689); font-size: 14px; margin-bottom: 10px; }
+.bill-card { background: #fff; border: 1px solid var(--lt-line, #e2e8f0); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; transition: box-shadow .15s, border-color .15s; }
+.bill-card:hover { border-color: #c9d9ee; box-shadow: 0 6px 18px rgba(38, 68, 123, .08); }
+.bill-card h2 { font-size: 19px; font-weight: 700; margin: 8px 0 4px; }
+.bill-card h2 a { color: var(--lt-ink, #1a2333); }
+.bill-card h2 a:hover { color: var(--lt-navy, #26447b); }
+.bill-card-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.status-badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.status-before_parliament { background: #e7eef8; color: var(--lt-navy, #26447b); }
+.status-passed { background: #e3f1fb; color: #1f6aa5; }
+.status-became_law { background: #dcf3e6; color: #135c3a; }
+.status-did_not_proceed { background: #eef0f3; color: #59606b; }
+.status-open { background: #fff4d6; color: #7a5300; }
+.bill-card-meta { color: var(--lt-muted, #6b7689); font-size: 13px; }
+.bill-card-excerpt { margin: 8px 0 10px; color: var(--lt-body, #3b4658); }
+.bill-card-facts { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; font-size: 13px; }
+.bill-card-facts dt { display: inline; color: var(--lt-muted, #6b7689); font-weight: 500; margin-right: 4px; }
+.bill-card-facts dd { display: inline; margin: 0; color: var(--lt-ink, #1a2333); font-weight: 600; }
+.bills-empty { text-align: center; background: #fff; border: 1px dashed var(--lt-line, #e2e8f0); border-radius: 14px; padding: 40px 20px; }
+.bills-empty i { font-size: 34px; color: var(--lt-sky, #5c9fd2); }
+.bills-empty h2 { font-size: 20px; margin: 10px 0 4px; }
+.bills-pagination { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 16px; font-size: 14px; }
+.bills-pagination a { font-weight: 600; }
+@media (max-width: 575.98px) {
+    .bills-hero h1 { font-size: 24px; }
+    .bills-search { flex-direction: column; }
+    .bills-tabs { flex-wrap: nowrap; overflow-x: auto; }
+    .bills-tabs a { white-space: nowrap; }
+}
+
+/* Bill page: at a glance and journey through Parliament (Phase 4). */
+.bill-glance { background: #fff; border: 1px solid var(--lt-line, #e2e8f0); border-radius: 14px; padding: 18px 22px; }
+.bill-glance-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.bill-glance-number { color: var(--lt-muted, #6b7689); font-weight: 600; font-size: 14px; }
+.bill-glance-heading { font-size: 15px; font-weight: 700; margin: 14px 0 4px; color: var(--lt-navy, #26447b); }
+.bill-glance-summary { font-size: 16px; color: var(--lt-ink, #1a2333); margin-bottom: 6px; }
+.bill-glance-facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 12px 0 0; font-size: 14px; }
+.bill-glance-facts dt { color: var(--lt-muted, #6b7689); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .3px; }
+.bill-glance-facts dd { margin: 0; font-weight: 600; color: var(--lt-ink, #1a2333); }
+.bill-glance-deadline { margin-top: 10px; font-size: 14px; background: #fff8e6; border-radius: 8px; padding: 6px 10px; }
+.bill-glance-downloads { margin-top: 12px; font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.bill-tracker { list-style: none; padding: 0; margin: 10px 0 0; position: relative; }
+.bill-tracker::before { content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px; width: 2px; background: var(--lt-line, #e2e8f0); }
+.tracker-step { position: relative; display: flex; gap: 14px; padding: 0 0 18px; }
+.tracker-dot { position: relative; z-index: 1; flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; background: #fff; border: 2px solid var(--lt-line, #e2e8f0); color: #9aa4b2; }
+.tracker-done .tracker-dot { background: var(--lt-navy, #26447b); border-color: var(--lt-navy, #26447b); color: #fff; }
+.tracker-current .tracker-dot { background: #fff; border-color: var(--lt-sky, #5c9fd2); color: var(--lt-sky, #5c9fd2); box-shadow: 0 0 0 4px rgba(92, 159, 210, .2); }
+.tracker-next .tracker-dot { border-color: var(--lt-sky, #5c9fd2); color: var(--lt-sky, #5c9fd2); }
+.tracker-stopped .tracker-dot { background: #c8414b; border-color: #c8414b; color: #fff; }
+.tracker-title { font-weight: 700; color: var(--lt-ink, #1a2333); }
+.tracker-upcoming .tracker-title { color: #8a94a3; font-weight: 600; }
+.tracker-state { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; padding: 2px 8px; border-radius: 10px; margin-left: 6px; background: #eef3fa; color: var(--lt-navy, #26447b); }
+.tracker-current .tracker-state, .tracker-next .tracker-state { background: #e3f1fb; color: #1f6aa5; }
+.tracker-stopped .tracker-state { background: #fde2e4; color: #8f1d26; }
+.tracker-upcoming .tracker-state { background: transparent; color: #9aa4b2; }
+.tracker-meta { font-size: 13px; color: var(--lt-muted, #6b7689); margin-top: 2px; }

@@ -52,6 +52,30 @@ class APIService
         return $this->unwrap($this->apiRepository->getBills($params), 'data');
     }
 
+    /**
+     * @param  array<string, mixed>  $filters
+     * @return array{bills: array<int, array<string, mixed>>, meta: array<string, mixed>}
+     */
+    public function getPublicBills(array $filters): array
+    {
+        $data = $this->unwrap($this->apiRepository->getPublicBills($filters), 'data');
+
+        return ['bills' => $data['bills'] ?? [], 'meta' => $data['meta'] ?? ['total' => 0, 'page' => 1, 'last_page' => 1, 'status_counts' => [], 'open_for_comment' => 0]];
+    }
+
+    public function getPublicBill(string $slug): array
+    {
+        return $this->unwrap($this->apiRepository->getPublicBill($slug), 'data');
+    }
+
+    /**
+     * @param  array<string, mixed>  $filters
+     */
+    public function exportPublicBillsCsv(array $filters): ?string
+    {
+        return $this->apiRepository->exportPublicBillsCsv($filters);
+    }
+
     public function getBill(string $slug): array
     {
         return $this->unwrap($this->apiRepository->getBill($slug), 'data.data');

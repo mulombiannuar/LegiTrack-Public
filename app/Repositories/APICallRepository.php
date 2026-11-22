@@ -29,6 +29,19 @@ class APICallRepository implements APICallRepositoryInterface
         return $this->request('get', $endPoint, $errorMsg, [], $bearerToken);
     }
 
+    public function getRaw(string $endPoint, string $errorMsg): ?string
+    {
+        try {
+            $response = $this->client(null)->accept('*/*')->get($endPoint);
+        } catch (Throwable $e) {
+            $this->logsService->logError($errorMsg, $e);
+
+            return null;
+        }
+
+        return $response->successful() ? $response->body() : null;
+    }
+
     public function post(string $endPoint, string $errorMsg, array $data = [], ?string $bearerToken = null): array
     {
         return $this->request('post', $endPoint, $errorMsg, $data, $bearerToken);

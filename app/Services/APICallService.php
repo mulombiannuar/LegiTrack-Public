@@ -12,6 +12,11 @@ class APICallService
         private readonly APICallRepositoryInterface $apiCallRepository,
     ) {}
 
+    public function getRaw(string $endPoint, string $errorMsg): ?string
+    {
+        return $this->apiCallRepository->getRaw($endPoint, $errorMsg);
+    }
+
     public function get(string $endPoint, string $errorMsg, ?string $bearerToken = null): array
     {
         return $this->apiCallRepository->get($endPoint, $errorMsg, $bearerToken);
