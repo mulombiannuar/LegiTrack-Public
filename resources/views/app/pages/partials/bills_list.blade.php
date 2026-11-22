@@ -13,7 +13,7 @@
             $description = $billAttributes['description'];
             $billStageId = $billAttributes['bill_stage_id'];
             $billStageName = $billAttributes['bill_stage_name'];
-            $publishedBillNumber = 'Bill No.' . $billAttributes['published_bill_number'];
+            $publishedBillNumber = $billAttributes['published_bill_number'] ?? '';
             $billType = ucwords($billRelationships['bill_type']);
             $submissionDate = $billAttributes['submission_date'];
             $parliamentarySession = $billRelationships['parliamentary_session'];

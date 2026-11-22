@@ -14,8 +14,11 @@ class SubmitBillFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'required|string|max:1000',
-            'bill_support' => 'required|integer|max:10',
+            'content' => 'required|string|max:20000',
+            'clause_reference' => 'nullable|string|max:100',
+            'submitter_type' => 'nullable|string|in:individual,organisation',
+            'organisation_name' => 'nullable|required_if:submitter_type,organisation|string|max:200',
+            'bill_support' => 'required|integer|in:0,1,2',
             'feedback_type' => 'required|integer|max:10',
             'bill_id' => 'required|integer|max:255',
         ];

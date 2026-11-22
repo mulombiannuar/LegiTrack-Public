@@ -138,6 +138,8 @@ class PagesController extends Controller
             'bill_feedbacks' => $billFeedbacks,
             'bill_completed_stages' => $billCompletedStages,
             'user_positions' => $billSponsorPositions['data'] ?? [],
+            // The committee's call for memoranda (Art. 118): open, upcoming or closed
+            'participation' => $bill['participation'] ?? null,
         ];
 
         return view('app.pages.bill_details_page', $pageData);

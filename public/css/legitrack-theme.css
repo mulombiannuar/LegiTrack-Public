@@ -384,3 +384,19 @@ section.login h3.bg-gray {
 }
 @keyframes lt-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .lt-spinner { animation-duration: 2.4s; } }
+
+/* ------------------------------------------------------------------
+   Public participation banner on a Bill (Constitution Art. 118).
+   ------------------------------------------------------------------ */
+.participation-banner { border-radius: 14px; padding: 18px 22px; border: 1px solid var(--lt-line, #e2e8f0); background: #fff; }
+.participation-banner.participation-open { background: linear-gradient(135deg, #26447b 0%, #3f6aa8 100%); color: #fff; border: 0; }
+.participation-banner.participation-upcoming { background: #eef5fc; border-color: #c9ddf1; }
+.participation-kicker { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; opacity: .9; }
+.participation-title { font-size: 18px; font-weight: 700; margin-top: 4px; }
+.participation-meta { font-size: 13px; opacity: .85; margin-top: 2px; }
+.participation-notice { font-size: 14px; opacity: .95; white-space: pre-line; }
+.participation-countdown { text-align: center; background: rgba(255, 255, 255, .14); border-radius: 12px; padding: 8px 16px; min-width: 96px; }
+.participation-countdown strong { display: block; font-size: 28px; line-height: 1; }
+.participation-countdown span { font-size: 12px; }
+.participation-open .btn-main { background: #fff; color: #26447b; border-color: #fff; }
+.participation-open .participation-notice, .participation-open .participation-title, .participation-open .participation-meta, .participation-open .participation-kicker { color: #fff !important; }

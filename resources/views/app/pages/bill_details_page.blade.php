@@ -80,7 +80,7 @@
                         $parliamentaryTerm = $billAttributes['parliamentary_term'];
                         $billTitle = ucwords($billAttributes['title']);
                         $description = $billAttributes['description'];
-                        $publishedBillNumber = 'Bill No.' . $billAttributes['published_bill_number'];
+                        $publishedBillNumber = $billAttributes['published_bill_number'] ?? null; // e.g. National Assembly Bills No. 5 of 2026
                         $sponsor = $billRelationships['sponsor'];
                         $billType = ucwords($billRelationships['bill_type']);
                         $submissionDate = $billAttributes['submission_date'];
@@ -91,8 +91,9 @@
                         $updatedDate = $billAttributes['updated_at'];
                         $parliamentarySession = $billRelationships['parliamentary_session'];
                     @endphp
+                    @include('partials.participation_banner')
                     <div class="product-details">
-                        <h1 class="product-title">{{ $billTitle }} | {{ $publishedBillNumber }}</h1>
+                        <h1 class="product-title">{{ $billTitle }}@if ($publishedBillNumber) | {{ $publishedBillNumber }}@endif</h1>
                         <div class="product-meta">
                             <ul class="list-inline">
                                 <li class="list-inline-item"><i class="fa fa-calendar"></i> Submitted On: <a
@@ -306,42 +307,55 @@
                                                     <!-- BEGIN : Feedback -->
                                                 @endforeach
                                             @endif
-                                            <div class="review-submission">
-                                                <h3 class="tab-title">
-                                                    {{ count($bill_feedbacks) > 0 ? 'Submit another Review' : 'Submit your Review' }}
-                                                </h3>
-                                                <div class="review-submit">
-                                                    <form action="{{ route('submit-bill-feedback') }}" method="POST"
-                                                        class="row">
-                                                        @csrf
-                                                        <input type="hidden" name="bill_id" value="{{ $bill['id'] }}">
-                                                        <div class="col-lg-6 mb-3">
-                                                            <select name="feedback_type" id="feedback_type"
-                                                                class="w-100 form-control mt-lg-1 mt-md-2" required>
-                                                                <option class="mb-1" value="">
-                                                                    -- Select Type Below --</option>
-                                                                <option value="1">Bill Review</option>
-                                                                <option value="0">Bill Feedback</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6 mb-3">
-                                                            <select name="bill_support" id="bill_support"
-                                                                class="w-100 form-control mt-lg-1 mt-md-2" required>
-                                                                <option value="1">I Support</option>
-                                                                <option value="0">I do not support</option>
-                                                                <option value="2">Other (specify below)</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-12 mb-3">
-                                                            <textarea name="content" id="content" rows="6" class="form-control"
-                                                                placeholder="Please provide your detailed feedback/review or suggestions regarding this bill" required></textarea>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <button type="submit" class="btn btn-main disable-button">Submit
-                                                                Message</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                            <div class="review-submission" id="make-a-submission">
+                                                @if (($participation['status'] ?? null) === 'open')
+                                                    <h3 class="tab-title">
+                                                        {{ count($bill_feedbacks) > 0 ? 'Make another submission' : 'Make a submission' }}
+                                                    </h3>
+                                                    <p class="small text-muted">Your submission goes to the {{ $participation['committee'] ?? 'committee' }} considering this Bill. Submissions close on {{ \Illuminate\Support\Carbon::parse($participation['closes_on'])->format('j F Y') }}.</p>
+                                                    <div class="review-submit">
+                                                        <form action="{{ route('submit-bill-feedback') }}" method="POST" class="row">
+                                                            @csrf
+                                                            <input type="hidden" name="bill_id" value="{{ $bill['id'] }}">
+                                                            <input type="hidden" name="feedback_type" value="1">
+                                                            <div class="col-lg-6 mb-3">
+                                                                <label for="submitter_type" class="small font-weight-bold">Submitting as</label>
+                                                                <select name="submitter_type" id="submitter_type" class="w-100 form-control" required>
+                                                                    <option value="individual" @selected(old('submitter_type') !== 'organisation')>An individual</option>
+                                                                    <option value="organisation" @selected(old('submitter_type') === 'organisation')>An organisation</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-6 mb-3" id="organisation_field" style="{{ old('submitter_type') === 'organisation' ? '' : 'display:none' }}">
+                                                                <label for="organisation_name" class="small font-weight-bold">Organisation name</label>
+                                                                <input type="text" name="organisation_name" id="organisation_name" class="w-100 form-control" maxlength="200" value="{{ old('organisation_name') }}" placeholder="e.g. Kenya Medical Association">
+                                                            </div>
+                                                            <div class="col-lg-6 mb-3">
+                                                                <label for="clause_reference" class="small font-weight-bold">Clause <span class="text-muted font-weight-normal">(optional)</span></label>
+                                                                <input type="text" name="clause_reference" id="clause_reference" class="w-100 form-control" maxlength="100" value="{{ old('clause_reference') }}" placeholder="e.g. Clause 5, or leave blank for the whole Bill">
+                                                            </div>
+                                                            <div class="col-lg-6 mb-3">
+                                                                <label for="bill_support" class="small font-weight-bold">Your position</label>
+                                                                <select name="bill_support" id="bill_support" class="w-100 form-control" required>
+                                                                    <option value="1" @selected(old('bill_support') === '1')>I support the Bill</option>
+                                                                    <option value="0" @selected(old('bill_support') === '0')>I oppose the Bill</option>
+                                                                    <option value="2" @selected(old('bill_support', '2') === '2')>I propose changes</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-12 mb-3">
+                                                                <label for="content" class="small font-weight-bold">Your submission</label>
+                                                                <textarea name="content" id="content" rows="8" class="form-control" maxlength="20000"
+                                                                    placeholder="Say what you think of the Bill or the clause, and what you would change and why." required>{{ old('content') }}</textarea>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <button type="submit" class="btn btn-main disable-button">Send submission</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                @elseif (($participation['status'] ?? null) === 'upcoming')
+                                                    <div class="w-100 alert alert-info">Submissions on this Bill open on {{ \Illuminate\Support\Carbon::parse($participation['opens_on'])->format('j F Y') }}.</div>
+                                                @else
+                                                    <div class="w-100 alert alert-secondary">This Bill is not open for public submissions at the moment. When the committee considering it invites memoranda, you can make a submission here.</div>
+                                                @endif
                                             </div>
                                         </div>
                                     @else
@@ -449,5 +463,23 @@
                 }
             });
         }
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        // Organisation name only for submissions made on behalf of an organisation.
+        (function () {
+            var type = document.getElementById('submitter_type');
+            var field = document.getElementById('organisation_field');
+            if (!type || !field) { return; }
+            var sync = function () {
+                var isOrg = type.value === 'organisation';
+                field.style.display = isOrg ? '' : 'none';
+                document.getElementById('organisation_name').required = isOrg;
+            };
+            type.addEventListener('change', sync);
+            sync();
+        })();
     </script>
 @endpush
